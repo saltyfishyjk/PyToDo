@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "D:\\BasicAPP\\Anaconda\\anacondaFolder\\python.exe",
+        "./modules"
+    ]
+}
