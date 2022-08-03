@@ -1,11 +1,18 @@
 class User():
-	def __init__(self) -> None:
+	def __init__(self,
+				 id,
+				 account,
+				 password,
+				 name,
+				 email,
+				 phone,
+				 head_image) -> None:
 		# key states
-		self.id = 0
-		self.account = ''
-		self.password = ''
+		self.id = id
+		self.account = account
+		self.password = password
 		# non-key states
-		self.name = ''
-		self.email = ''
-		self.phone = ''
-		self.head_image = '' # an URL storing the image on cloud
+		self.name = name
+		self.email = email
+		self.phone = phone
+		self.head_image = head_image # an URL storing the image on cloud
