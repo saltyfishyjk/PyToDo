@@ -14,13 +14,13 @@ from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+    QPalette, QPixmap, QRadialGradient, QStandardItemModel, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QCheckBox,
     QComboBox, QCommandLinkButton, QFrame, QGridLayout,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
     QMainWindow, QPlainTextEdit, QPushButton, QRadioButton,
     QScrollArea, QScrollBar, QSizePolicy, QSlider,
-    QStackedWidget, QTableWidget, QTableWidgetItem, QTextEdit,
+    QStackedWidget, QTableView, QTableWidget, QTableWidgetItem, QTextEdit,
     QVBoxLayout, QWidget)
 from . import resources_rc
 
@@ -1392,7 +1392,7 @@ class Ui_MainWindow(object):
         self.new_page.setObjectName(u"new_page")
         self.verticalLayout_20 = QVBoxLayout(self.new_page)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-
+        '''
         self.tableWidget_2 = QTableWidget(self.new_page)
         if (self.tableWidget_2.columnCount() < 7):
             self.tableWidget_2.setColumnCount(7)
@@ -1431,6 +1431,19 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setObjectName(u"tableWidget_2")
 
         self.verticalLayout_20.addWidget(self.tableWidget_2)
+        '''
+        # zry-20220803-calendarLayout-v2
+        self.calendarItem=QStandardItemModel(6,7)
+        self.calendarItem.setHorizontalHeaderLabels(['Sun','Mon','Tues','Wed','Thur','Fri','Sat'])
+        self.calendarTable=QTableView()
+        self.calendarTable.setModel(self.calendarItem)
+        self.calendarTable.horizontalHeader().setStretchLastSection(True) 
+        self.calendarTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.calendarTable.verticalHeader().setStretchLastSection(True)
+        self.calendarTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.calendarTable.setObjectName(u"calendar")
+        self.verticalLayout_20.addWidget(self.calendarTable)
+        # zry-20220803-calendarLayout-v2
 
         self.stackedWidget.addWidget(self.new_page)
 
@@ -1695,7 +1708,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem23 = self.tableWidget.item(0, 3)
         ___qtablewidgetitem23.setText(QCoreApplication.translate("MainWindow", u"Line", None));
         self.tableWidget.setSortingEnabled(__sortingEnabled)
-
+        '''
         ___qtablewidgetitem24 = self.tableWidget_2.horizontalHeaderItem(0)
         ___qtablewidgetitem24.setText(QCoreApplication.translate("MainWindow", u"Sun", None));
         ___qtablewidgetitem25 = self.tableWidget_2.horizontalHeaderItem(1)
@@ -1710,6 +1723,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem29.setText(QCoreApplication.translate("MainWindow", u"Fri", None));
         ___qtablewidgetitem30 = self.tableWidget_2.horizontalHeaderItem(6)
         ___qtablewidgetitem30.setText(QCoreApplication.translate("MainWindow", u"Sat", None));
+        '''
         self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.btn_print.setText(QCoreApplication.translate("MainWindow", u"Print", None))
         self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
