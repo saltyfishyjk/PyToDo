@@ -5,6 +5,7 @@ class Task():
                  author,
                  creatTime,
                  description) -> None:
+        self.id = None
         self.text = text
         self.title = title
         self.author = author

@@ -49,10 +49,11 @@ def sign_up_database(account, password):
 		db.commit()
 		# create a user_task table for this user
 		sql = 'create table user_{}_task (' \
+			  'id int comment "序号",' \
 			  'text varchar(500) comment"文本",' \
 			  'title varchar(500) comment"标题",' \
 			  'author varchar(500) comment"作者",' \
-			  'createTime varchar(500) comment"创建时间",' \
+			  'creatTime varchar(500) comment"创建时间",' \
 			  'description varchar(500) comment"描述"' \
 			  ')comment "user{}\'s task table"'.format(line_num, line_num)
 		cursor.execute(sql)
@@ -137,8 +138,28 @@ def add_task_database(user, task):
 	# check if available user
 	if not cursor.rowcount:
 		return False, "ERROR : unavailable account!"
-	sql = "insert into user_{0}_task(text, title, author, createTime, description) " \
-		  "values('{1}', '{2}', '{3}', '{4}', '{5}')".format(id, task.text, task.title, task.author, task.creatTime, task.description)
+	sql = 'select count(*) from user_{}_task'.format(id)
+	cursor.execute(sql)
+	task_num = int(cursor.fetchone()[0])
+	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description) " \
+		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description)
 	cursor.execute(sql)
 	db.commit()
 	return True, "Successfully added a new task {} in user {}\'s account".format(task.title, user.account)
+
+
+# FUNC : modify an existing task in user's account
+# IN   : user:object & ols_task:object
+# RET  : isSuccessful:boolean & hint:str
+def delete_task_database(user, old_task):
+	id = user.id
+	sql = 'select account from test_database.user where id = "{}"'.format(id)
+	cursor.execute(sql)
+	# check if available user
+	if not cursor.rowcount:
+		return False, "ERROR : unavailable account!"
+	task_id = old_task.id
+	sql = "delete from user_{}_task where id = {}".format(id, task_id)
+	cursor.execute(sql)
+	db.commit()
+	return True, "Successfully deleted task {} in user {}\'s account".format(task_id, id)

@@ -70,3 +70,13 @@
 *Author:YJK*
 
 1. `database.py`支持`add_tast_database`函数接口，支持为一用户添加新任务
+
+## Commit around 23:20 on 2022/08/04
+
+*Date:2022/08/04*
+
+*Author:YJK*
+
+1. `database.py`支持`delete_tast_database`函数接口，支持为一用户删除特定任务
+2. `modules/task.py`：为`Task`类增加`id`属性，方便后端数据库操作确定唯一task
+3. `database.py`相应修改`sign_up_database`和`add_task_database`
