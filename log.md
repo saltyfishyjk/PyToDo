@@ -19,3 +19,39 @@
 效果：
 
 ![image-20220803223548824](log/image-20220803223548824.png)
+
+## add sign_up func in database.py
+
+*Date:2022/08/03*
+
+*Author:YJK*
+
+在database.py中添加sign_up_database()函数，为注册服务提供接口
+
+## Add modules/user.py which defined User class
+
+*Date:2022/08/03*
+
+*Author:YJK*
+
+在modules添加user.py，创建User类，定义User属性
+
+## alter init in modules/user.py & add login_in func in database
+
+*Date:2022/08/04*
+
+*Author:YJK*
+
+在database.py添加log_in_database()函数，为登陆服务提供接口；修改modules.user.py中User类的初始化方法
+
+
+
+## Commit around 11:30 on 2022/08/04
+
+*Date:2022/08/04*
+
+*Author:YJK*
+
+1. `database.py`：修改login_in_database函数，支持返回当前用户任务列表
+2. `modules.task.py`：修改`__init__`函数，支持初始化创建`task`对象
+3. 完善log和README两个md

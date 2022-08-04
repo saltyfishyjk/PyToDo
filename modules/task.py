@@ -1,7 +1,12 @@
 class Task():
-    def __init__(self) -> None:
-        self.text=''
-        self.title=''
-        self.author=''
-        self.creatTime=''
-        self.description=''
+    def __init__(self,
+                 text,
+                 title,
+                 author,
+                 creatTime,
+                 description) -> None:
+        self.text = text
+        self.title = title
+        self.author = author
+        self.creatTime = creatTime
+        self.description = description
