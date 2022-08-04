@@ -87,7 +87,7 @@ def get_task_list(fet):
 
 # FUNC : support login in action
 # IN   : account:str & password:str
-# RET  : isSuccessful:boolean & User object(None when False) & tasks(list of task object) & hint:str
+# RET  : isSuccessful:boolean & user:object(None when False) & tasks:list of task object & hint:str
 def login_in_database(account, password):
 	# check non-null account and password
 	if account is None or str(account) == 0:
@@ -125,3 +125,20 @@ def login_in_database(account, password):
 	user_task_tuple = cursor.fetchall()
 	tasks = get_task_list(user_task_tuple)
 	return True, u, tasks, 'Login in successfully!\nWelcome, {}'.format(account)
+
+
+# FUNC : add a new task in user's account
+# IN   : user:object & task:object
+# RET  : isSuccessful:boolean & hint:str
+def add_task_database(user, task):
+	id = user.id
+	sql = 'select account from test_database.user where id = "{}"'.format(id)
+	cursor.execute(sql)
+	# check if available user
+	if not cursor.rowcount:
+		return False, "ERROR : unavailable account!"
+	sql = "insert into user_{0}_task(text, title, author, createTime, description) " \
+		  "values('{1}', '{2}', '{3}', '{4}', '{5}')".format(id, task.text, task.title, task.author, task.creatTime, task.description)
+	cursor.execute(sql)
+	db.commit()
+	return True, "Successfully added a new task {} in user {}\'s account".format(task.title, user.account)

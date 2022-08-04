@@ -62,3 +62,11 @@
 1. `database.py`：修改login_in_database函数，支持返回当前用户任务列表
 2. `modules.task.py`：修改`__init__`函数，支持初始化创建`task`对象
 3. 完善log和README两个md
+
+## Add add_task_database in database.py
+
+*Date:2022/08/04*
+
+*Author:YJK*
+
+1. `database.py`支持`add_tast_database`函数接口，支持为一用户添加新任务
