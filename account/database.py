@@ -62,10 +62,6 @@ def sign_up_database(account, password):
 
 # IN  : cursor.fetchone()
 # RET : User object
-<<<<<<< HEAD
-'''
-=======
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
 def get_user(fet):
 	return User(fet[0],
 					fet[1],
@@ -88,11 +84,7 @@ def get_task_list(fet):
 		ls.append(task)
 	return ls
 
-<<<<<<< HEAD
-'''
-=======
 
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
 # FUNC : support login in action
 # IN   : account:str & password:str
 # RET  : isSuccessful:boolean & user:object(None when False) & tasks:list of task object & hint:str
@@ -116,11 +108,7 @@ def login_in_database(account, password):
 	sql = 'select * from test_database.user where account = "{}"'.format(account)
 	cursor.execute(sql)
 	user_info_tuple = cursor.fetchone()
-<<<<<<< HEAD
-	#u = get_user(user_info_tuple)
-=======
 	u = get_user(user_info_tuple)
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
 	"""
 	u = User(user_info_tuple[0],
 				  user_info_tuple[1],
@@ -135,13 +123,8 @@ def login_in_database(account, password):
 	sql = 'select * from test_database.user_{}_task'.format(3)
 	cursor.execute(sql)
 	user_task_tuple = cursor.fetchall()
-<<<<<<< HEAD
-	#tasks = get_task_list(user_task_tuple)
-	return True,[], 'Login in successfully!\nWelcome, {}'.format(account)
-=======
 	tasks = get_task_list(user_task_tuple)
 	return True, u, tasks, 'Login in successfully!\nWelcome, {}'.format(account)
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
 
 
 # FUNC : add a new task in user's account
@@ -157,6 +140,7 @@ def add_task_database(user, task):
 	sql = 'select count(*) from user_{}_task'.format(id)
 	cursor.execute(sql)
 	task_num = int(cursor.fetchone()[0])
+	task.id = task_num
 	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description) " \
 		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description)
 	cursor.execute(sql)
@@ -178,8 +162,4 @@ def delete_task_database(user, old_task):
 	sql = "delete from user_{}_task where id = {}".format(id, task_id)
 	cursor.execute(sql)
 	db.commit()
-<<<<<<< HEAD
 	return True, "Successfully deleted task {} in user {}\'s account".format(task_id, id)
-=======
-	return True, "Successfully deleted task {} in user {}\'s account".format(task_id, id)
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
