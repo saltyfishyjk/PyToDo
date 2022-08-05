@@ -115,3 +115,12 @@
 *Author:YJK*
 
 1. 根据`Task`类属性修改`add_task_database`函数
+
+## feat: Add modify_task_database func in database.py
+
+*Date:2022/08/05*
+
+*Author:YJK*
+
+1. 增加`modify_task_database`功能
+2. 修改`add_task_database`，保证任务id的唯一性

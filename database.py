@@ -82,8 +82,7 @@ def get_user(fet):
 def get_task_list(fet):
 	ls = []
 	for index in fet:
-		task = Task(index[0],
-					index[1],
+		task = Task(index[1],
 					index[2],
 					index[3],
 					index[4],
@@ -91,7 +90,9 @@ def get_task_list(fet):
 					index[6],
 					index[7],
 					index[8],
-					index[9])
+					index[9],
+					index[10])
+		task.id = int(index[0])
 		ls.append(task)
 	return ls
 
@@ -150,10 +151,13 @@ def add_task_database(user, task):
 	sql = 'select count(*) from user_{}_task'.format(id)
 	cursor.execute(sql)
 	task_num = int(cursor.fetchone()[0])
-	task.id = task_num
+	sql = 'select max(id) from user_{}_task'.format(id)
+	cursor.execute(sql)
+	task_id_max = int(cursor.fetchone()[0])
+	task.id = max(task_num, task_id_max + 1)
 	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state) " \
 		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')".\
-		format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description,
+		format(id, task.id, task.text, task.title, task.author, task.creatTime, task.description,
 			   task.importance, str(task.isDaily), task.type, task.ddl, task.state)
 	cursor.execute(sql)
 	db.commit()
@@ -175,3 +179,12 @@ def delete_task_database(user, old_task):
 	cursor.execute(sql)
 	db.commit()
 	return True, "Successfully deleted task {} in user {}\'s account".format(task_id, id)
+
+
+# FUNC : modify an existing task in user's account
+# IN   : user:object & old_task:object
+# RET  : isSuccessful:boolean & hint:str
+def modify_task_database(user, new_task):
+	flag_delete, hint_delete = delete_task_database(user, new_task)
+	flag_add, hint_add = add_task_database(user, new_task)
+	return flag_add & flag_delete, hint_delete + hint_add
