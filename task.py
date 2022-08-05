@@ -8,13 +8,23 @@ class Task():
                  title,
                  author,
                  creatTime,
-                 description) -> None:
-        self.id = None
-        self.text = text
-        self.title = title
-        self.author = author
-        self.creatTime = creatTime
-        self.description = description
+                 description,
+                 importance,
+                 isDaily,
+                 type,
+                 ddl,
+                 state) -> None:
+        self.id = None                  # int
+        self.text = text                # str
+        self.title = title              # str
+        self.author = author            # str
+        self.creatTime = creatTime      # str
+        self.description = description  # str
+        self.importance = importance    # int
+        self.isDaily = isDaily          # boolean
+        self.type = type                # str
+        self.ddl = ddl                  # str
+        self.state = state              # str
 class TaskView():
     def __init__(self):
         pass

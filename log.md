@@ -100,3 +100,10 @@
 3. 登录界面的风格亟待与软件统一，然而目前尝试上传图片失败，路径问题不知怎么解决
 4. Task数据的显示方式亟待确定
 
+## perf: add attributes in Task Class(task.py) add importance(int), isDaily(boolean), type(str), ddl(str), satte(str)
+
+*Date:2022/08/05*
+
+*Author:YJK*
+
+1. 为`Task`类增加五个属性，并为每个属性增加类别备注，方便接口统一

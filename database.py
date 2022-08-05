@@ -63,7 +63,6 @@ def sign_up_database(account, password):
 
 # IN  : cursor.fetchone()
 # RET : User object
-
 def get_user(fet):
 	return User(fet[0],
 					fet[1],
