@@ -88,7 +88,6 @@
 *Author:YJK*
 
 1. 迁移database.py到account目录下以支持其他模块访问
-<<<<<<< HEAD
 
 ## embed LoginSystem in ./account & change the UI Theme
 
@@ -100,3 +99,4 @@
 2. 改变主题为light版，删除部分原logo
 3. 登录界面的风格亟待与软件统一，然而目前尝试上传图片失败，路径问题不知怎么解决
 4. Task数据的显示方式亟待确定
+

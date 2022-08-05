@@ -145,6 +145,7 @@ def add_task_database(user, task):
 	sql = 'select count(*) from user_{}_task'.format(id)
 	cursor.execute(sql)
 	task_num = int(cursor.fetchone()[0])
+	task.id = task_num
 	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description) " \
 		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description)
 	cursor.execute(sql)
