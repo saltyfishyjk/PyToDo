@@ -1,7 +1,7 @@
 import sys
-from PyQt5.Qt import *
-from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QApplication, QLabel, QLineEdit, QMessageBox, QPushButton, QWidget
+from PyQt6.Qt6 import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 
 from account.database import sign_up_database
 
@@ -9,13 +9,13 @@ class SignWindow(QWidget):
 	def __init__(self):
 		super(SignWindow, self).__init__()
 		self.setWindowTitle("PyToDo - Sign up")  # 设置窗口标题
-		self.resize(1000, 800)  # 设置窗口大小
+		self.resize(640, 400)  # 设置窗口大小
 		self.set_ui()  # 调用其他方法
 
 	def set_ui(self):
 		self.add_line_edit()
 		self.add_button()
-		self.add_label()
+		#self.add_label()
 
 	def add_label(self):
 		"""设计标签"""
@@ -75,14 +75,14 @@ class SignWindow(QWidget):
 		self.confirm_edit.setPlaceholderText("confirm")
 
 		# 控制大小
-		self.username_edit.setFixedSize(350, 40)
-		self.password_edit.setFixedSize(350, 40)
-		self.confirm_edit.setFixedSize(350, 40)
+		self.username_edit.setFixedSize(240, 40)
+		self.password_edit.setFixedSize(240, 40)
+		self.confirm_edit.setFixedSize(240, 40)
 
 		# 控制位置
-		self.username_edit.move(320, 530)
-		self.password_edit.move(320, 600)
-		self.confirm_edit.move(320, 670)
+		self.username_edit.move(100, 200)
+		self.password_edit.move(100, 260)
+		self.confirm_edit.move(100, 320)
 
 	def add_button(self):
 		"""添加按钮"""
@@ -91,9 +91,9 @@ class SignWindow(QWidget):
 		button_font.setPixelSize(30)
 
 		self.sign_button = QPushButton(self)
-		self.sign_button.setFixedSize(160, 50)
+		self.sign_button.setFixedSize(160, 40)
 		self.sign_button.setFont(button_font)
-		self.sign_button.move(750, 600)
+		self.sign_button.move(400, 260)
 		self.sign_button.setText("Sign up")
 
 		self.sign_button.setShortcut("Return")
@@ -115,11 +115,16 @@ class SignWindow(QWidget):
 									'Please enter the same password in confirmed password box',
 									QMessageBox.Yes)
 		else:
-			sign_up_database(username, password)
-			QMessageBox.information(self, 'Success',
+			result,judge=sign_up_database(username, password)
+			if result:
+				QMessageBox.information(self, 'Success',
 									'Sign up successfully',
 									QMessageBox.Yes)
-			self.close()
+				self.close()
+			else:
+				QMessageBox.information(self, 'Failed',
+									judge,
+									QMessageBox.Yes)			
 	def closeEvent(self, event):
 		"""关闭后清空输入框"""
 		self.username_edit.setText('')

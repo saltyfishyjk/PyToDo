@@ -80,3 +80,22 @@
 1. `database.py`支持`delete_tast_database`函数接口，支持为一用户删除特定任务
 2. `modules/task.py`：为`Task`类增加`id`属性，方便后端数据库操作确定唯一task
 3. `database.py`相应修改`sign_up_database`和`add_task_database`
+
+## Move database.py from / to /account
+
+*Date:2022/08/05*
+
+*Author:YJK*
+
+1. 迁移database.py到account目录下以支持其他模块访问
+
+## embed LoginSystem in ./account & change the UI Theme
+
+*Date:2022/08/05*
+
+*Author:ZRY,JSH*
+
+1. 在./account嵌入登录系统，登录失败不打开软件
+2. 改变主题为light版，删除部分原logo
+3. 登录界面的风格亟待与软件统一，然而目前尝试上传图片失败，路径问题不知怎么解决
+4. Task数据的显示方式亟待确定

@@ -1,7 +1,6 @@
 <RCC>
   <qresource prefix="images">
-    <file>images/images/PyDracula.png</file>
-    <file>images/images/PyDracula_vertical.png</file>
+    <file>images/images/inboxtodo.png</file>
   </qresource>
   <qresource prefix="icons">
     <file>images/icons/cil-3d.png</file>
@@ -259,5 +258,8 @@
     <file>images/icons/icon_minimize.png</file>
     <file>images/icons/icon_restore.png</file>
     <file>images/icons/icon_settings.png</file>
+    <file>images/icons/calendar.png</file>
+    <file>images/icons/arrange.png</file>
+    <file>images/icons/martix.png</file>
   </qresource>
 </RCC>

@@ -3,15 +3,15 @@ from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 
+from account.database import connect_database, login_in_database, sign_up_database
 
-from . signup import SignWindow  # 注册模块界面
-#from admin import AdminWindow
-from . database import connect_database, sign_up_database
+from . signup import SignWindow
 
-class Login(QMainWindow):
+loginState=False
+class Login(QMainWindow, QFrame):
 	def __init__(self):
 		super().__init__()
-		self.icon = QIcon("../icon.ico")
+		self.icon = QIcon('./img/EMT.png')
 		self.sign_up_win = SignWindow()  # 注册窗口
 		# self.admin_win = AdminWindow()  # 用户管理窗口
 		# self.main_win = Main()  # 登陆后的主页面
@@ -20,10 +20,10 @@ class Login(QMainWindow):
 		connect_database()
 
 	def set_ui(self):
-		self.setFixedSize(1000, 800)  # 设置窗口大小
+		self.setFixedSize(640, 400)  # 设置窗口大小
 		self.setWindowTitle('PyToDo - Login in')  # 设置窗口标题
 		self.setWindowIcon(self.icon)  # 设置窗口ico
-		self.set_background_image()
+		#self.set_background_image()
 		self.add_label()
 		self.add_line_edit()
 		self.add_button()
@@ -32,10 +32,10 @@ class Login(QMainWindow):
 	def set_background_image(self):
 		"""添加背景图片"""
 		self.frame = QFrame(self)  # 使用QFrame
-		self.frame.resize(1000, 520)
-		self.frame.move(40, 150)
+		self.frame.resize(400, 240)
+		#self.frame.move(40, 150)
 		self.frame.setStyleSheet(
-			'background-image: url("./img/bg.png");'
+			'background-image: url("./img.jpg");'
 			' background-repeat: no-repeat;'
 			' text-align:center;')
 
@@ -61,8 +61,8 @@ class Login(QMainWindow):
 		self.password_label.setFixedSize(240, 40)
 
 		# 设置标签的位置
-		self.username_label.move(120, 530)
-		self.password_label.move(120, 600)
+		self.username_label.move(100, 240)
+		self.password_label.move(100, 300)
 
 		self.username_label.setFont(label_font)
 		self.password_label.setFont(label_font)
@@ -89,12 +89,12 @@ class Login(QMainWindow):
 		self.password_edit.setPlaceholderText("password")
 
 		# 设置大小
-		self.username_edit.setFixedSize(350, 40)
-		self.password_edit.setFixedSize(350, 40)
+		self.username_edit.setFixedSize(240, 40)
+		self.password_edit.setFixedSize(240, 40)
 
 		# 设置位置
-		self.username_edit.move(320, 530)
-		self.password_edit.move(320, 600)
+		self.username_edit.move(100, 240)
+		self.password_edit.move(100, 300)
 
 	def add_button(self):
 		"""添加按钮"""
@@ -107,16 +107,16 @@ class Login(QMainWindow):
 		self.sign_button = QPushButton(self)
 
 		# 修改大小并且固定
-		self.login_button.setFixedSize(160, 50)
-		self.sign_button.setFixedSize(160, 50)
+		self.login_button.setFixedSize(160, 40)
+		self.sign_button.setFixedSize(160, 40)
 
 		# 设置字体
 		self.login_button.setFont(button_font)
 		self.sign_button.setFont(button_font)
 
 		# 设置位置
-		self.login_button.move(750, 530)
-		self.sign_button.move(750, 600)
+		self.login_button.move(400, 240)
+		self.sign_button.move(400, 300)
 
 		# 设置文本提示内容
 		self.login_button.setText("Login in")
@@ -129,44 +129,39 @@ class Login(QMainWindow):
 		self.login_button.setShortcut("Return")
 
 	def login(self):
+		global loginState
 		"""实现登录功能"""
 		username = self.username_edit.text()
 		password = self.password_edit.text()
-		if username and password:
+		result,list,judge=login_in_database(username,password)
+		if result:
 			QMessageBox.information(self, 'Successfully',
 									'Login in successfully \n Welcome {}'.format(username),
 									QMessageBox.Yes | QMessageBox.No)
 			self.username_edit.setText('')
 			self.password_edit.setText('')
 			self.close()
+			loginState=True
+		else:
+			QMessageBox.information(self, 'Failed',
+									judge,
+									QMessageBox.Yes | QMessageBox.No)
+			self.username_edit.setText('')
+			self.password_edit.setText('')			
 
 	def sign_up_window(self):
 		self.sign_up_win.setWindowIcon(self.icon)
 		self.sign_up_win.move(self.x() + 100, self.y() + 100)  # 移动以下注册窗口，避免和之前的重复
-		frame = QFrame(self.sign_up_win)
+		#frame = QFrame(self.sign_up_win)
 		self.sign_up_win.setWindowFlag(Qt.Dialog)
-		frame.resize(1000, 300)
-		frame.setStyleSheet('background-image: url("./img/bg.png");'
-							'backgrounf-repeat: no-repeat;')
-		frame.move(40, 150)
+		#frame.resize(640, 400)
+		#frame.setStyleSheet('background-image: url("./img/bg.png");'
+		#					'backgrounf-repeat: no-repeat;')
+		#frame.move(40, 150)
 		# 打开注册窗口时，清除原来的信息
 		self.password_edit.setText('')
 		self.username_edit.setText('')
 		self.sign_up_win.show()
-
-	def sign_up(self):
-		username = self.username_edit.text()
-		password = self.password_edit.text()
-
-		stat, text = sign_up_database(username, password)
-		if stat:
-			QMessageBox.information(self, 'Successfully',
-									'Sign up successfully'.format(username),
-									QMessageBox.Yes)
-		else:
-			QMessageBox.information(self, 'ERROR',
-									text,
-									QMessageBox.No)
 
 	def closeEvent(self, event):
 		self.sign_up_win.close()
@@ -180,6 +175,6 @@ class Login(QMainWindow):
 def loginWindow(app):
 	window = Login()  
 	window.show()
-	
 	app.exec()  # 获取系统信息，如命令行，并承担关闭窗口后完全退出的责任
+	return loginState
 

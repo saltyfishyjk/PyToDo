@@ -1,24 +1,7 @@
-# ///////////////////////////////////////////////////////////////
-#
-# BY: WANDERSON M.PIMENTA
-# PROJECT MADE WITH: Qt Designer and PySide6
-# V: 1.0.0
-#
-# This project can be used freely for all uses, as long as they maintain the
-# respective credits only in the Python scripts, any information in the visual
-# interface (GUI) can be modified without any implication.
-#
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
-# ///////////////////////////////////////////////////////////////
-
 import sys
 import os
 import platform
 from account import login
-
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
 from modules import *
@@ -28,6 +11,7 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # SET AS GLOBAL WIDGETS
 # ///////////////////////////////////////////////////////////////
 widgets = None
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -46,11 +30,12 @@ class MainWindow(QMainWindow):
 
         # APP NAME
         # ///////////////////////////////////////////////////////////////
-        title = "PyToDo"
-        description = "PyToDo"
-        # APPLY TEXTS
-        self.setWindowTitle(title)
-        widgets.titleRightInfo.setText(description)
+
+        # title = "PyDracula - Modern GUI"
+        # description = "PyDracula APP - Theme with colors based on Dracula for Python."
+        # # APPLY TEXTS
+        # self.setWindowTitle(title)
+        # widgets.titleRightInfo.setText(description)
 
         # TOGGLE MENU
         # ///////////////////////////////////////////////////////////////
@@ -90,7 +75,7 @@ class MainWindow(QMainWindow):
 
         # SET CUSTOM THEME
         # ///////////////////////////////////////////////////////////////
-        useCustomTheme = False
+        useCustomTheme = True
         themeFile = "themes\py_dracula_light.qss"
 
         # SET THEME AND HACKS
@@ -134,6 +119,9 @@ class MainWindow(QMainWindow):
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
 
         if btnName == "btn_save":
+            widgets.stackedWidget.setCurrentWidget(widgets.save_page)  # SET PAGE
+            UIFunctions.resetStyle(self, btnName)  # RESET ANOTHERS BUTTONS SELECTED
+            widgets.btn_save.setStyleSheet(UIFunctions.selectMenu(widgets.btn_save.styleSheet()))  # SELECT MENU
             print("Save BTN clicked!")
 
         # PRINT BTN NAME
@@ -160,7 +148,11 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    login.loginWindow(app)
-    app.setWindowIcon(QIcon("icon.ico"))
+    loginState=login.loginWindow(app)
+    app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
-    sys.exit(app.exec())
+    if loginState:
+        window = MainWindow()
+        sys.exit(app.exec())
+    else:
+        sys.exit(1)
