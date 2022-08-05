@@ -54,7 +54,12 @@ def sign_up_database(account, password):
 			  'title varchar(500) comment"标题",' \
 			  'author varchar(500) comment"作者",' \
 			  'creatTime varchar(500) comment"创建时间",' \
-			  'description varchar(500) comment"描述"' \
+			  'description varchar(500) comment"描述",' \
+			  'importance int comment "重要性",' \
+			  'isDaily varchar(500) comment "是否为日常任务",' \
+			  'type varchar(500) comment "类别",' \
+			  'ddl varchar(500) comment "截止日期",' \
+			  'state varchar(500) comment "状态"' \
 			  ')comment "user{}\'s task table"'.format(line_num, line_num)
 		cursor.execute(sql)
 		db.commit()
@@ -81,7 +86,12 @@ def get_task_list(fet):
 					index[1],
 					index[2],
 					index[3],
-					index[4])
+					index[4],
+					index[5],
+					index[6],
+					index[7],
+					index[8],
+					index[9])
 		ls.append(task)
 	return ls
 
@@ -120,7 +130,7 @@ def login_in_database(account, password):
 	"""
 	id = int(user_info_tuple[0])
 	# get user_task
-	sql = 'select * from test_database.user_{}_task'.format(3)
+	sql = 'select * from test_database.user_{}_task'.format(id)
 	cursor.execute(sql)
 	user_task_tuple = cursor.fetchall()
 	tasks = get_task_list(user_task_tuple)
@@ -141,8 +151,10 @@ def add_task_database(user, task):
 	cursor.execute(sql)
 	task_num = int(cursor.fetchone()[0])
 	task.id = task_num
-	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description) " \
-		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')".format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description)
+	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state) " \
+		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')".\
+		format(id, task_num, task.text, task.title, task.author, task.creatTime, task.description,
+			   task.importance, str(task.isDaily), task.type, task.ddl, task.state)
 	cursor.execute(sql)
 	db.commit()
 	return True, "Successfully added a new task {} in user {}\'s account".format(task.title, user.account)

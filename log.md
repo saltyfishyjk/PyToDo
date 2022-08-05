@@ -107,3 +107,11 @@
 *Author:YJK*
 
 1. 为`Task`类增加五个属性，并为每个属性增加类别备注，方便接口统一
+
+## fix: fix add_task_database in database.py
+
+*Date:2022/08/05*
+
+*Author:YJK*
+
+1. 根据`Task`类属性修改`add_task_database`函数
