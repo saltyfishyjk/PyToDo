@@ -1,6 +1,7 @@
-#from modules.user import User
-#from modules.task import Task
 import pymysql
+from task import Task
+
+from user import User
 
 # database object
 
@@ -62,9 +63,7 @@ def sign_up_database(account, password):
 
 # IN  : cursor.fetchone()
 # RET : User object
-'''
-=======
->>>>>>> c8c06e2a5a15907b532d4831a811a15bc8e86239
+
 def get_user(fet):
 	return User(fet[0],
 					fet[1],
@@ -87,9 +86,6 @@ def get_task_list(fet):
 		ls.append(task)
 	return ls
 
-<<<<<<< HEAD
-'''
-
 # FUNC : support login in action
 # IN   : account:str & password:str
 # RET  : isSuccessful:boolean & user:object(None when False) & tasks:list of task object & hint:str
@@ -101,19 +97,19 @@ def login_in_database(account, password):
 	sql = 'select account from test_database.user where account = "{}"'.format(account)
 	cursor.execute(sql)
 	if cursor.rowcount == 0:
-		return False, None, "ERROR : non-exist account!"
+		return False, None, None, "ERROR : non-exist account!"
 	# check if password correct
 	sql = 'select password from test_database.user where account = "{}"'.format(account)
 	cursor.execute(sql)
 	password_in_database = cursor.fetchone()[0]
 	if password_in_database != password:
-		return False, None, "ERROR : incorrect password!"
+		return False, None, None, "ERROR : incorrect password!"
 	# get user info
 	# get user
 	sql = 'select * from test_database.user where account = "{}"'.format(account)
 	cursor.execute(sql)
 	user_info_tuple = cursor.fetchone()
-	#u = get_user(user_info_tuple)
+	u = get_user(user_info_tuple)
 	"""
 	u = User(user_info_tuple[0],
 				  user_info_tuple[1],
@@ -128,8 +124,8 @@ def login_in_database(account, password):
 	sql = 'select * from test_database.user_{}_task'.format(3)
 	cursor.execute(sql)
 	user_task_tuple = cursor.fetchall()
-	#tasks = get_task_list(user_task_tuple)
-	return True,[], 'Login in successfully!\nWelcome, {}'.format(account)
+	tasks = get_task_list(user_task_tuple)
+	return True, u, tasks, 'Login in successfully!\nWelcome, {}'.format(account)
 
 
 # FUNC : add a new task in user's account

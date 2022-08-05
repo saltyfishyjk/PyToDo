@@ -1,7 +1,7 @@
 import sys
 import os
 import platform
-from account import login
+import login
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
 from modules import *

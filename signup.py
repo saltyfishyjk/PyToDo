@@ -3,7 +3,7 @@ from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 
-from account.database import sign_up_database
+from database import sign_up_database
 
 class SignWindow(QWidget):
 	def __init__(self):

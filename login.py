@@ -3,9 +3,9 @@ from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 
-from account.database import connect_database, login_in_database, sign_up_database
+from database import connect_database, login_in_database
 
-from . signup import SignWindow
+from signup import SignWindow
 
 loginState=False
 class Login(QMainWindow, QFrame):
@@ -133,7 +133,7 @@ class Login(QMainWindow, QFrame):
 		"""实现登录功能"""
 		username = self.username_edit.text()
 		password = self.password_edit.text()
-		result,list,judge=login_in_database(username,password)
+		result,user,tasks,judge=login_in_database(username,password)
 		if result:
 			QMessageBox.information(self, 'Successfully',
 									'Login in successfully \n Welcome {}'.format(username),
