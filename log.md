@@ -88,6 +88,7 @@
 *Author:YJK*
 
 1. 迁移database.py到account目录下以支持其他模块访问
+<<<<<<< HEAD
 
 ## embed LoginSystem in ./account & change the UI Theme
 
