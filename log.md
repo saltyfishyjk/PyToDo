@@ -124,3 +124,12 @@
 
 1. 增加`modify_task_database`功能
 2. 修改`add_task_database`，保证任务id的唯一性
+
+## add: display test task in the calendar
+
+*Date:2022/08/06*
+
+*Author:ZRY*
+
+1. 在日历模块中加入文本显示功能，目前可以实现将本地数据显示在日历中，但无法将从前端输入给日历的数据存入本地
+2. 在`main.py`中调用`./calendar.py`，实现`ui_main.py`的UI文件与交互功能实现文件的分离

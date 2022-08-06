@@ -7,7 +7,11 @@ from database import connect_database, login_in_database
 
 from signup import SignWindow
 
+from modules import *
+
 loginState=False
+account='admin'
+
 class Login(QMainWindow, QFrame):
 	def __init__(self):
 		super().__init__()
@@ -35,7 +39,7 @@ class Login(QMainWindow, QFrame):
 		self.frame.resize(400, 240)
 		#self.frame.move(40, 150)
 		self.frame.setStyleSheet(
-			'background-image: url("./img.jpg");'
+			'background-image: url("./img/bg.jpg");'
 			' background-repeat: no-repeat;'
 			' text-align:center;')
 
@@ -130,9 +134,11 @@ class Login(QMainWindow, QFrame):
 
 	def login(self):
 		global loginState
+		global account
 		"""实现登录功能"""
 		username = self.username_edit.text()
 		password = self.password_edit.text()
+		account = username
 		result,user,tasks,judge=login_in_database(username,password)
 		if result:
 			QMessageBox.information(self, 'Successfully',
@@ -176,5 +182,5 @@ def loginWindow(app):
 	window = Login()  
 	window.show()
 	app.exec()  # 获取系统信息，如命令行，并承担关闭窗口后完全退出的责任
-	return loginState
+	return loginState, account
 

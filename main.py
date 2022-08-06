@@ -1,3 +1,4 @@
+from msilib.schema import AdminExecuteSequence
 import sys
 import os
 import platform
@@ -11,7 +12,6 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # SET AS GLOBAL WIDGETS
 # ///////////////////////////////////////////////////////////////
 widgets = None
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -57,6 +57,10 @@ class MainWindow(QMainWindow):
         widgets.btn_widgets.clicked.connect(self.buttonClick)
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
+        # test calendar
+        from calendar import setupCalendar
+        setupCalendar(widgets.calendarItem)
+        # test calendar
 
         # EXTRA LEFT BOX
         def openCloseLeftBox():
@@ -146,9 +150,13 @@ class MainWindow(QMainWindow):
         if event.buttons() == Qt.RightButton:
             print('Mouse click: RIGHT CLICK')
 
+account = 'admin'
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    loginState=login.loginWindow(app)
+    # cancel the login model to test other function conveniently
+    #loginState, account=login.loginWindow(app)
+    loginState=True
     app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
     if loginState:
