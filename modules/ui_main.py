@@ -1388,6 +1388,11 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.widgets)
         self.new_page = QWidget()
         self.new_page.setObjectName(u"new_page")
+
+        # zry-20220803-calendarLayout-v2
+        #from . ui_calendar import calendar_ui_init
+        #calendar_ui_init(self)
+        '''
         self.verticalLayout_20 = QVBoxLayout(self.new_page)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
         self.label = QLabel(self.new_page)
@@ -1395,7 +1400,6 @@ class Ui_MainWindow(object):
         self.label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_20.addWidget(self.label)
-        # zry-20220803-calendarLayout-v2
         self.calendarItem=QStandardItemModel(6,7)
         self.calendarItem.setHorizontalHeaderLabels(['Sun','Mon','Tues','Wed','Thur','Fri','Sat'])
         self.calendarTable=QTableView()
@@ -1406,6 +1410,7 @@ class Ui_MainWindow(object):
         self.calendarTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.calendarTable.setObjectName(u"calendar")
         self.verticalLayout_20.addWidget(self.calendarTable)
+        '''
         # zry-20220803-calendarLayout-v2
         self.stackedWidget.addWidget(self.new_page)
         self.save_page = QWidget()
@@ -1660,7 +1665,7 @@ class Ui_MainWindow(object):
 
         self.commandLinkButton.setText(QCoreApplication.translate("MainWindow", u"Link Button", None))
         self.commandLinkButton.setDescription(QCoreApplication.translate("MainWindow", u"Link description", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
+        #self.label.setText(QCoreApplication.translate("MainWindow", u"Calendar", None))
         self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.btn_print.setText(QCoreApplication.translate("MainWindow", u"Print", None))
         self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))

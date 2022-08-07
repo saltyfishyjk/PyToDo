@@ -1,4 +1,3 @@
-from msilib.schema import AdminExecuteSequence
 import sys
 import os
 import platform
@@ -12,6 +11,8 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # SET AS GLOBAL WIDGETS
 # ///////////////////////////////////////////////////////////////
 widgets = None
+account = 'admin'
+tasks=[]
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -24,6 +25,8 @@ class MainWindow(QMainWindow):
         global widgets
         widgets = self.ui
 
+        from ui_calendar import calendar_ui_init
+        calendar_ui_init(widgets)
         # USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
         # ///////////////////////////////////////////////////////////////
         Settings.ENABLE_CUSTOM_TITLE_BAR = True
@@ -58,8 +61,11 @@ class MainWindow(QMainWindow):
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
         # test calendar
-        from calendar import setupCalendar
-        setupCalendar(widgets.calendarItem)
+        import time
+        global account
+        global tasks
+        #time_tuple = time.localtime(time.time())
+        #setupCalendar(widgets.calendarItem, tasks, time_tuple[1])
         # test calendar
 
         # EXTRA LEFT BOX
@@ -152,13 +158,11 @@ class MainWindow(QMainWindow):
         if event.buttons() == Qt.RightButton:
             print('Mouse click: RIGHT CLICK')
 
-account = 'admin'
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     # cancel the login model to test other function conveniently
-    loginState, account, tasks=login.loginWindow(app)
-    #loginState=True
+    #loginState, account, tasks=login.loginWindow(app)
+    loginState=True
     app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
     if loginState:

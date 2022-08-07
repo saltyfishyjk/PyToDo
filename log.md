@@ -136,8 +136,18 @@
 
 ## feat: Add modify_task_state_database func in database.py
 
-*Date:2022/08/05*
+*Date:2022/08/07*
 
 *Author:YJK*
 
 1. 增加`modify_task_state_database`功能，为调整任务状态直接提供接口。
+
+## modify: modify the calendar window
+
+*Date:2022/08/06*
+
+*Author:ZRY*
+
+1. 使用`QPlainTextEdit`替代原先的抽象数据类型`QStandardItemModel`和`QTableView`，便于进一步实现前后端数据交互功能
+2. 新建`./ui_calendar.py`，在`main.py`中调用`./ui_calendar.py`中的`calendar_ui_init`将独立开发的UI接入已有框架
+3. 使用`css`、`html`及部分GUI控件自带函数进行字体、配色、图形界面的美化

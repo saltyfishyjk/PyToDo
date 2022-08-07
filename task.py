@@ -23,9 +23,7 @@ class Task():
         self.importance = importance    # int
         self.isDaily = isDaily          # boolean
         self.type = type                # str
-        self.ddl = ddl                  # str
+        self.ddl = ddl                  # str: year/month/day, for example: 2022/8/7
         self.state = state              # str
-class TaskView():
-    def __init__(self):
-        pass
+
     
