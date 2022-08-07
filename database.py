@@ -188,3 +188,11 @@ def modify_task_database(user, new_task):
 	flag_delete, hint_delete = delete_task_database(user, new_task)
 	flag_add, hint_add = add_task_database(user, new_task)
 	return flag_add & flag_delete, hint_delete + hint_add
+
+
+# FUNC : turn an existing task in user's account
+# IN   : user:object & new_task:object & new_state:str
+# RET  : isSuccessful:boolean & hint:str
+def modify_task_state_database(user, new_task, new_state):
+	new_task.state = new_state
+	return modify_task_database(user, new_task)

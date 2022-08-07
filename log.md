@@ -133,3 +133,11 @@
 
 1. 在日历模块中加入文本显示功能，目前可以实现将本地数据显示在日历中，但无法将从前端输入给日历的数据存入本地
 2. 在`main.py`中调用`./calendar.py`，实现`ui_main.py`的UI文件与交互功能实现文件的分离
+
+## feat: Add modify_task_state_database func in database.py
+
+*Date:2022/08/05*
+
+*Author:YJK*
+
+1. 增加`modify_task_state_database`功能，为调整任务状态直接提供接口。
