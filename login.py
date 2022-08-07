@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import sys
 from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *
@@ -11,6 +12,7 @@ from modules import *
 
 loginState=False
 account='admin'
+tasks=[]
 
 class Login(QMainWindow, QFrame):
 	def __init__(self):
@@ -135,6 +137,7 @@ class Login(QMainWindow, QFrame):
 	def login(self):
 		global loginState
 		global account
+		global tasks
 		"""实现登录功能"""
 		username = self.username_edit.text()
 		password = self.password_edit.text()
@@ -182,5 +185,5 @@ def loginWindow(app):
 	window = Login()  
 	window.show()
 	app.exec()  # 获取系统信息，如命令行，并承担关闭窗口后完全退出的责任
-	return loginState, account
+	return loginState, account, tasks
 

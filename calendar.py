@@ -19,7 +19,7 @@ def getPos():
             cnt+=1
         pt=t[pt-1]
         num-=1
-    return cnt, t[d+1]
+    return cnt, t[(d+1)%7]
 def testTaskCreate(calendar):
     row, col=getPos()
     calendar.setItem(row, col,QStandardItem("Test Task\n"+getTimeStr()))

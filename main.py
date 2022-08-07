@@ -142,7 +142,9 @@ class MainWindow(QMainWindow):
     # ///////////////////////////////////////////////////////////////
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
-        self.dragPos = event.globalPos()
+        p = event.globalPosition()
+        globalPos = p.toPoint()
+        self.dragPos = globalPos()
 
         # PRINT MOUSE EVENTS
         if event.buttons() == Qt.LeftButton:
@@ -155,8 +157,8 @@ account = 'admin'
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     # cancel the login model to test other function conveniently
-    #loginState, account=login.loginWindow(app)
-    loginState=True
+    loginState, account, tasks=login.loginWindow(app)
+    #loginState=True
     app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
     if loginState:
