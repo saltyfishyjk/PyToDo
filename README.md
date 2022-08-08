@@ -1,6 +1,6 @@
 # PyToDo
 
-![License](https://img.shields.io/github/license/saltyfishyjk/PyToDo)![Python Version](https://img.shields.io/badge/python-3.9-brightgreen)
+![License](https://img.shields.io/github/license/saltyfishyjk/PyToDo) ![Python Version](https://img.shields.io/badge/python-3.9-brightgreen)  
 
 ## 项目简介
 
