@@ -31,4 +31,15 @@ class Task():
         self.ddl = ddl                  # str: year/month/day, for example: 2022/8/7
         self.state = state              # str
 
-    
+    def show_task(self):
+        print("title : " + str(self.title))
+        print("text : " + str(self.text))
+        print("author : " + str(self.author))
+        print("creatTime : " + str(self.creatTime))
+        print("description : " + str(self.description))
+        print("importance : " + str(self.importance))
+        print("isDaily : " + str(self.isDaily))
+        print("type : " + str(self.type))
+        print("ddl : " + str(self.ddl))
+        print("state : " + str(self.state))
+

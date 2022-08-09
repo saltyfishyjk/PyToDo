@@ -23,9 +23,15 @@ class Ui_NewTask(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.submit_push_button = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.submit_push_button.setObjectName("submit_push_button")
+        # submit func defined in NewTask.py
+        self.submit_push_button.clicked.connect(self.submit)
+        self.submit_push_button.setToolTip("Submit the new task")
         self.horizontalLayout.addWidget(self.submit_push_button)
         self.cancel_push_button = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.cancel_push_button.setObjectName("cancel_push_button")
+        # cancel func defined in NewTask.py
+        self.cancel_push_button.clicked.connect(self.cancel)
+        self.cancel_push_button.setToolTip("Cancel submission")
         self.horizontalLayout.addWidget(self.cancel_push_button)
         self.verticalLayoutWidget = QtWidgets.QWidget(NewTask)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 731, 431))
@@ -145,4 +151,3 @@ class Ui_NewTask(object):
         self.state_comboBox.setItemText(3, _translate("NewTask", "overdue"))
         self.ddl_label.setText(_translate("NewTask", "DDL"))
         self.starttime_label.setText(_translate("NewTask", "Start Time"))
-

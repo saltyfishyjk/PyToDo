@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
         # test calendar
-        from calendar import setupCalendar
+        from mycalendar import setupCalendar
         setupCalendar(widgets, tasks)
         # test calendar
 
