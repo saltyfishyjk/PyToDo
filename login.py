@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import sys
 from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *

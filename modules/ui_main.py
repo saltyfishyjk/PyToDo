@@ -1386,16 +1386,16 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.row_3)
 
         self.stackedWidget.addWidget(self.widgets)
-        self.new_page = QWidget()
-        self.new_page.setObjectName(u"new_page")
+        self.calendar_page = QWidget()
+        self.calendar_page.setObjectName(u"calendar_page")
 
         # zry-20220803-calendarLayout-v2
         #from . ui_calendar import calendar_ui_init
         #calendar_ui_init(self)
         '''
-        self.verticalLayout_20 = QVBoxLayout(self.new_page)
+        self.verticalLayout_20 = QVBoxLayout(self.calendar_page)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.label = QLabel(self.new_page)
+        self.label = QLabel(self.calendar_page)
         self.label.setObjectName(u"label")
         self.label.setAlignment(Qt.AlignCenter)
 
@@ -1412,7 +1412,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_20.addWidget(self.calendarTable)
         '''
         # zry-20220803-calendarLayout-v2
-        self.stackedWidget.addWidget(self.new_page)
+        self.stackedWidget.addWidget(self.calendar_page)
         self.save_page = QWidget()
         self.save_page.setObjectName(u"save_page")
         self.stackedWidget.addWidget(self.save_page)

@@ -1,19 +1,24 @@
-import sys
 from PyQt6.Qt6 import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
+import time
+time_tuple = time.localtime(time.time())
+curYear=time_tuple[0]
+curMonth=time_tuple[1]
+curDay=time_tuple[2]
+
 class Task():
     def __init__(self,
-                 text,
                  title,
-                 author,
-                 creatTime,
-                 description,
-                 importance,
-                 isDaily,
-                 type,
-                 ddl,
-                 state) -> None:
+                 text = None,
+                 author = 'anonymity',
+                 creatTime = str(curYear)+'/'+str(curMonth)+'/'+str(curDay),
+                 description = None,
+                 importance = 1,
+                 isDaily = False,
+                 type = 'Others',
+                 ddl = str(curYear)+'/'+str(curMonth)+'/'+str(curDay),
+                 state = 'unfinished') -> None:
         self.id = None                  # int
         self.text = text                # str
         self.title = title              # str

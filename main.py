@@ -6,6 +6,9 @@ import login
 # ///////////////////////////////////////////////////////////////
 from modules import *
 from widgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 # SET AS GLOBAL WIDGETS
@@ -23,6 +26,8 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         global widgets
+        global account
+        global tasks        
         widgets = self.ui
 
         from ui_calendar import calendar_ui_init
@@ -61,11 +66,8 @@ class MainWindow(QMainWindow):
         widgets.btn_new.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
         # test calendar
-        import time
-        global account
-        global tasks
-        #time_tuple = time.localtime(time.time())
-        #setupCalendar(widgets.calendarItem, tasks, time_tuple[1])
+        from calendar import setupCalendar
+        setupCalendar(widgets, tasks)
         # test calendar
 
         # EXTRA LEFT BOX
@@ -124,7 +126,7 @@ class MainWindow(QMainWindow):
 
         # SHOW NEW PAGE
         if btnName == "btn_new":
-            widgets.stackedWidget.setCurrentWidget(widgets.new_page) # SET PAGE
+            widgets.stackedWidget.setCurrentWidget(widgets.calendar_page) # SET PAGE
             UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
 

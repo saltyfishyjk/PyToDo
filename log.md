@@ -151,3 +151,13 @@
 1. 使用`QPlainTextEdit`替代原先的抽象数据类型`QStandardItemModel`和`QTableView`，便于进一步实现前后端数据交互功能
 2. 新建`./ui_calendar.py`，在`main.py`中调用`./ui_calendar.py`中的`calendar_ui_init`将独立开发的UI接入已有框架
 3. 使用`css`、`html`及部分GUI控件自带函数进行字体、配色、图形界面的美化
+
+## add: realise the Calendar Date system
+
+*Date:2022/08/09*
+
+*Author:ZRY*
+
+1. 在日历界面显示日期
+2. 通过`Last`与`Next`两个Button实现月份切换
+3. 简单美化界面，设置日历页面`ReadOnly`
