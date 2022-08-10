@@ -59,39 +59,3 @@ class NewTask(QDialog, Ui_NewTask):
 
 		return task
 
-# DEMO : how to use NewTask
-if __name__ == "__main__":
-
-	import sys
-	app = QApplication(sys.argv)
-
-	class Window(QWidget):
-
-		def __init__(self):
-			super(Window, self).__init__()
-			self.initUI()
-
-		def initUI(self):
-			self.button = QPushButton('open', self)
-			self.button.clicked.connect(self.openNewTaskDialog)
-			self.button.move(10, 10)
-			self.label = QLabel("hello", self)
-			self.label.move(10, 50)
-			self.setWindowTitle('Window')
-			self.setGeometry(300, 300, 300, 200)
-			self.show()
-
-		def openNewTaskDialog(self):
-			my = NewTask()
-			my.show()
-			# 在主窗口中连接信号和槽
-			my.mySignal.connect(self.getDialogSignal)
-			my.exec_()
-
-		# task : 注册的task对象
-		def getDialogSignal(self, task):
-			task.show_task()
-
-	mainwindow = Window()
-	mainwindow.show()
-	app.exec()

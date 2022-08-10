@@ -13,7 +13,7 @@ class Task():
                  text = None,
                  author = 'anonymity',
                  creatTime = str(curYear)+'/'+str(curMonth)+'/'+str(curDay),
-                 description = None,
+                 description = '',
                  importance = 1,
                  isDaily = False,
                  type = 'Others',
@@ -43,3 +43,6 @@ class Task():
         print("ddl : " + str(self.ddl))
         print("state : " + str(self.state))
 
+    def matrix_time_display(self):
+        timelist=self.ddl.split('/')
+        return timelist[0]+'-'+timelist[1]+'-'+timelist[2]

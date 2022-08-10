@@ -161,3 +161,12 @@
 1. 在日历界面显示日期
 2. 通过`Last`与`Next`两个Button实现月份切换
 3. 简单美化界面，设置日历页面`ReadOnly`
+
+## add: realise the simple matrix 2 by 2
+
+*Date:2022/08/10*
+
+*Author:ZRY*
+
+1. 实现象限UI
+2. 尝试连接象限UI至Task创建页面，尝试失败：`QWidget: Must construct a QApplication before a QWidget`

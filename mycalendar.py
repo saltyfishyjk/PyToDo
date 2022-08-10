@@ -52,22 +52,28 @@ def testTaskCreate():
 
 def displayTask(task):
     global ui_calendar
-    year, month, day=map(int,task.ddl.split('/'))
+    ddl=list(map(int,task.ddl.split('/')))
+    year=ddl[0]
+    month=ddl[1]
+    day=ddl[2]
     row, col=getPos(year, month, day)
-    ui_calendar[row][col].appendHtml('<font size="4",align="center", color=\"#000000\">'+task.title+'</font>')
+    ui_calendar[row][col].appendHtml('<font size="3",align="center", color=\"#000000\">'+task.title+'</font>')
 
 def refresh_calendar(y=curYear, m=curMonth):
     global ui_calendar
     global tasklist
     tasks=tasklist
     monthName=['','January','February','March','April','May','June','July','August','September','October','November','December']
-    ui.CalendarTitle.setText('<font size="6", color=\"#FFFFFF\">'+monthName[m]+'</font>')
+    ui.CalendarTitle.setText('<font size="6", color=\"#FFFFFF\">'+str(curYear)+' '+monthName[m]+'</font>')
     ui.CalendarTitle.setAlignment(Qt.AlignCenter)
     ui.CalendarTitle.setStyleSheet("background-color: #6272a4;border-radius: 15px;")
     ui.CalendarTitle.setReadOnly(True)
     fillDate(y,m)
     for task in tasks:
-        year, month, day=map(int,task.ddl.split('/'))
+        ddl=list(map(int,task.ddl.split('/')))
+        year=ddl[0]
+        month=ddl[1]
+        day=ddl[2]
         if curMonth==month and year==curYear:
             displayTask(task)
 
@@ -80,7 +86,10 @@ def fillDate(y,m):
             ui_calendar[row][col].clear()
             today=datetime.datetime(y, m, 1) + timedelta(days = (row-start_row)*7+(col-start_col))
             yy,mm,dd=today.strftime("%Y-%m-%d").split('-')
-            ui_calendar[row][col].appendHtml('<font size="2",align="center", color=\"#000000\">'+str(dd)+'</font>')
+            if int(yy)==time_tuple[0] and int(mm)==time_tuple[1] and int(dd)==time_tuple[2]:
+                ui_calendar[row][col].appendHtml('<font size="3",align="center", color=\"#ff79c6\"><b>'+dd+' Today<b></font>')
+            else:
+                ui_calendar[row][col].appendHtml('<font size="3",align="center", color=\"#000000\">'+dd+'</font>')
 
 def monthButtonConnect():
     global ui

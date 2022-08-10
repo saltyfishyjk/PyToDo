@@ -8,8 +8,6 @@ import sys
 _cpath_ = sys.path[0]  # 获取当前路径
 sys.path.remove(_cpath_)  # 删除
 
-import mycalendar
-
 sys.path.insert(0, _cpath_)  # 恢复
 
 def getNetTime():

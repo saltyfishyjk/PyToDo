@@ -15,7 +15,8 @@ os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 # ///////////////////////////////////////////////////////////////
 widgets = None
 account = 'admin'
-tasks=[]
+tasks = []
+debug_tag = False
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -30,8 +31,14 @@ class MainWindow(QMainWindow):
         global tasks        
         widgets = self.ui
 
+        # set up calendar
         from ui_calendar import calendar_ui_init
         calendar_ui_init(widgets)
+
+        # set up matrix
+        from ui_matrix import matrix_ui_init
+        matrix_ui_init(widgets)
+
         # USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
         # ///////////////////////////////////////////////////////////////
         Settings.ENABLE_CUSTOM_TITLE_BAR = True
@@ -39,11 +46,11 @@ class MainWindow(QMainWindow):
         # APP NAME
         # ///////////////////////////////////////////////////////////////
 
-        # title = "PyDracula - Modern GUI"
-        # description = "PyDracula APP - Theme with colors based on Dracula for Python."
+        #title = "Py TODO"
+        description = "TODO"
         # # APPLY TEXTS
-        # self.setWindowTitle(title)
-        # widgets.titleRightInfo.setText(description)
+        #self.setWindowTitle(title)
+        widgets.titleRightInfo.setText(description)
 
         # TOGGLE MENU
         # ///////////////////////////////////////////////////////////////
@@ -63,12 +70,16 @@ class MainWindow(QMainWindow):
         # LEFT MENUS
         widgets.btn_home.clicked.connect(self.buttonClick)
         widgets.btn_widgets.clicked.connect(self.buttonClick)
-        widgets.btn_new.clicked.connect(self.buttonClick)
+        widgets.btn_calendar.clicked.connect(self.buttonClick)
+        widgets.btn_matrix.clicked.connect(self.buttonClick)
         widgets.btn_save.clicked.connect(self.buttonClick)
-        # test calendar
+        #widgets.btn_exit.clicked.connect(self.buttonClick)
+        # setup function
         from mycalendar import setupCalendar
         setupCalendar(widgets, tasks)
-        # test calendar
+        from mymatrix import setupMatrix
+        setupMatrix(widgets, tasks)
+        # setup function
 
         # EXTRA LEFT BOX
         def openCloseLeftBox():
@@ -115,29 +126,29 @@ class MainWindow(QMainWindow):
         # SHOW HOME PAGE
         if btnName == "btn_home":
             widgets.stackedWidget.setCurrentWidget(widgets.home)
-            UIFunctions.resetStyle(self, btnName)
-            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
 
         # SHOW WIDGETS PAGE
         if btnName == "btn_widgets":
             widgets.stackedWidget.setCurrentWidget(widgets.widgets)
-            UIFunctions.resetStyle(self, btnName)
-            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
 
-        # SHOW NEW PAGE
-        if btnName == "btn_new":
+        # SHOW CALENDAR PAGE
+        if btnName == "btn_calendar":
             widgets.stackedWidget.setCurrentWidget(widgets.calendar_page) # SET PAGE
-            UIFunctions.resetStyle(self, btnName) # RESET ANOTHERS BUTTONS SELECTED
-            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet())) # SELECT MENU
+
+        # SHOW MATRIX PAGE
+        if btnName == "btn_matrix":
+            widgets.stackedWidget.setCurrentWidget(widgets.matrix_page) # SET PAGE
 
         if btnName == "btn_save":
             widgets.stackedWidget.setCurrentWidget(widgets.save_page)  # SET PAGE
-            UIFunctions.resetStyle(self, btnName)  # RESET ANOTHERS BUTTONS SELECTED
-            widgets.btn_save.setStyleSheet(UIFunctions.selectMenu(widgets.btn_save.styleSheet()))  # SELECT MENU
-            print("Save BTN clicked!")
 
-        # PRINT BTN NAME
-        print(f'Button "{btnName}" pressed!')
+
+        UIFunctions.resetStyle(self, btnName)   # RESET ANOTHERS BUTTONS SELECTED
+        btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))     # SELECT MENU
+        
+        if debug_tag:
+            # PRINT BTN NAME
+            print(f'Button "{btnName}" pressed!')
 
 
     # RESIZE EVENTS
@@ -155,10 +166,11 @@ class MainWindow(QMainWindow):
         self.dragPos = globalPos()
 
         # PRINT MOUSE EVENTS
-        if event.buttons() == Qt.LeftButton:
-            print('Mouse click: LEFT CLICK')
-        if event.buttons() == Qt.RightButton:
-            print('Mouse click: RIGHT CLICK')
+        if debug_tag:
+            if event.buttons() == Qt.LeftButton:
+                print('Mouse click: LEFT CLICK')
+            if event.buttons() == Qt.RightButton:
+                print('Mouse click: RIGHT CLICK')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -168,7 +180,6 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
     if loginState:
-        window = MainWindow()
         sys.exit(app.exec())
     else:
         sys.exit(1)
