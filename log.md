@@ -170,3 +170,12 @@
 
 1. 实现象限UI
 2. 尝试连接象限UI至Task创建页面，尝试失败：`QWidget: Must construct a QApplication before a QWidget`
+
+## debug: fix the Finish Button and sort-display in matrix
+
+*Date:2022/08/10*
+
+*Author:ZRY*
+
+1. 修复象限UI排序及显示bug
+2. 重新连接象限UI中的`Finish Button`

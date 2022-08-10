@@ -46,3 +46,7 @@ class Task():
     def matrix_time_display(self):
         timelist=self.ddl.split('/')
         return timelist[0]+'-'+timelist[1]+'-'+timelist[2]
+    
+    def matrix_time_compare(self):
+        timelist=self.ddl.split('/')
+        return int(timelist[0])*10000+int(timelist[1])*100+int(timelist[2])

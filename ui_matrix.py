@@ -16,7 +16,7 @@ default_Task = task.Task(
                 importance = 1,
                 isDaily = False,
                 type = 'Others',
-                ddl = '---- / -- / --',
+                ddl = '0000/00/00',
                 state = 'unfinished')
 
 # cell style
