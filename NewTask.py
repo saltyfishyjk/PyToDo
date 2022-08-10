@@ -1,8 +1,8 @@
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 from ui_newtask import *
-from task import Task
+import task as tk
 from gettime import *
 
 # IN : QTimeDate
@@ -16,7 +16,7 @@ def qtime_to_timestr(qtime):
 	return s
 
 class NewTask(QDialog, Ui_NewTask):
-	mySignal = pyqtSignal(Task)
+	mySignal = Signal(tk.Task)
 	def __init__(self):
 		super(NewTask, self).__init__()
 		self.setupUi(self)
@@ -47,7 +47,7 @@ class NewTask(QDialog, Ui_NewTask):
 		start_time = qtime_to_timestr(self.start_timeedit.dateTime())
 		ddl= qtime_to_timestr(self.ddi_timeedit.dateTime())
 
-		task = Task(title=title,
+		task = tk.Task(title=title,
 					text=text,
 					creatTime=getNetTime(),
 					description=description,
