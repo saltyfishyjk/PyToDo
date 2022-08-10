@@ -26,6 +26,7 @@ task01=[]
 task10=[]
 task11=[]
 ui=None
+app=None
 def setupMatrix(Widgets, tasks):
     global tasklist
     global ui
@@ -131,7 +132,9 @@ def matrix_new_defaultTask():
                 ddl = '0000/00/00',
                 state = 'unfinished')
 
-
+def send_app_to_matrix(para_app):
+    global app
+    app = para_app
 
 def openNewTaskDialog(self):
     import NewTask

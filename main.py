@@ -9,6 +9,7 @@ from widgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
 # SET AS GLOBAL WIDGETS
@@ -177,6 +178,8 @@ if __name__ == "__main__":
     # cancel the login model to test other function conveniently
     #loginState, account, tasks=login.loginWindow(app)
     loginState=True
+    from mymatrix import send_app_to_matrix
+    send_app_to_matrix(app)
     app.setWindowIcon(QIcon('inboxtodo.png'))
     window = MainWindow()
     if loginState:
