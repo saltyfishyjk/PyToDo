@@ -21,7 +21,7 @@ def setupCalendar(Widgets,tasks,year=time_tuple[0],month=time_tuple[1]):
     tasklist=tasks
     ui_calendar=Widgets.calendar_DayMap
     monthButtonConnect()
-    testTaskCreate()
+    #testTaskCreate()
     refresh_calendar(year, month)
 
 def getTimeStr(year,month,day):

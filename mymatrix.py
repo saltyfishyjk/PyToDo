@@ -215,94 +215,126 @@ def matrix_button_connect():
 def matrix_finishTask0000():
 	global task00
 	task00[0].state = TASK_FINISHED
+	if not isDefaultBlankTask(task00[0]):
+		modify_task_database(loginuser, task00[0])
 	matrix_refresh()
 
 
 def matrix_finishTask0001():
 	global task00
 	task00[1].state = TASK_FINISHED
+	if not isDefaultBlankTask(task00[1]):
+		modify_task_database(loginuser, task00[1])
 	matrix_refresh()
 
 
 def matrix_finishTask0010():
 	global task00
 	task00[2].state = TASK_FINISHED
+	if not isDefaultBlankTask(task00[2]):
+		modify_task_database(loginuser, task00[2])
 	matrix_refresh()
 
 
 def matrix_finishTask0011():
 	global task00
 	task00[3].state = TASK_FINISHED
+	if not isDefaultBlankTask(task00[3]):
+		modify_task_database(loginuser, task00[3])
 	matrix_refresh()
 
 
 def matrix_finishTask0100():
 	global task01
 	task01[0].state = TASK_FINISHED
+	if not isDefaultBlankTask(task01[0]):
+		modify_task_database(loginuser, task01[0])
 	matrix_refresh()
 
 
 def matrix_finishTask0101():
 	global task01
 	task01[1].state = TASK_FINISHED
+	if not isDefaultBlankTask(task01[1]):
+		modify_task_database(loginuser, task01[1])
 	matrix_refresh()
 
 
 def matrix_finishTask0110():
 	global task01
 	task01[2].state = TASK_FINISHED
+	if not isDefaultBlankTask(task01[2]):
+		modify_task_database(loginuser, task01[2])
 	matrix_refresh()
 
 
 def matrix_finishTask0111():
 	global task01
 	task01[3].state = TASK_FINISHED
+	if not isDefaultBlankTask(task01[3]):
+		modify_task_database(loginuser, task01[3])
 	matrix_refresh()
 
 
 def matrix_finishTask1000():
 	global task10
 	task10[0].state = TASK_FINISHED
+	if not isDefaultBlankTask(task10[0]):
+		modify_task_database(loginuser, task10[0])
 	matrix_refresh()
 
 
 def matrix_finishTask1001():
 	global task10
 	task10[1].state = TASK_FINISHED
+	if not isDefaultBlankTask(task10[1]):
+		modify_task_database(loginuser, task10[1])
 	matrix_refresh()
 
 
 def matrix_finishTask1010():
 	global task10
 	task10[2].state = TASK_FINISHED
+	if not isDefaultBlankTask(task10[2]):
+		modify_task_database(loginuser, task10[2])
 	matrix_refresh()
 
 
 def matrix_finishTask1011():
 	global task10
 	task10[3].state = TASK_FINISHED
+	if not isDefaultBlankTask(task10[3]):
+		modify_task_database(loginuser, task10[3])
 	matrix_refresh()
 
 
 def matrix_finishTask1100():
 	global task11
 	task11[0].state = TASK_FINISHED
+	if not isDefaultBlankTask(task11[0]):
+		modify_task_database(loginuser, task11[0])
 	matrix_refresh()
 
 
 def matrix_finishTask1101():
 	global task11
 	task11[1].state = TASK_FINISHED
+	if not isDefaultBlankTask(task11[1]):
+		modify_task_database(loginuser, task11[1])
 	matrix_refresh()
 
 
 def matrix_finishTask1110():
 	global task11
 	task11[2].state = TASK_FINISHED
+	if not isDefaultBlankTask(task11[2]):
+		modify_task_database(loginuser, task11[2])
 	matrix_refresh()
 
 
 def matrix_finishTask1111():
 	global task11
 	task11[3].state = TASK_FINISHED
+	if not isDefaultBlankTask(task11[3]):
+		modify_task_database(loginuser, task11[3])
 	matrix_refresh()

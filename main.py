@@ -183,6 +183,11 @@ if __name__ == "__main__":
 	from mymatrix import send_user_to_matrix
 	send_user_to_matrix(loginuser)
 	print(loginuser)
+	for task in tasks:
+		print(task.title,end=',')
+		print(task.description,end=',')
+		print(task.text,end=',')
+		print(task.author,end=',')
 
 	app.setWindowIcon(QIcon('inboxtodo.png'))
 	window = MainWindow()
