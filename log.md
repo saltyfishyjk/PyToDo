@@ -218,3 +218,11 @@
 *Author:YJK*
 
 1. 修复登陆时从数据库获取task列表时属性错乱的问题：对有缺省值的`__init__`没有明确指出赋值对象
+
+## feat: support modify existing task in NewTask
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. NewTask支持显示已存在的Task，方式为在创建NewTask对象时设置`task`属性值

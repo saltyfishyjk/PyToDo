@@ -6,6 +6,8 @@ from task import *
 import user
 
 default_creatTime='----/--/--'
+demo_creatTime='2022/01/15/18/00'
+demo_ddl='2022/08/15/23/55'
 
 default_Task = Task(
 	title='None',
@@ -19,6 +21,18 @@ default_Task = Task(
 	ddl='0000/00/00',
 	state=TASK_NOTSTART)
 
+demotask = Task(
+	title='demo title',
+	text='demo text',
+	author='demo author',
+	creatTime=demo_creatTime,
+	description='demo description',
+	importance=3,
+	isDaily=True,
+	type='Sport',
+	ddl=demo_ddl,
+	state=TASK_UNDERWAY
+)
 
 tasklist = []
 task00 = []
@@ -155,7 +169,8 @@ def send_user_to_matrix(para_loginuser):
 
 def openNewTaskDialog(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser)
+	# TODO:replace demotask with task when modify an existing task
+	my = NewTask.NewTask(loginuser, task=demotask)
 	my.show()
 	# alter way of connect
 	my.communicate.mySignal[Task].connect(getDialogSignal)

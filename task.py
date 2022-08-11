@@ -33,7 +33,7 @@ class Task():
         self.description = description  # str
         self.importance = importance    # int
         self.isDaily = isDaily          # boolean
-        self.type = type                # str
+        self.type = type                # str, one of ['Other', 'Study', 'Sport', 'Work']
         self.ddl = ddl                  # str: year/month/day, for example: 2022/8/7
         self.state = state              # str
 

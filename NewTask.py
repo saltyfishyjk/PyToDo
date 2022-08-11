@@ -48,11 +48,13 @@ class NewTaskCommuciate(QObject):
 
 class NewTask(QDialog, Ui_NewTask):
 	# IN : user:obj
-	def __init__(self, user):
+	def __init__(self, user, task=None):
 		super(NewTask, self).__init__()
 		self.user = user
 		self.setupUi(self)
 		self.setWindowTitle('New task')
+		if task:
+			self.showExistTask(task)
 		# set modal : user can only operate main window when closed this dialog
 		self.setWindowModality(Qt.ApplicationModal)
 		self.communicate = NewTaskCommuciate()
@@ -65,7 +67,7 @@ class NewTask(QDialog, Ui_NewTask):
 
 	def cancel(self):
 		# TODO: need to complete
-		self.communicate.run(default_Task, "Fail")
+		# self.communicate.run(default_Task, "Fail")
 		self.close()
 
 	# RET : task:obj
@@ -79,6 +81,7 @@ class NewTask(QDialog, Ui_NewTask):
 		state = self.state_comboBox.currentText()
 		start_time = qtime_to_timestr(self.start_timeedit.dateTime())
 		ddl= qtime_to_timestr(self.ddi_timeedit.dateTime())
+		# TODO:strings including ' or \ .etc need to be translated
 
 		task = tk.Task(title=title,
 					text=text,
@@ -91,4 +94,29 @@ class NewTask(QDialog, Ui_NewTask):
 					state=state)
 
 		return task
+
+	type2index = {"Other":0, "Study":1, "Sport":2, "Work":3}
+	state2index = {TASK_NOTSTART:0, TASK_UNDERWAY:1, TASK_FINISHED:2, TASK_OVERDUE:3}
+
+	# IN : timestr:str
+	def analyseTimeStr(self, timestr):
+		timelist = list(map(int, timestr.split('/')))
+		year = timelist[0]
+		month = timelist[1]
+		day = timelist[2]
+		hour = timelist[3]
+		minute = timelist[4]
+		return year, month, day, hour, minute
+
+	def showExistTask(self, task):
+		self.title_edit.setText(task.title)
+		self.description_edit.setText(task.description)
+		self.text_edit.setText(task.text)
+		self.comboBox.setCurrentIndex(task.importance - 1)
+		self.dailytask_checkbox.setChecked(task.isDaily)
+		self.type_combo_box.setCurrentIndex(self.type2index[task.type])
+		self.state_comboBox.setCurrentIndex(self.state2index[task.state])
+		#styear, stmonth, stday, sthour, stminute = self.analyseTimeStr(task.start_time)
+		ddlyear, ddlmonth, ddlday, ddlhour, ddlminute = self.analyseTimeStr(task.ddl)
+		self.ddi_timeedit.setDateTime(QDateTime(QDate(ddlyear, ddlmonth, ddlday), QTime(ddlhour, ddlminute, 0)))
 
