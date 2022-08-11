@@ -86,16 +86,16 @@ def get_user(fet):
 def get_task_list(fet):
 	ls = []
 	for index in fet:
-		task = Task(index[1],
-					index[2],
-					index[3],
-					index[4],
-					index[5],
-					index[6],
-					index[7],
-					index[8],
-					index[9],
-					index[10])
+		task = Task(text=index[1],
+					title=index[2],
+					author=index[3],
+					creatTime=index[4],
+					description=index[5],
+					importance=index[6],
+					isDaily=index[7],
+					type=index[8],
+					ddl=index[9],
+					state=index[10])
 		task.id = int(index[0])
 		ls.append(task)
 	return ls

@@ -210,3 +210,11 @@
 
 1. 可以在本地创建任务
 2. 使用账号进行task修改存在未知问题
+
+## fix: fix title and text position in login func in database.py
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. 修复登陆时从数据库获取task列表时属性错乱的问题：对有缺省值的`__init__`没有明确指出赋值对象
