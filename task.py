@@ -24,7 +24,8 @@ class Task():
                  isDaily = False,
                  type = 'Others',
                  ddl = str(curYear)+'/'+str(curMonth)+'/'+str(curDay),
-                 state = 'unfinished') -> None:
+                 state = 'unfinished',
+                 startTime = str(curYear)+'/'+str(curMonth)+'/'+str(curDay)) -> None:
         self.id = None                  # int
         self.text = text                # str
         self.title = title              # str
@@ -36,8 +37,7 @@ class Task():
         self.type = type                # str, one of ['Other', 'Study', 'Sport', 'Work']
         self.ddl = ddl                  # str: year/month/day, for example: 2022/8/7
         self.state = state              # str
-
-        # TODO : start_time : database
+        self.startTime = startTime
 
     def show_task(self):
         print("title : " + str(self.title))
@@ -50,6 +50,7 @@ class Task():
         print("type : " + str(self.type))
         print("ddl : " + str(self.ddl))
         print("state : " + str(self.state))
+        print("startTime : " + str(self.startTime))
 
     def matrix_time_display(self):
         timelist=self.ddl.split('/')

@@ -91,14 +91,16 @@ class NewTask(QDialog, Ui_NewTask):
 					isDaily=frequency,
 					type=type,
 					ddl=ddl,
-					state=state)
+					state=state,
+					startTime=start_time)
 
 		return task
 
 	type2index = {"Other":0, "Study":1, "Sport":2, "Work":3}
 	state2index = {TASK_NOTSTART:0, TASK_UNDERWAY:1, TASK_FINISHED:2, TASK_OVERDUE:3}
 
-	# IN : timestr:str
+	# IN  : timestr:str
+	# RET : year, month, day, hour, minute : all str
 	def analyseTimeStr(self, timestr):
 		timelist = list(map(int, timestr.split('/')))
 		year = timelist[0]
@@ -116,7 +118,8 @@ class NewTask(QDialog, Ui_NewTask):
 		self.dailytask_checkbox.setChecked(task.isDaily)
 		self.type_combo_box.setCurrentIndex(self.type2index[task.type])
 		self.state_comboBox.setCurrentIndex(self.state2index[task.state])
-		#styear, stmonth, stday, sthour, stminute = self.analyseTimeStr(task.start_time)
+		styear, stmonth, stday, sthour, stminute = self.analyseTimeStr(task.startTime)
+		self.start_timeedit.setDateTime(QDateTime(QDate(styear, stmonth, stday), QTime(sthour, stminute, 0)))
 		ddlyear, ddlmonth, ddlday, ddlhour, ddlminute = self.analyseTimeStr(task.ddl)
 		self.ddi_timeedit.setDateTime(QDateTime(QDate(ddlyear, ddlmonth, ddlday), QTime(ddlhour, ddlminute, 0)))
 

@@ -63,7 +63,8 @@ def sign_up_database(account, password):
 			  'isDaily varchar(500) comment "是否为日常任务",' \
 			  'type varchar(500) comment "类别",' \
 			  'ddl varchar(500) comment "截止日期",' \
-			  'state varchar(500) comment "状态"' \
+			  'state varchar(500) comment "状态",' \
+			  'startTime varchar(500) comment"起始时间"' \
 			  ')comment "user{}\'s task table"'.format(id, id)
 		cursor.execute(sql)
 		db.commit()
@@ -95,7 +96,8 @@ def get_task_list(fet):
 					isDaily=index[7],
 					type=index[8],
 					ddl=index[9],
-					state=index[10])
+					state=index[10],
+					startTime=index[11])
 		task.id = int(index[0])
 		ls.append(task)
 	return ls
@@ -124,15 +126,6 @@ def login_in_database(account, password):
 	cursor.execute(sql)
 	user_info_tuple = cursor.fetchone()
 	u = get_user(user_info_tuple)
-	"""
-	u = User(user_info_tuple[0],
-				  user_info_tuple[1],
-				  user_info_tuple[2],
-				  user_info_tuple[3],
-				  user_info_tuple[4],
-				  user_info_tuple[5],
-				  user_info_tuple[6])
-	"""
 	id = int(user_info_tuple[0])
 	# get user_task
 	sql = 'select * from test_database.user_{}_task'.format(id)
@@ -162,10 +155,10 @@ def add_task_database(user, task):
 	else:
 		task_id_max = 0
 	task.id = max(task_num, task_id_max + 1)
-	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state) " \
-		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')".\
+	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state, startTime) " \
+		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}')".\
 		format(id, task.id, task.text, task.title, task.author, task.creatTime, task.description,
-			   task.importance, str(task.isDaily), task.type, task.ddl, task.state)
+			   task.importance, str(task.isDaily), task.type, task.ddl, task.state, task.startTime)
 	cursor.execute(sql)
 	db.commit()
 	return True, "Successfully added a new task {} in user {}\'s account".format(task.title, user.account)

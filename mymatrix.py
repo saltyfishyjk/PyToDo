@@ -8,6 +8,7 @@ import user
 default_creatTime='----/--/--'
 demo_creatTime='2022/01/15/18/00'
 demo_ddl='2022/08/15/23/55'
+demo_startTime= '2022/07/30/00/00'
 
 default_Task = Task(
 	title='None',
@@ -31,7 +32,8 @@ demotask = Task(
 	isDaily=True,
 	type='Sport',
 	ddl=demo_ddl,
-	state=TASK_UNDERWAY
+	state=TASK_UNDERWAY,
+	startTime=demo_startTime
 )
 
 tasklist = []

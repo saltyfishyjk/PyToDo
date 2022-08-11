@@ -226,3 +226,11 @@
 *Author:YJK*
 
 1. NewTask支持显示已存在的Task，方式为在创建NewTask对象时设置`task`属性值
+
+## feat: add startTime attr in Task Class & update related work in NewTask.py and database.py
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. 为Task类增加属性`startTime`，并相应更新NewTask.py和database.py
