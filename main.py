@@ -178,11 +178,12 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	# cancel the login model to test other function conveniently
-	loginState, account, tasks=login.loginWindow(app)
+	loginState, loginuser, tasks=login.loginWindow(app)
 	#loginState = True
-	from mymatrix import send_app_to_matrix
+	from mymatrix import send_user_to_matrix
+	send_user_to_matrix(loginuser)
+	print(loginuser)
 
-	send_app_to_matrix(app)
 	app.setWindowIcon(QIcon('inboxtodo.png'))
 	window = MainWindow()
 	if loginState:

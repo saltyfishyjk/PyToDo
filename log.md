@@ -201,3 +201,12 @@
 1. feat:在NewTask中连接database
 2. fix:database中数据库的task为空时获取不到task_max
 3. fix:NewTask中获得的importance为字符串，通过截断和转型获取int类型的importance
+
+## modify: exit task in matrix & try connecting database
+
+*Date:2022/08/11*
+
+*Author:ZRY*
+
+1. 可以在本地创建任务
+2. 使用账号进行task修改存在未知问题
