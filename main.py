@@ -10,7 +10,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
+os.environ["QT_FONT_DPI"] = "96"  # FIX Problem for High DPI and Scale above 100%
 
 # SET AS GLOBAL WIDGETS
 # ///////////////////////////////////////////////////////////////
@@ -19,170 +19,173 @@ account = 'admin'
 tasks = []
 debug_tag = False
 
+
 class MainWindow(QMainWindow):
-    def __init__(self):
-        QMainWindow.__init__(self)
+	def __init__(self):
+		QMainWindow.__init__(self)
 
-        # SET AS GLOBAL WIDGETS
-        # ///////////////////////////////////////////////////////////////
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        global widgets
-        global account
-        global tasks        
-        widgets = self.ui
+		# SET AS GLOBAL WIDGETS
+		# ///////////////////////////////////////////////////////////////
+		self.ui = Ui_MainWindow()
+		self.ui.setupUi(self)
+		global widgets
+		global account
+		global tasks
+		widgets = self.ui
 
-        # set up calendar
-        from ui_calendar import calendar_ui_init
-        calendar_ui_init(widgets)
+		# set up calendar
+		from ui_calendar import calendar_ui_init
+		calendar_ui_init(widgets)
 
-        # set up matrix
-        from ui_matrix import matrix_ui_init
-        matrix_ui_init(widgets)
+		# set up matrix
+		from ui_matrix import matrix_ui_init
+		matrix_ui_init(widgets)
 
-        # USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
-        # ///////////////////////////////////////////////////////////////
-        Settings.ENABLE_CUSTOM_TITLE_BAR = True
+		# USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
+		# ///////////////////////////////////////////////////////////////
+		Settings.ENABLE_CUSTOM_TITLE_BAR = True
 
-        # APP NAME
-        # ///////////////////////////////////////////////////////////////
+		# APP NAME
+		# ///////////////////////////////////////////////////////////////
 
-        #title = "Py TODO"
-        description = "TODO"
-        # # APPLY TEXTS
-        #self.setWindowTitle(title)
-        widgets.titleRightInfo.setText(description)
+		# title = "Py TODO"
+		description = "TODO"
+		# # APPLY TEXTS
+		# self.setWindowTitle(title)
+		widgets.titleRightInfo.setText(description)
 
-        # TOGGLE MENU
-        # ///////////////////////////////////////////////////////////////
-        widgets.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
+		# TOGGLE MENU
+		# ///////////////////////////////////////////////////////////////
+		widgets.toggleButton.clicked.connect(lambda: UIFunctions.toggleMenu(self, True))
 
-        # SET UI DEFINITIONS
-        # ///////////////////////////////////////////////////////////////
-        UIFunctions.uiDefinitions(self)
+		# SET UI DEFINITIONS
+		# ///////////////////////////////////////////////////////////////
+		UIFunctions.uiDefinitions(self)
 
-        # QTableWidget PARAMETERS
-        # ///////////////////////////////////////////////////////////////
-        widgets.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+		# QTableWidget PARAMETERS
+		# ///////////////////////////////////////////////////////////////
+		widgets.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-        # BUTTONS CLICK
-        # ///////////////////////////////////////////////////////////////
+		# BUTTONS CLICK
+		# ///////////////////////////////////////////////////////////////
 
-        # LEFT MENUS
-        widgets.btn_home.clicked.connect(self.buttonClick)
-        widgets.btn_widgets.clicked.connect(self.buttonClick)
-        widgets.btn_calendar.clicked.connect(self.buttonClick)
-        widgets.btn_matrix.clicked.connect(self.buttonClick)
-        widgets.btn_save.clicked.connect(self.buttonClick)
-        #widgets.btn_exit.clicked.connect(self.buttonClick)
-        # setup function
-        from mycalendar import setupCalendar
-        setupCalendar(widgets, tasks)
-        from mymatrix import setupMatrix
-        setupMatrix(widgets, tasks)
-        # setup function
+		# LEFT MENUS
+		widgets.btn_home.clicked.connect(self.buttonClick)
+		widgets.btn_widgets.clicked.connect(self.buttonClick)
+		widgets.btn_calendar.clicked.connect(self.buttonClick)
+		widgets.btn_matrix.clicked.connect(self.buttonClick)
+		widgets.btn_save.clicked.connect(self.buttonClick)
+		# widgets.btn_exit.clicked.connect(self.buttonClick)
+		# setup function
+		from mycalendar import setupCalendar
+		setupCalendar(widgets, tasks)
+		from mymatrix import setupMatrix
+		setupMatrix(widgets, tasks)
 
-        # EXTRA LEFT BOX
-        def openCloseLeftBox():
-            UIFunctions.toggleLeftBox(self, True)
-        widgets.toggleLeftBox.clicked.connect(openCloseLeftBox)
-        widgets.extraCloseColumnBtn.clicked.connect(openCloseLeftBox)
+		# setup function
 
-        # EXTRA RIGHT BOX
-        def openCloseRightBox():
-            UIFunctions.toggleRightBox(self, True)
-        widgets.settingsTopBtn.clicked.connect(openCloseRightBox)
+		# EXTRA LEFT BOX
+		def openCloseLeftBox():
+			UIFunctions.toggleLeftBox(self, True)
 
-        # SHOW APP
-        # ///////////////////////////////////////////////////////////////
-        self.show()
+		widgets.toggleLeftBox.clicked.connect(openCloseLeftBox)
+		widgets.extraCloseColumnBtn.clicked.connect(openCloseLeftBox)
 
-        # SET CUSTOM THEME
-        # ///////////////////////////////////////////////////////////////
-        useCustomTheme = True
-        themeFile = "themes\py_dracula_light.qss"
+		# EXTRA RIGHT BOX
+		def openCloseRightBox():
+			UIFunctions.toggleRightBox(self, True)
 
-        # SET THEME AND HACKS
-        if useCustomTheme:
-            # LOAD AND APPLY STYLE
-            UIFunctions.theme(self, themeFile, True)
+		widgets.settingsTopBtn.clicked.connect(openCloseRightBox)
 
-            # SET HACKS
-            AppFunctions.setThemeHack(self)
+		# SHOW APP
+		# ///////////////////////////////////////////////////////////////
+		self.show()
 
-        # SET HOME PAGE AND SELECT MENU
-        # ///////////////////////////////////////////////////////////////
-        widgets.stackedWidget.setCurrentWidget(widgets.home)
-        widgets.btn_home.setStyleSheet(UIFunctions.selectMenu(widgets.btn_home.styleSheet()))
+		# SET CUSTOM THEME
+		# ///////////////////////////////////////////////////////////////
+		useCustomTheme = True
+		themeFile = "themes\py_dracula_light.qss"
 
+		# SET THEME AND HACKS
+		if useCustomTheme:
+			# LOAD AND APPLY STYLE
+			UIFunctions.theme(self, themeFile, True)
 
-    # BUTTONS CLICK
-    # Post here your functions for clicked buttons
-    # ///////////////////////////////////////////////////////////////
-    def buttonClick(self):
-        # GET BUTTON CLICKED
-        btn = self.sender()
-        btnName = btn.objectName()
+			# SET HACKS
+			AppFunctions.setThemeHack(self)
 
-        # SHOW HOME PAGE
-        if btnName == "btn_home":
-            widgets.stackedWidget.setCurrentWidget(widgets.home)
+		# SET HOME PAGE AND SELECT MENU
+		# ///////////////////////////////////////////////////////////////
+		widgets.stackedWidget.setCurrentWidget(widgets.home)
+		widgets.btn_home.setStyleSheet(UIFunctions.selectMenu(widgets.btn_home.styleSheet()))
 
-        # SHOW WIDGETS PAGE
-        if btnName == "btn_widgets":
-            widgets.stackedWidget.setCurrentWidget(widgets.widgets)
+	# BUTTONS CLICK
+	# Post here your functions for clicked buttons
+	# ///////////////////////////////////////////////////////////////
+	def buttonClick(self):
+		# GET BUTTON CLICKED
+		btn = self.sender()
+		btnName = btn.objectName()
 
-        # SHOW CALENDAR PAGE
-        if btnName == "btn_calendar":
-            widgets.stackedWidget.setCurrentWidget(widgets.calendar_page) # SET PAGE
+		# SHOW HOME PAGE
+		if btnName == "btn_home":
+			widgets.stackedWidget.setCurrentWidget(widgets.home)
 
-        # SHOW MATRIX PAGE
-        if btnName == "btn_matrix":
-            widgets.stackedWidget.setCurrentWidget(widgets.matrix_page) # SET PAGE
+		# SHOW WIDGETS PAGE
+		if btnName == "btn_widgets":
+			widgets.stackedWidget.setCurrentWidget(widgets.widgets)
 
-        if btnName == "btn_save":
-            widgets.stackedWidget.setCurrentWidget(widgets.save_page)  # SET PAGE
+		# SHOW CALENDAR PAGE
+		if btnName == "btn_calendar":
+			widgets.stackedWidget.setCurrentWidget(widgets.calendar_page)  # SET PAGE
 
+		# SHOW MATRIX PAGE
+		if btnName == "btn_matrix":
+			widgets.stackedWidget.setCurrentWidget(widgets.matrix_page)  # SET PAGE
 
-        UIFunctions.resetStyle(self, btnName)   # RESET ANOTHERS BUTTONS SELECTED
-        btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))     # SELECT MENU
-        
-        if debug_tag:
-            # PRINT BTN NAME
-            print(f'Button "{btnName}" pressed!')
+		if btnName == "btn_save":
+			widgets.stackedWidget.setCurrentWidget(widgets.save_page)  # SET PAGE
 
+		UIFunctions.resetStyle(self, btnName)  # RESET ANOTHERS BUTTONS SELECTED
+		btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))  # SELECT MENU
 
-    # RESIZE EVENTS
-    # ///////////////////////////////////////////////////////////////
-    def resizeEvent(self, event):
-        # Update Size Grips
-        UIFunctions.resize_grips(self)
+		if debug_tag:
+			# PRINT BTN NAME
+			print(f'Button "{btnName}" pressed!')
 
-    # MOUSE CLICK EVENTS
-    # ///////////////////////////////////////////////////////////////
-    def mousePressEvent(self, event):
-        # SET DRAG POS WINDOW
-        p = event.globalPosition()
-        globalPos = p.toPoint()
-        self.dragPos = globalPos()
+	# RESIZE EVENTS
+	# ///////////////////////////////////////////////////////////////
+	def resizeEvent(self, event):
+		# Update Size Grips
+		UIFunctions.resize_grips(self)
 
-        # PRINT MOUSE EVENTS
-        if debug_tag:
-            if event.buttons() == Qt.LeftButton:
-                print('Mouse click: LEFT CLICK')
-            if event.buttons() == Qt.RightButton:
-                print('Mouse click: RIGHT CLICK')
+	# MOUSE CLICK EVENTS
+	# ///////////////////////////////////////////////////////////////
+	def mousePressEvent(self, event):
+		# SET DRAG POS WINDOW
+		p = event.globalPosition()
+		globalPos = p.toPoint()
+		self.dragPos = globalPos()
+
+		# PRINT MOUSE EVENTS
+		if debug_tag:
+			if event.buttons() == Qt.LeftButton:
+				print('Mouse click: LEFT CLICK')
+			if event.buttons() == Qt.RightButton:
+				print('Mouse click: RIGHT CLICK')
+
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    # cancel the login model to test other function conveniently
-    #loginState, account, tasks=login.loginWindow(app)
-    loginState=True
-    from mymatrix import send_app_to_matrix
-    send_app_to_matrix(app)
-    app.setWindowIcon(QIcon('inboxtodo.png'))
-    window = MainWindow()
-    if loginState:
-        sys.exit(app.exec())
-    else:
-        sys.exit(1)
+	app = QApplication(sys.argv)
+	# cancel the login model to test other function conveniently
+	# loginState, account, tasks=login.loginWindow(app)
+	loginState = True
+	from mymatrix import send_app_to_matrix
+
+	send_app_to_matrix(app)
+	app.setWindowIcon(QIcon('inboxtodo.png'))
+	window = MainWindow()
+	if loginState:
+		sys.exit(app.exec())
+	else:
+		sys.exit(1)

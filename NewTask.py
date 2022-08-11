@@ -15,23 +15,39 @@ def qtime_to_timestr(qtime):
 	s = str(year) + '/' + str(month) + '/' + str(day) + '/' + str(hour) + '/' + str(min)
 	return s
 
+
+# Signal Class using PyQt5
+from PyQt5.Qt import QObject
+class NewTaskCommuciate(QObject):
+	from PyQt5.Qt import pyqtSignal
+	mySignal = pyqtSignal([tk.Task], [str])
+
+	def __init__(self):
+		super().__init__()
+
+	def run(self, task):
+		self.mySignal[tk.Task].emit(task)
+		#self.mySignal[str].emit("emmm")
+
+
 class NewTask(QDialog, Ui_NewTask):
-	mySignal = Signal(tk.Task)
 	def __init__(self):
 		super(NewTask, self).__init__()
 		self.setupUi(self)
 		self.setWindowTitle('New task')
 		# set modal : user can only operate main window when closed this dialog
 		self.setWindowModality(Qt.ApplicationModal)
+		self.communicate = NewTaskCommuciate()
 
 
 	def submit(self):
 		task = self.getInformation()
-		self.mySignal.emit(task)
+		self.communicate.run(task)
 		self.close()
 
 	def cancel(self):
 		task = None
+		# TODO: need to complete
 		self.mySignal.emit(task)
 		self.close()
 

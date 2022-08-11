@@ -31,6 +31,8 @@ class Task():
         self.ddl = ddl                  # str: year/month/day, for example: 2022/8/7
         self.state = state              # str
 
+        # TODO : start_time : database
+
     def show_task(self):
         print("title : " + str(self.title))
         print("text : " + str(self.text))
