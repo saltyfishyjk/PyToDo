@@ -35,4 +35,45 @@ python3.9
 
 *Author:YJK*
 
-功能：
+功能：弹出NewTask对话窗口并获取用户输入值。
+
+#### 接口与约定
+
+##### 创建窗口与信号槽的连接
+
+对于新建空白NewTask，可以采用类似如下行为：
+
+```python
+# 定义创建窗口行为
+def openNewTaskDialog(self):
+	import NewTask
+    # loginuser为登录的User对象
+	my = NewTask.NewTask(loginuser)
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal) # 连接信号接收后的自动行为
+	my.exec()
+# 定义信号接收后的自动行为，其中task为Task对象
+def getDialogSignal(task):
+	global tasklist
+	tasklist.append(task)  
+```
+
+对于修改已有Task，可以采用类似如下行为：
+
+```python
+# 定义创建窗口行为
+def openNewTaskDialog(self):
+	import NewTask
+    # loginuser为登录的User对象，demotask为要修改的task对象
+	my = NewTask.NewTask(loginuser, task=demotask)
+    global tasklist
+    tasklist.remove(task)
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal) # 连接信号接收后的自动行为
+	my.exec()
+# 定义信号接收后的自动行为，其中task为Task对象
+def getDialogSignal(task):
+	global tasklist
+	tasklist.append(task)  
+```
+

@@ -234,3 +234,12 @@
 *Author:YJK*
 
 1. 为Task类增加属性`startTime`，并相应更新NewTask.py和database.py
+
+## feat: support edit existing task in NewTask
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. NewTask支持submit已经存在的task
+2. 更新README，添加对NewTask用法的示例和说明

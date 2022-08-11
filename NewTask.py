@@ -53,7 +53,8 @@ class NewTask(QDialog, Ui_NewTask):
 		self.user = user
 		self.setupUi(self)
 		self.setWindowTitle('New task')
-		if task:
+		self.intask = task
+		if not task:
 			self.showExistTask(task)
 		# set modal : user can only operate main window when closed this dialog
 		self.setWindowModality(Qt.ApplicationModal)
@@ -62,12 +63,16 @@ class NewTask(QDialog, Ui_NewTask):
 	def submit(self):
 		task = self.getInformation()
 		self.communicate.run(task, "Success")
-		database.add_task_database(user=self.user, task=task)
+		if not self.intask:
+			database.modify_task_database(user=self, new_task=task)
+		else:
+			database.add_task_database(user=self.user, task=task)
 		self.close()
 
 	def cancel(self):
-		# TODO: need to complete
 		# self.communicate.run(default_Task, "Fail")
+		if not self.intask:
+			self.communicate.run(self.intask, "Success")
 		self.close()
 
 	# RET : task:obj
