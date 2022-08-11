@@ -30,6 +30,7 @@ python3.9
 | `delete_task_database`       | 数据库端实现为用户删除任务 | `user(User obj), old_task(Task obj)`             | `isSuccessful(boolean), hint(str)`                           | 删除某个任务，这里同样以任务的`id`为唯一标识符，需要妥善保存在`add_task_database`传入的`Task`对象。 |
 | `modify_task_database`       | 数据库端修改用户任务       | `user(User obj), new_task(Task obj)`             | `isSuccessful(boolean), hint(str)`                           | 修改已经存在的任务。<br/>调用者修改特定Task的除ID外的任意属性，并将其和User对象一同传入本函数，即可修改对象属性。 |
 | `modify_task_state_database` | 数据库端修改用户任务状态   | `user(User obj), task(Task obj), new_state(str)` | `isSuccessful(boolean), hint(str)`                           | 修改已经存在的任务的状态。<br/>调用者将用户对象、任务对象和new_state传入，即可修改对象属性。 |
+| `get_task_list_database`     | 数据库端获取用户任务列表   | `user(obj)`                                      | `tasklist(Task[])`                                           |                                                              |
 
 ### `NewTask.py`
 
@@ -76,4 +77,3 @@ def getDialogSignal(task):
 	global tasklist
 	tasklist.append(task)  
 ```
-

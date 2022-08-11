@@ -135,6 +135,18 @@ def login_in_database(account, password):
 	return True, u, tasks, 'Login in successfully!\nWelcome, {}'.format(account)
 
 
+# FUNC : get task list of given user obj
+# IN   : user:obj
+# RET  : tasklist:obj[]
+def get_task_list_database(user):
+	id = user.id
+	sql = 'select * from test_database.user_{}_task'.format(id)
+	cursor.execute(sql)
+	user_task_tuple = cursor.fetchall()
+	tasks = get_task_list(user_task_tuple)
+	return tasks
+
+
 # FUNC : add a new task in user's account
 # IN   : user:object & task:object
 # RET  : isSuccessful:boolean & hint:str

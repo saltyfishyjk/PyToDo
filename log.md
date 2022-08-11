@@ -243,3 +243,11 @@
 
 1. NewTask支持submit已经存在的task
 2. 更新README，添加对NewTask用法的示例和说明
+
+## feat: support get task list of given user in database.py
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. databa.py支持新方法`get_task_list_database`，可以用user对象直接获取其所有tasks
