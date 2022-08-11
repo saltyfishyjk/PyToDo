@@ -16,11 +16,11 @@ python3.9
 
 ### `database.py`
 
-author:YJK
+*Author:YJK*
 
 功能：为项目其他模块提供数据库相关接口，在每个函数上方注释中通过FUNC,IN,RET三个部分注明该函数的功能、传入参数约定与返回参数约定
 
-### 接口与约定
+#### 接口与约定
 
 | 函数接口名                   | 功能                       | 传入参数                                         | 返回参数                                                     | 其他                                                         |
 | ---------------------------- | -------------------------- | ------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -31,3 +31,8 @@ author:YJK
 | `modify_task_database`       | 数据库端修改用户任务       | `user(User obj), new_task(Task obj)`             | `isSuccessful(boolean), hint(str)`                           | 修改已经存在的任务。<br/>调用者修改特定Task的除ID外的任意属性，并将其和User对象一同传入本函数，即可修改对象属性。 |
 | `modify_task_state_database` | 数据库端修改用户任务状态   | `user(User obj), task(Task obj), new_state(str)` | `isSuccessful(boolean), hint(str)`                           | 修改已经存在的任务的状态。<br/>调用者将用户对象、任务对象和new_state传入，即可修改对象属性。 |
 
+### `NewTask.py`
+
+*Author:YJK*
+
+功能：

@@ -43,8 +43,12 @@ def sign_up_database(account, password):
 	else:
 		cursor.execute('select count(*) from user')
 		line_num = int(cursor.fetchone()[0])
+		sql = 'select max(id) from user'
+		cursor.execute(sql)
+		max_id = int(cursor.fetchone()[0])
+		id = max(max_id + 1, line_num)
 		# create a user column in table user
-		sql = "insert into user(id, account, password) values('{0}', '{1}', '{2}')".format(line_num, account, password)
+		sql = "insert into user(id, account, password) values('{0}', '{1}', '{2}')".format(id, account, password)
 		cursor.execute(sql)
 		db.commit()
 		# create a user_task table for this user
@@ -60,7 +64,7 @@ def sign_up_database(account, password):
 			  'type varchar(500) comment "类别",' \
 			  'ddl varchar(500) comment "截止日期",' \
 			  'state varchar(500) comment "状态"' \
-			  ')comment "user{}\'s task table"'.format(line_num, line_num)
+			  ')comment "user{}\'s task table"'.format(id, id)
 		cursor.execute(sql)
 		db.commit()
 		return True, "Sign up successfully, please login in your new account"
