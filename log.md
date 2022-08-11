@@ -180,6 +180,18 @@
 1. 修复象限UI排序及显示bug
 2. 重新连接象限UI中的`Finish Button`
 
+## fix: fix connection of mymatrix.py and NewTask.py
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. NewTask中新增NewTaskCommunicate类，用于存储类变量`mySignal`作信号，用`run`方法储存`emit`
+2. 修改NewTsk类逻辑，在行为中调用NewTaskCommunicate类的`run`方法实现信号发送
+3. 由于不允许传递`None`对象，因此发送Task对象和hint字符串，hint为`"Success"`时Task有效
+
+
+
 ## feat: connect new task module with database module
 
 *Date:2022/08/11*
