@@ -2,6 +2,13 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import task
+import user
+
+default_User = user.User(
+	id=11,
+	account="test12",
+	password="1234"
+)
 
 default_Task = task.Task(
 	title='None',
@@ -144,7 +151,7 @@ def send_app_to_matrix(para_app):
 
 def openNewTaskDialog(self):
 	import NewTask
-	my = NewTask.NewTask()
+	my = NewTask.NewTask(default_User)
 	my.show()
 	# alter way of connect
 	my.communicate.mySignal[task.Task].connect(getDialogSignal)

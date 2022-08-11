@@ -153,7 +153,10 @@ def add_task_database(user, task):
 	task_num = int(cursor.fetchone()[0])
 	sql = 'select max(id) from user_{}_task'.format(id)
 	cursor.execute(sql)
-	task_id_max = int(cursor.fetchone()[0])
+	if task_num != 0:
+		task_id_max = int(cursor.fetchone()[0])
+	else:
+		task_id_max = 0
 	task.id = max(task_num, task_id_max + 1)
 	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state) " \
 		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')".\

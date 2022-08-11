@@ -3,10 +3,10 @@ class User():
 				 id,
 				 account,
 				 password,
-				 name,
-				 email,
-				 phone,
-				 head_image) -> None:
+				 name=None,
+				 email=None,
+				 phone=None,
+				 head_image=None) -> None:
 		# key states
 		self.id = id
 		self.account = account

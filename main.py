@@ -178,8 +178,8 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	# cancel the login model to test other function conveniently
-	# loginState, account, tasks=login.loginWindow(app)
-	loginState = True
+	loginState, account, tasks=login.loginWindow(app)
+	#loginState = True
 	from mymatrix import send_app_to_matrix
 
 	send_app_to_matrix(app)

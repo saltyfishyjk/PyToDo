@@ -179,3 +179,13 @@
 
 1. 修复象限UI排序及显示bug
 2. 重新连接象限UI中的`Finish Button`
+
+## feat: connect new task module with database module
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. feat:在NewTask中连接database
+2. fix:database中数据库的task为空时获取不到task_max
+3. fix:NewTask中获得的importance为字符串，通过截断和转型获取int类型的importance

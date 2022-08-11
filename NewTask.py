@@ -1,9 +1,24 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+
+import database
 from ui_newtask import *
 import task as tk
 from gettime import *
+from database import *
+
+default_Task = tk.Task(
+	title='None',
+	text='',
+	author='anonymity',
+	creatTime='---- / -- / --',
+	description='',
+	importance=1,
+	isDaily=False,
+	type='Others',
+	ddl='0000/00/00',
+	state='unfinished')
 
 # IN : QTimeDate
 def qtime_to_timestr(qtime):
@@ -25,30 +40,32 @@ class NewTaskCommuciate(QObject):
 	def __init__(self):
 		super().__init__()
 
-	def run(self, task):
+# IN : task:obj & hint:str
+	def run(self, task, hint):
 		self.mySignal[tk.Task].emit(task)
-		#self.mySignal[str].emit("emmm")
+		self.mySignal[str].emit(hint)
 
 
 class NewTask(QDialog, Ui_NewTask):
-	def __init__(self):
+	# IN : user:obj
+	def __init__(self, user):
 		super(NewTask, self).__init__()
+		self.user = user
 		self.setupUi(self)
 		self.setWindowTitle('New task')
 		# set modal : user can only operate main window when closed this dialog
 		self.setWindowModality(Qt.ApplicationModal)
 		self.communicate = NewTaskCommuciate()
 
-
 	def submit(self):
 		task = self.getInformation()
-		self.communicate.run(task)
+		self.communicate.run(task, "Success")
+		database.add_task_database(user=self.user, task=task)
 		self.close()
 
 	def cancel(self):
-		task = None
 		# TODO: need to complete
-		self.mySignal.emit(task)
+		self.communicate.run(default_Task, "Fail")
 		self.close()
 
 	# RET : task:obj
@@ -56,7 +73,7 @@ class NewTask(QDialog, Ui_NewTask):
 		title = self.title_edit.text()
 		description = self.description_edit.text()
 		text = self.text_edit.toPlainText()
-		importance = self.comboBox.currentText()
+		importance = int(self.comboBox.currentText()[0])
 		frequency = self.dailytask_checkbox.isChecked()
 		type = self.type_combo_box.currentText()
 		state = self.state_comboBox.currentText()
