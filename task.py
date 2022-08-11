@@ -6,6 +6,12 @@ time_tuple = time.localtime(time.time())
 curYear=time_tuple[0]
 curMonth=time_tuple[1]
 curDay=time_tuple[2]
+# micro definitions
+TASK_FINISHED = 'finished'
+TASK_OVERDUE = "overdue"
+TASK_UNDERWAY = "underway"
+TASK_NOTSTART = "notstarted"
+TASK_IMPORTANCE_LINE = 3
 
 class Task():
     def __init__(self,

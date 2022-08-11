@@ -11,7 +11,13 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-
+from task import *
+import time
+time_tuple = time.localtime(time.time())
+curYear=time_tuple[0]
+curMonth=time_tuple[1]
+curDay=time_tuple[2]
+curHour=time_tuple[3]
 
 class Ui_NewTask(object):
     def setupUi(self, NewTask):
@@ -102,14 +108,14 @@ class Ui_NewTask(object):
         self.ddl_label.setObjectName("ddl_label")
         self.formLayout.setWidget(8, QFormLayout.LabelRole, self.ddl_label)
         self.ddi_timeedit = QDateTimeEdit(self.verticalLayoutWidget)
-        self.ddi_timeedit.setDateTime(QDateTime(QDate(2022, 8, 1), QTime(0, 0, 0)))
+        self.ddi_timeedit.setDateTime(QDateTime(QDate(curYear, curMonth, curDay), QTime(curHour, 0, 0)))
         self.ddi_timeedit.setObjectName("ddi_timeedit")
         self.formLayout.setWidget(8, QFormLayout.FieldRole, self.ddi_timeedit)
         self.starttime_label = QLabel(self.verticalLayoutWidget)
         self.starttime_label.setObjectName("starttime_label")
         self.formLayout.setWidget(7, QFormLayout.LabelRole, self.starttime_label)
         self.start_timeedit = QDateTimeEdit(self.verticalLayoutWidget)
-        self.start_timeedit.setDateTime(QDateTime(QDate(2022, 8, 1), QTime(0, 0, 0)))
+        self.start_timeedit.setDateTime(QDateTime(QDate(curYear, curMonth, curDay), QTime(curHour, 0, 0)))
         self.start_timeedit.setObjectName("start_timeedit")
         self.formLayout.setWidget(7, QFormLayout.FieldRole, self.start_timeedit)
         self.verticalLayout.addLayout(self.formLayout)
@@ -147,9 +153,9 @@ class Ui_NewTask(object):
         self.type_combo_box.setItemText(2, _translate("NewTask", "Sport"))
         self.type_combo_box.setItemText(3, _translate("NewTask", "Work"))
         self.state_label.setText(_translate("NewTask", "State"))
-        self.state_comboBox.setItemText(0, _translate("NewTask", "notstarted"))
-        self.state_comboBox.setItemText(1, _translate("NewTask", "underway"))
-        self.state_comboBox.setItemText(2, _translate("NewTask", "finished"))
-        self.state_comboBox.setItemText(3, _translate("NewTask", "overdue"))
+        self.state_comboBox.setItemText(0, _translate("NewTask", TASK_NOTSTART))
+        self.state_comboBox.setItemText(1, _translate("NewTask", TASK_UNDERWAY))
+        self.state_comboBox.setItemText(2, _translate("NewTask", TASK_FINISHED))
+        self.state_comboBox.setItemText(3, _translate("NewTask", TASK_OVERDUE))
         self.ddl_label.setText(_translate("NewTask", "DDL"))
         self.starttime_label.setText(_translate("NewTask", "Start Time"))

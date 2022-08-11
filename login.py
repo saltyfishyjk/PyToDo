@@ -12,6 +12,7 @@ from modules import *
 loginState=False
 account='admin'
 tasks=[]
+loginuser=None
 
 class Login(QMainWindow, QFrame):
 	def __init__(self):
@@ -137,11 +138,12 @@ class Login(QMainWindow, QFrame):
 		global loginState
 		global account
 		global tasks
+		global loginuser
 		"""实现登录功能"""
 		username = self.username_edit.text()
 		password = self.password_edit.text()
 		account = username
-		result,user,tasks,judge=login_in_database(username,password)
+		result,loginuser,tasks,judge=login_in_database(username,password)
 		if result:
 			QMessageBox.information(self, 'Successfully',
 									'Login in successfully \n Welcome {}'.format(username),
@@ -184,5 +186,5 @@ def loginWindow(app):
 	window = Login()  
 	window.show()
 	app.exec()  # 获取系统信息，如命令行，并承担关闭窗口后完全退出的责任
-	return loginState, account, tasks
+	return loginState, loginuser, tasks
 

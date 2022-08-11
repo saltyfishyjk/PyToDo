@@ -1,30 +1,24 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-import task
+from database import modify_task_database
+from task import *
 import user
 
-default_User = user.User(
-	id=11,
-	account="test12",
-	password="1234"
-)
+default_creatTime='----/--/--'
 
-default_Task = task.Task(
+default_Task = Task(
 	title='None',
 	text='',
 	author='anonymity',
-	creatTime='---- / -- / --',
+	creatTime=default_creatTime,
 	description='',
 	importance=1,
 	isDaily=False,
 	type='Others',
 	ddl='0000/00/00',
-	state='unfinished')
+	state=TASK_NOTSTART)
 
-TASK_FINISHED = 'finished'
-TASK_UNFINISHED = 'unfinished'
-TASK_IMPORTANCE = 5
 
 tasklist = []
 task00 = []
@@ -32,7 +26,11 @@ task01 = []
 task10 = []
 task11 = []
 ui = None
-app = None
+loginuser = user.User(
+	id=11,
+	account="test12",
+	password="1234"
+)
 
 
 def setupMatrix(Widgets, tasks):
@@ -42,8 +40,6 @@ def setupMatrix(Widgets, tasks):
 	ui = Widgets
 	matrix_button_connect()
 	matrix_refresh()
-	print('0000 / 00 / 00' > '2022/8/10')
-	print('0000 / 00 / 00' < '2022/8/10')
 
 
 def matrix_refresh():
@@ -78,17 +74,17 @@ def matrix_distributeTask():
 	cnt = 0
 	tasknum = len(tasklist)
 	for task in tasklist:
-		if task.state == TASK_UNFINISHED:
-			if task.importance < TASK_IMPORTANCE and cnt < tasknum / 2 + 1:
+		if task.state != TASK_FINISHED and task.state != TASK_OVERDUE:
+			if task.importance < TASK_IMPORTANCE_LINE and cnt < tasknum / 2 + 1:
 				task11.append(task)
-				print('in')
+				#print('in')
 				task11.sort(key=functools.cmp_to_key(matrix_my_compare))
-				for task in task11:
-					print(task.title, end=' ')
-			elif task.importance >= TASK_IMPORTANCE and cnt < tasknum / 2 + 1:
+				#for task in task11:
+				#	print(task.title, end=' ')
+			elif task.importance >= TASK_IMPORTANCE_LINE and cnt < tasknum / 2 + 1:
 				task01.append(task)
 				task01.sort(key=functools.cmp_to_key(matrix_my_compare))
-			elif task.importance < TASK_IMPORTANCE and cnt >= tasknum / 2 + 1:
+			elif task.importance < TASK_IMPORTANCE_LINE and cnt >= tasknum / 2 + 1:
 				task10.append(task)
 				task10.sort(key=functools.cmp_to_key(matrix_my_compare))
 			else:
@@ -131,7 +127,7 @@ def matrix_displayTask(i):
 
 
 def matrix_new_defaultTask():
-	return task.Task(
+	return Task(
 		title='None',
 		text='',
 		author='anonymity',
@@ -143,18 +139,26 @@ def matrix_new_defaultTask():
 		ddl='0000/00/00',
 		state='unfinished')
 
+def fill_tasks_in_database():
+	global tasklist
+	for task in tasklist:
+		if not isDefaultBlankTask(task):
+			modify_task_database(loginuser, task)
 
-def send_app_to_matrix(para_app):
-	global app
-	app = para_app
+def isDefaultBlankTask(task):
+	return default_creatTime==task.creatTime
+
+def send_user_to_matrix(para_loginuser):
+	global loginuser
+	loginuser = para_loginuser
 
 
 def openNewTaskDialog(self):
 	import NewTask
-	my = NewTask.NewTask(default_User)
+	my = NewTask.NewTask(loginuser)
 	my.show()
 	# alter way of connect
-	my.communicate.mySignal[task.Task].connect(getDialogSignal)
+	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 """
@@ -166,6 +170,7 @@ def teststr(s):
 def getDialogSignal(task):
 	global tasklist
 	tasklist.append(task)
+	matrix_distributeTask()
 	print("Yes")
 	matrix_refresh()
 
