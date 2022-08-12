@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
+
 import database
 from ui_newtask import *
 import task as tk
@@ -77,13 +78,14 @@ class NewTask(QDialog, Ui_NewTask):
 
 	# RET : task:obj
 	def getInformation(self):
-		title = self.title_edit.text()
-		description = self.description_edit.text()
-		text = self.text_edit.toPlainText()
+		from pymysql.converters import escape_string
+		title = escape_string(self.title_edit.text())
+		description = escape_string(self.description_edit.text())
+		text = escape_string(self.text_edit.toPlainText())
 		importance = int(self.comboBox.currentText()[0])
 		frequency = self.dailytask_checkbox.isChecked()
-		type = self.type_combo_box.currentText()
-		state = self.state_comboBox.currentText()
+		type = escape_string(self.type_combo_box.currentText())
+		state = escape_string(self.state_comboBox.currentText())
 		start_time = qtime_to_timestr(self.start_timeedit.dateTime())
 		ddl= qtime_to_timestr(self.ddi_timeedit.dateTime())
 		# TODO:strings including ' or \ .etc need to be translated

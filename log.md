@@ -251,3 +251,11 @@
 *Author:YJK*
 
 1. databa.py支持新方法`get_task_list_database`，可以用user对象直接获取其所有tasks
+
+## fix: support transfered meaning in mysql syntax
+
+*Date:2022/08/11*
+
+*Author:YJK*
+
+1. 对用户输入的字符串进行符合mysql的转义，以保证可以被数据库存储
