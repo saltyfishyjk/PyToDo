@@ -277,3 +277,11 @@
 1. New Task对话框支持删除按钮和相关数据同步
 1. 修复从数据库获取的task.isDaily类型为bool
 
+## feat: add new class Tasks in NewTask.py; support return Tasks for caller to get immediate task_list when calling NewTask Window
+
+*Date:2022/08/13*
+
+*Author:YJK*
+
+1. NewTask.py新增Tasks类，提供一个Task对象的列表
+1. NewTask的submmit, cancel, delete支持调用结束返回Tasks对象

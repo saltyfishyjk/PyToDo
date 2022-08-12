@@ -32,19 +32,30 @@ def qtime_to_timestr(qtime):
 	return s
 
 
+class Tasks:
+	def __init__(self):
+		self.ls = []
+
+	def add_task(self, task):
+		self.ls.append(task)
+
+
 # Signal Class using PyQt5
 from PyQt5.Qt import QObject
+
+
 class NewTaskCommuciate(QObject):
 	from PyQt5.Qt import pyqtSignal
-	mySignal = pyqtSignal([tk.Task], [str])
+	mySignal = pyqtSignal([tk.Task], [str], [Tasks])
 
 	def __init__(self):
 		super().__init__()
 
-# IN : task:obj & hint:str
-	def run(self, task, hint):
+# IN : task:obj & hint:str & task_list:
+	def run(self, task=None, hint="", task_list=None):
 		self.mySignal[tk.Task].emit(task)
 		self.mySignal[str].emit(hint)
+		self.mySignal[Tasks].emit(task_list)
 
 
 class NewTask(QDialog, Ui_NewTask):
@@ -63,25 +74,31 @@ class NewTask(QDialog, Ui_NewTask):
 
 	def submit(self):
 		task = self.getInformation()
-		self.communicate.run(task, "Success")
+		# self.communicate.run(task, "Success")
 		if not self.intask:
 			database.modify_task_database(user=self.user, new_task=task)
 		else:
 			database.add_task_database(user=self.user, task=task)
+		task_list = get_task_list_database(self.user)
+		self.communicate.run(task=task, hint="Success", task_list=task_list)
 		self.close()
 
 	def cancel(self):
 		# self.communicate.run(default_Task, "Fail")
 		# if not == non-None
+		task_list = get_task_list_database(self.user)
 		if not self.intask:
-			self.communicate.run(self.intask, "Success")
+			self.communicate.run(task=self.intask, hint="Success", task_list=task_list)
 		self.close()
 
 	def delete(self):
 		print("Deleting")
 		if not self.intask:
 			database.delete_task_database(user=self.user, old_task=self.intask)
+		task_list = get_task_list_database(self.user)
+		self.communicate.run(task=None, hint="Success", task_list=task_list)
 		self.close()
+
 	# RET : task:obj
 	def getInformation(self):
 		from pymysql.converters import escape_string
