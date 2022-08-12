@@ -17,7 +17,7 @@ os.environ["QT_FONT_DPI"] = "96"  # FIX Problem for High DPI and Scale above 100
 widgets = None
 account = 'admin'
 tasks = []
-debug_tag = False
+debug_tag = True
 
 
 class MainWindow(QMainWindow):
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
 
 		# LEFT MENUS
 		widgets.btn_home.clicked.connect(self.buttonClick)
-		widgets.btn_widgets.clicked.connect(self.buttonClick)
+		widgets.btn_arrange.clicked.connect(self.buttonClick)
 		widgets.btn_calendar.clicked.connect(self.buttonClick)
 		widgets.btn_matrix.clicked.connect(self.buttonClick)
 		widgets.btn_save.clicked.connect(self.buttonClick)
@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
 			widgets.stackedWidget.setCurrentWidget(widgets.home)
 
 		# SHOW WIDGETS PAGE
-		if btnName == "btn_widgets":
+		if btnName == "btn_arrange":
 			widgets.stackedWidget.setCurrentWidget(widgets.widgets)
 
 		# SHOW CALENDAR PAGE
