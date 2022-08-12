@@ -188,6 +188,7 @@ def getDialogSignal(task):
 	global tasklist
 	tasklist.append(task)
 	matrix_distributeTask()
+	print("Yes")
 	matrix_refresh()
 
 
