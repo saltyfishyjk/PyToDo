@@ -267,3 +267,13 @@
 *Author:YJK*
 
 1. 修复从数据库获取的task.isDaily类型为bool
+
+## feat: support delete button and related features; fix in database.py
+
+*Date:2022/08/12*
+
+*Author:YJK*
+
+1. New Task对话框支持删除按钮和相关数据同步
+1. 修复从数据库获取的task.isDaily类型为bool
+

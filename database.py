@@ -93,7 +93,7 @@ def get_task_list(fet):
 					creatTime=index[4],
 					description=index[5],
 					importance=index[6],
-					isDaily=bool(index[7]),
+					isDaily=True if index[7] == 'True' else False,
 					type=index[8],
 					ddl=index[9],
 					state=index[10],

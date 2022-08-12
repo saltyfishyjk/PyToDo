@@ -65,17 +65,23 @@ class NewTask(QDialog, Ui_NewTask):
 		task = self.getInformation()
 		self.communicate.run(task, "Success")
 		if not self.intask:
-			database.modify_task_database(user=self, new_task=task)
+			database.modify_task_database(user=self.user, new_task=task)
 		else:
 			database.add_task_database(user=self.user, task=task)
 		self.close()
 
 	def cancel(self):
 		# self.communicate.run(default_Task, "Fail")
+		# if not == non-None
 		if not self.intask:
 			self.communicate.run(self.intask, "Success")
 		self.close()
 
+	def delete(self):
+		print("Deleting")
+		if not self.intask:
+			database.delete_task_database(user=self.user, old_task=self.intask)
+		self.close()
 	# RET : task:obj
 	def getInformation(self):
 		from pymysql.converters import escape_string
