@@ -71,10 +71,13 @@ def refresh_calendar(y=curYear, m=curMonth):
         year=ddl[0]
         month=ddl[1]
         day=ddl[2]
-        if curMonth==month and year==curYear and task.isDaily==False:
+        if curMonth==month and year==curYear and task.isDaily=='False' or task.isDaily==False:
             r, c=getPos(year, month, day)
             displayTask(task, r, c)
-        if task.isDaily:
+        #print('\n###\ntask.isDaily Type:')
+        #print(type(task.isDaily))
+        #print('###')
+        if task.isDaily=='True' or task.isDaily==True:
             for row in range(1,7):
                 for col in range(0,7):
                     yy,mm,dd=getCellDate(curYear,curMonth,row,col)
