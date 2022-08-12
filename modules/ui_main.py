@@ -671,17 +671,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.btn_home)
 
-        self.btn_widgets = QPushButton(self.topMenu)
-        self.btn_widgets.setObjectName(u"btn_widgets")
-        sizePolicy.setHeightForWidth(self.btn_widgets.sizePolicy().hasHeightForWidth())
-        self.btn_widgets.setSizePolicy(sizePolicy)
-        self.btn_widgets.setMinimumSize(QSize(0, 45))
-        self.btn_widgets.setFont(font)
-        self.btn_widgets.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_widgets.setLayoutDirection(Qt.LeftToRight)
-        self.btn_widgets.setStyleSheet(u"background-image: url(:/icons/images/icons/arrange.png);")
+        self.btn_arrange = QPushButton(self.topMenu)
+        self.btn_arrange.setObjectName(u"btn_arrange")
+        sizePolicy.setHeightForWidth(self.btn_arrange.sizePolicy().hasHeightForWidth())
+        self.btn_arrange.setSizePolicy(sizePolicy)
+        self.btn_arrange.setMinimumSize(QSize(0, 45))
+        self.btn_arrange.setFont(font)
+        self.btn_arrange.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_arrange.setLayoutDirection(Qt.LeftToRight)
+        self.btn_arrange.setStyleSheet(u"background-image: url(:/icons/images/icons/arrange.png);")
 
-        self.verticalLayout_8.addWidget(self.btn_widgets)
+        self.verticalLayout_8.addWidget(self.btn_arrange)
 
         self.btn_calendar = QPushButton(self.topMenu)
         self.btn_calendar.setObjectName(u"btn_calendar")
@@ -1397,7 +1397,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.row_3)
 
-        self.stackedWidget.addWidget(self.widgets)
+
+        self.arrange_page = QWidget()
+        self.arrange_page.setObjectName(u"calendar_page")
+        self.stackedWidget.addWidget(self.arrange_page)
         self.calendar_page = QWidget()
         self.calendar_page.setObjectName(u"calendar_page")
 
@@ -1585,7 +1588,7 @@ class Ui_MainWindow(object):
         self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>powered by pyside6</p></body></html>", None))
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.btn_widgets.setText(QCoreApplication.translate("MainWindow", u"arrange", None))
+        self.btn_arrange.setText(QCoreApplication.translate("MainWindow", u"arrange", None))
         self.btn_calendar.setText(QCoreApplication.translate("MainWindow", u"calendar", None))
         self.btn_matrix.setText(QCoreApplication.translate("MainWindow", u"matrix", None))
         self.btn_save.setText(QCoreApplication.translate("MainWindow", u"TODO Quadrant", None))
