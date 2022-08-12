@@ -5,6 +5,7 @@ import time
 import datetime
 
 from task import Task
+from datetime import timedelta
 
 time_tuple = time.localtime(time.time())
 curYear=time_tuple[0]
@@ -50,13 +51,8 @@ def testTaskCreate():
     #ui_calendar[row][col].appendHtml('<font size="4",align="center", color=\"#000000\">'+"Test Task<br>"+'</font>')
     #ui_calendar[row][col].clear()
 
-def displayTask(task):
+def displayTask(task, row, col):
     global ui_calendar
-    ddl=list(map(int,task.ddl.split('/')))
-    year=ddl[0]
-    month=ddl[1]
-    day=ddl[2]
-    row, col=getPos(year, month, day)
     ui_calendar[row][col].appendHtml('<font size="3",align="center", color=\"#000000\">'+task.title+'</font>')
 
 def refresh_calendar(y=curYear, m=curMonth):
@@ -70,16 +66,33 @@ def refresh_calendar(y=curYear, m=curMonth):
     ui.CalendarTitle.setReadOnly(True)
     fillDate(y,m)
     for task in tasks:
+        #print("##"+task.title)
         ddl=list(map(int,task.ddl.split('/')))
         year=ddl[0]
         month=ddl[1]
         day=ddl[2]
-        if curMonth==month and year==curYear:
-            displayTask(task)
+        if curMonth==month and year==curYear and task.isDaily==False:
+            r, c=getPos(year, month, day)
+            displayTask(task, r, c)
+        if task.isDaily:
+            for row in range(1,7):
+                for col in range(0,7):
+                    yy,mm,dd=getCellDate(curYear,curMonth,row,col)
+                    #print(yy+'-'+mm+'-'+dd)
+                    #print(task.matrix_time_compare())
+                    #print(int(yy)*10000+int(mm)*100+int(dd))
+                    if task.matrix_time_compare()<=(int(yy)*10000+int(mm)*100+int(dd)):
+                        #print('in')
+                        displayTask(task, row, col)
+
+def getCellDate(y,m,row,col):
+    start_row,start_col=getPos(y,m,1)
+    today=datetime.datetime(y, m, 1) + timedelta(days = (row-start_row)*7+(col-start_col))
+    yy,mm,dd=today.strftime("%Y-%m-%d").split('-')
+    return yy,mm,dd
 
 def fillDate(y,m):
     global ui_calendar
-    from datetime import timedelta
     start_row,start_col=getPos(y,m,1)
     for row in range(1,7):
         for col in range(0,7):
