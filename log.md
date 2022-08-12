@@ -254,8 +254,16 @@
 
 ## fix: support transfered meaning in mysql syntax
 
-*Date:2022/08/11*
+*Date:2022/08/12*
 
 *Author:YJK*
 
 1. 对用户输入的字符串进行符合mysql的转义，以保证可以被数据库存储
+
+## fix: fix type of task.isDaily to bool from database
+
+*Date:2022/08/12*
+
+*Author:YJK*
+
+1. 修复从数据库获取的task.isDaily类型为bool
