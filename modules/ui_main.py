@@ -1052,9 +1052,9 @@ class Ui_MainWindow(object):
         self.stackedWidget.setStyleSheet(u"background: transparent;")
         self.home = QWidget()
         self.home.setObjectName(u"home")
-        self.home.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
-"background-position: center;\n"
-"background-repeat: no-repeat;")
+#         self.home.setStyleSheet(u"background-image: url(:/images/images/images/PyDracula_vertical.png);\n"
+# "background-position: center;\n"
+# "background-repeat: no-repeat;")
         self.stackedWidget.addWidget(self.home)
         self.widgets = QWidget()
         self.widgets.setObjectName(u"widgets")
@@ -1693,3 +1693,191 @@ class Ui_MainWindow(object):
         self.version.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
     # retranslateUi
 
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(2)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        self.Arrange_horizontalLayout = QHBoxLayout(self.arrange_page)
+        self.Arrange_horizontalLayout.setSpacing(0)
+        self.Arrange_horizontalLayout.setObjectName(u"Arrange_horizontalLayout")
+        self.Arrange_horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.Arrange_frame = QFrame(self.arrange_page)
+        self.Arrange_frame.setObjectName(u"Arrange_frame")
+        sizePolicy.setHeightForWidth(self.Arrange_frame.sizePolicy().hasHeightForWidth())
+        self.Arrange_frame.setSizePolicy(sizePolicy)
+        self.Arrange_frame.setFrameShape(QFrame.StyledPanel)
+        self.Arrange_frame.setFrameShadow(QFrame.Raised)
+        self.Arrange_horizontalLayout_2 = QHBoxLayout(self.Arrange_frame)
+        self.Arrange_horizontalLayout_2.setSpacing(0)
+        self.Arrange_horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.Arrange_horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.Arrange_listWidget = QListWidget(self.Arrange_frame)
+        self.Arrange_listWidget.setObjectName(u"Arrange_listWidget")
+        self.Arrange_listWidget.setStyleSheet(u"border:None;\n"
+                                              "background-color:rgb(242,231,249);"
+                                              "")
+
+        self.Arrange_horizontalLayout_2.addWidget(self.Arrange_listWidget)
+
+        self.Arrange_horizontalLayout.addWidget(self.Arrange_frame)
+
+        self.Arrange_frame_2 = QFrame(self.arrange_page)
+        self.Arrange_frame_2.setObjectName(u"Arrange_frame_2")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(5)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.Arrange_frame_2.sizePolicy().hasHeightForWidth())
+        self.Arrange_frame_2.setSizePolicy(sizePolicy1)
+        self.Arrange_frame_2.setFrameShape(QFrame.StyledPanel)
+        self.Arrange_frame_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.Arrange_frame_2)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.Arrange_frame_3 = QFrame(self.Arrange_frame_2)
+        self.Arrange_frame_3.setObjectName(u"Arrange_frame_3")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(1)
+        sizePolicy2.setHeightForWidth(self.Arrange_frame_3.sizePolicy().hasHeightForWidth())
+        self.Arrange_frame_3.setSizePolicy(sizePolicy2)
+        self.Arrange_frame_3.setFrameShape(QFrame.StyledPanel)
+        self.Arrange_frame_3.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.Arrange_frame_3)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.Arrange_horizontalLayout_3 = QHBoxLayout()
+        self.Arrange_horizontalLayout_3.setObjectName(u"Arrange_horizontalLayout_3")
+        self.Arrange_label = QLabel(self.Arrange_frame_3)
+        self.Arrange_label.setObjectName(u"Arrange_label")
+        font = QFont()
+        font.setFamilies([u"\u534e\u6587\u7425\u73c0"])
+        self.Arrange_label.setFont(font)
+
+        self.Arrange_horizontalLayout_3.addWidget(self.Arrange_label)
+
+        self.Arrange_horizontalSlider = QSlider(self.Arrange_frame_3)
+        self.Arrange_horizontalSlider.setObjectName(u"Arrange_horizontalSlider")
+        self.Arrange_horizontalSlider.setStyleSheet(u"background-color:rgb(242,231,249);\n"
+                                                    "")
+        self.Arrange_horizontalSlider.setMinimum(0)
+        self.Arrange_horizontalSlider.setMaximum(10)
+        self.Arrange_horizontalSlider.setPageStep(1)
+        self.Arrange_horizontalSlider.setOrientation(Qt.Horizontal)
+        self.Arrange_horizontalSlider.setTickPosition(QSlider.TicksBelow)
+
+        self.Arrange_horizontalLayout_3.addWidget(self.Arrange_horizontalSlider)
+
+        self.verticalLayout_2.addLayout(self.Arrange_horizontalLayout_3)
+
+        self.Arrange_horizontalLayout_4 = QHBoxLayout()
+        self.Arrange_horizontalLayout_4.setObjectName(u"Arrange_horizontalLayout_4")
+        self.Arrange_label_2 = QLabel(self.Arrange_frame_3)
+        self.Arrange_label_2.setObjectName(u"Arrange_label_2")
+        self.Arrange_label_2.setFont(font)
+
+        self.Arrange_horizontalLayout_4.addWidget(self.Arrange_label_2)
+
+        self.Arrange_horizontalSlider_2 = QSlider(self.Arrange_frame_3)
+        self.Arrange_horizontalSlider_2.setObjectName(u"Arrange_horizontalSlider_2")
+        self.Arrange_horizontalSlider_2.setStyleSheet(u"background-color:rgb(242,231,249);")
+        self.Arrange_horizontalSlider_2.setMinimum(0)
+        self.Arrange_horizontalSlider_2.setMaximum(10)
+        self.Arrange_horizontalSlider_2.setPageStep(1)
+        self.Arrange_horizontalSlider_2.setOrientation(Qt.Horizontal)
+        self.Arrange_horizontalSlider_2.setTickPosition(QSlider.TicksBelow)
+
+        self.Arrange_horizontalLayout_4.addWidget(self.Arrange_horizontalSlider_2)
+
+        self.verticalLayout_2.addLayout(self.Arrange_horizontalLayout_4)
+
+        self.Arrange_horizontalLayout_5 = QHBoxLayout()
+        self.Arrange_horizontalLayout_5.setObjectName(u"Arrange_horizontalLayout_5")
+        self.Arrange_label_3 = QLabel(self.Arrange_frame_3)
+        self.Arrange_label_3.setObjectName(u"Arrange_label_3")
+        self.Arrange_label_3.setFont(font)
+
+        self.Arrange_horizontalLayout_5.addWidget(self.Arrange_label_3)
+
+        self.Arrange_horizontalSlider_3 = QSlider(self.Arrange_frame_3)
+        self.Arrange_horizontalSlider_3.setObjectName(u"Arrange_horizontalSlider_3")
+        self.Arrange_horizontalSlider_3.setStyleSheet(u"background-color:rgb(242,231,249);")
+        self.Arrange_horizontalSlider_3.setMinimum(0)
+        self.Arrange_horizontalSlider_3.setMaximum(10)
+        self.Arrange_horizontalSlider_3.setPageStep(1)
+        self.Arrange_horizontalSlider_3.setOrientation(Qt.Horizontal)
+        self.Arrange_horizontalSlider_3.setTickPosition(QSlider.TicksBelow)
+
+        self.Arrange_horizontalLayout_5.addWidget(self.Arrange_horizontalSlider_3)
+
+        self.verticalLayout_2.addLayout(self.Arrange_horizontalLayout_5)
+
+        self.verticalLayout.addWidget(self.Arrange_frame_3)
+
+        self.Arrange_frame_4 = QFrame(self.Arrange_frame_2)
+        self.Arrange_frame_4.setObjectName(u"Arrange_frame_4")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(2)
+        sizePolicy3.setHeightForWidth(self.Arrange_frame_4.sizePolicy().hasHeightForWidth())
+        self.Arrange_frame_4.setSizePolicy(sizePolicy3)
+        self.Arrange_frame_4.setFrameShape(QFrame.StyledPanel)
+        self.Arrange_frame_4.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_3 = QVBoxLayout(self.Arrange_frame_4)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.Arrange_label_4 = QLabel(self.Arrange_frame_4)
+        self.Arrange_label_4.setObjectName(u"Arrange_label_4")
+        sizePolicy2.setHeightForWidth(self.Arrange_label_4.sizePolicy().hasHeightForWidth())
+        self.Arrange_label_4.setSizePolicy(sizePolicy2)
+        font1 = QFont()
+        font1.setFamilies([u"Segoe Print"])
+        self.Arrange_label_4.setFont(font1)
+
+        self.verticalLayout_3.addWidget(self.Arrange_label_4)
+
+        self.Arrange_listWidget_2 = QListWidget(self.Arrange_frame_4)
+        self.Arrange_listWidget_2.setObjectName(u"Arrange_listWidget_2")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(3)
+        sizePolicy4.setHeightForWidth(self.Arrange_listWidget_2.sizePolicy().hasHeightForWidth())
+        self.Arrange_listWidget_2.setSizePolicy(sizePolicy4)
+        self.Arrange_listWidget_2.setStyleSheet(u"border:None;\n"
+                                                "")
+
+        self.verticalLayout_3.addWidget(self.Arrange_listWidget_2)
+
+        self.Arrange_label_5 = QLabel(self.Arrange_frame_4)
+        self.Arrange_label_5.setObjectName(u"Arrange_label_5")
+        sizePolicy2.setHeightForWidth(self.Arrange_label_5.sizePolicy().hasHeightForWidth())
+        self.Arrange_label_5.setSizePolicy(sizePolicy2)
+        self.Arrange_label_5.setFont(font1)
+
+        self.verticalLayout_3.addWidget(self.Arrange_label_5)
+
+        self.Arrange_listWidget_3 = QListWidget(self.Arrange_frame_4)
+        self.Arrange_listWidget_3.setObjectName(u"Arrange_listWidget_3")
+        sizePolicy4.setHeightForWidth(self.Arrange_listWidget_3.sizePolicy().hasHeightForWidth())
+        self.Arrange_listWidget_3.setSizePolicy(sizePolicy4)
+        self.Arrange_listWidget_3.setStyleSheet(u"border:None;\n"
+                                                "")
+
+        self.verticalLayout_3.addWidget(self.Arrange_listWidget_3)
+
+        self.verticalLayout.addWidget(self.Arrange_frame_4)
+
+        self.Arrange_horizontalLayout.addWidget(self.Arrange_frame_2)
+
+        self.Arrange_label.setText(u"<html><head/><body><p>\u6478\u9c7c\u6b32\u671b</p></body></html>")
+        self.Arrange_label_2.setText(u"<html><head/><body><p>\u75b2\u60eb\u7a0b\u5ea6</p></body></html>")
+        self.Arrange_label_3.setText(u"<html><head/><body><p>\u4e13\u6ce8\u7a0b\u5ea6</p></body></html>")
+        self.Arrange_label_4.setText(
+            u"<html><head/><body><p><span style=\" font-weight:600;\">Current</span></p></body></html>")
+        self.Arrange_label_5.setText(
+            u"<html><head/><body><p><span style=\" font-weight:600;\">Next</span></p></body></html>")
+
+        self.Arrange_label.setStyleSheet(u"font: 18pt, \"\u534e\u6587\u7425\u73c0\";")
+        self.Arrange_label_2.setStyleSheet(u"font: 18pt, \"\u534e\u6587\u7425\u73c0\";")
+        self.Arrange_label_3.setStyleSheet(u"font: 18pt, \"\u534e\u6587\u7425\u73c0\";")
+        self.Arrange_label_4.setStyleSheet(u"font: 20pt \"Segoe Print\";")
+        self.Arrange_label_5.setStyleSheet(u"font: 20pt \"Segoe Print\";")
+        self.arrange_page.setStyleSheet(u"font: 16pt ;")

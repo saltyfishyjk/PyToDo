@@ -145,8 +145,9 @@ class MainWindow(QMainWindow):
 
 		# SHOW WIDGETS PAGE
 		if btnName == "btn_arrange":
-			widgets.stackedWidget.setCurrentWidget(widgets.widgets)
-
+			widgets.stackedWidget.setCurrentWidget(widgets.arrange_page)
+			self.arrange_showList()
+			
 		# SHOW CALENDAR PAGE
 		if btnName == "btn_calendar":
 			widgets.stackedWidget.setCurrentWidget(widgets.calendar_page)  # SET PAGE
@@ -351,9 +352,158 @@ class MainWindow(QMainWindow):
 	def cancel(self):
 		self.showTodo('All', None)
 
+	def arrange_showList(self):
+		def struct1(task):
+			centralwidget = QWidget()
+			# self.centralwidget.setObjectName(u"centralwidget")
+			centralwidget.setStyleSheet(u"background-color: rgb(242,231,249);")
+			horizontalLayout = QHBoxLayout(centralwidget)
+			horizontalLayout.setSpacing(0)
+			horizontalLayout.setObjectName(u"horizontalLayout")
+			horizontalLayout.setContentsMargins(0, 0, 0, 0)
+			frame = QFrame(centralwidget)
+			frame.setObjectName(u"frame")
+			frame.setStyleSheet(u"#frame{ \n"
+								"		border:2px solid rgb(255, 121, 198);\n"
+								"		border-radius: 15px;\n"
+								"		background-color:rgb(242,231,249);\n"
+								"}\n"
+								"")
+			frame.setFrameShape(QFrame.StyledPanel)
+			frame.setFrameShadow(QFrame.Raised)
+			verticalLayout = QVBoxLayout(frame)
+			# self.verticalLayout.setObjectName(u"verticalLayout")
+			label = QLabel(frame)
+			# self.label.setObjectName(u"label")
+			sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+			sizePolicy.setHorizontalStretch(0)
+			sizePolicy.setVerticalStretch(1)
+			sizePolicy.setHeightForWidth(label.sizePolicy().hasHeightForWidth())
+			label.setSizePolicy(sizePolicy)
+			label.setStyleSheet(u"background-color:rgb(242,231,249);")
+			label.setText(task.title)
+			verticalLayout.addWidget(label)
+
+			label_2 = QLabel(frame)
+			# self.label_2.setObjectName(u"label_2")
+			sizePolicy.setHeightForWidth(label_2.sizePolicy().hasHeightForWidth())
+			label_2.setSizePolicy(sizePolicy)
+			label_2.setStyleSheet(u"background-color:rgb(242,231,249);")
+			label_2.setText(task.ddl)
+			verticalLayout.addWidget(label_2)
+
+			textBrowser = QTextBrowser(frame)
+			textBrowser.setObjectName(u"textBrowser")
+			sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+			sizePolicy1.setHorizontalStretch(0)
+			sizePolicy1.setVerticalStretch(3)
+			sizePolicy1.setHeightForWidth(textBrowser.sizePolicy().hasHeightForWidth())
+			textBrowser.setSizePolicy(sizePolicy1)
+			textBrowser.setStyleSheet(u"background-color:rgb(242,231,249);\n"
+									  "border:none;")
+
+			textBrowser.setText(task.description)
+			verticalLayout.addWidget(textBrowser)
+
+			horizontalLayout.addWidget(frame)
+			return centralwidget
+
+		def struct2(task):
+			centralwidget = QWidget()
+			# self.centralwidget.setObjectName(u"centralwidget")
+			horizontalLayout = QHBoxLayout(centralwidget)
+			# horizontalLayout.setObjectName(u"horizontalLayout")
+			frame = QFrame(centralwidget)
+			centralwidget.setStyleSheet(u"QWidget{ \n"
+										"		border-radius: 15px;\n"
+										"		background-color:rgb(122, 138, 202);\n"
+										"       font: bold 18pt ; \n"
+										"}\n"
+										"")
+			# self.frame.setObjectName(u"frame")
+			sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+			sizePolicy1.setHorizontalStretch(5)
+			sizePolicy1.setVerticalStretch(0)
+			sizePolicy1.setHeightForWidth(frame.sizePolicy().hasHeightForWidth())
+			frame.setSizePolicy(sizePolicy1)
+			frame.setFrameShape(QFrame.StyledPanel)
+			frame.setFrameShadow(QFrame.Raised)
+			verticalLayout = QVBoxLayout(frame)
+			verticalLayout.setSpacing(0)
+			verticalLayout.setObjectName(u"verticalLayout")
+			verticalLayout.setContentsMargins(0, 0, 0, 0)
+			label_2 = QLabel(frame)
+			# self.label_2.setObjectName(u"label_2")
+			label_2.setText(task.title)
+
+			verticalLayout.addWidget(label_2)
+
+			horizontalLayout_2 = QHBoxLayout()
+			# self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+			label_3 = QLabel(frame)
+			# self.label_3.setObjectName(u"label_3")
+			label_3.setText(task.ddl)
+
+			horizontalLayout_2.addWidget(label_3)
+
+			label_4 = QLabel(frame)
+			# self.label_4.setObjectName(u"label_4")
+			string = "重要性：%d" % task.importance
+			label_4.setText(string)
+
+			horizontalLayout_2.addWidget(label_4)
+
+			verticalLayout.addLayout(horizontalLayout_2)
+
+			horizontalLayout.addWidget(frame)
+
+			label = QLabel(centralwidget)
+			label.setText(task.state)
+
+			# label.setObjectName(u"label")
+			sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+			sizePolicy2.setHorizontalStretch(1)
+			sizePolicy2.setVerticalStretch(0)
+			sizePolicy2.setHeightForWidth(label.sizePolicy().hasHeightForWidth())
+			label.setSizePolicy(sizePolicy2)
+			horizontalLayout.addWidget(label)
+
+			return centralwidget
+
+		self.ui.Arrange_listWidget.clear()
+
+		for pTask in taskTemp:
+			if pTask.state != 'finished':
+				item = QListWidgetItem()
+				item.setSizeHint(QSize(100, 100))
+				widget = struct1(pTask)
+				self.ui.Arrange_listWidget.addItem(item)
+				self.ui.Arrange_listWidget.setItemWidget(item, widget)
+
+		self.ui.Arrange_listWidget_2.clear()
+		self.ui.Arrange_listWidget_3.clear()
+		count = 0
+		for pTask in taskTemp:
+			if pTask.state != 'finished':
+				if count == 0:
+					item = QListWidgetItem()
+					item.setSizeHint(QSize(120, 100))
+					widget = struct2(pTask)
+					self.ui.Arrange_listWidget_2.addItem(item)
+					self.ui.Arrange_listWidget_2.setItemWidget(item, widget)
+					count += 1
+				elif count == 1:
+					item = QListWidgetItem()
+					item.setSizeHint(QSize(80, 100))
+					widget = struct2(pTask)
+					self.ui.Arrange_listWidget_3.addItem(item)
+					self.ui.Arrange_listWidget_3.setItemWidget(item, widget)
+					count += 1
+				else:
+					break
 
 from task import Task
-
+### 测试用样例
 taskTemp = []
 taskMap = {}
 for i in range(1, 21):
