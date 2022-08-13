@@ -285,3 +285,11 @@
 
 1. NewTask.py新增Tasks类，提供一个Task对象的列表
 1. NewTask的submmit, cancel, delete支持调用结束返回Tasks对象
+
+## fix: fix existing task's appearence in NewTask
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 修复对已存在task的显示
