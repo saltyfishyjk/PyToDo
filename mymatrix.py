@@ -148,7 +148,7 @@ def matrix_new_defaultTask():
 		title='None',
 		text='',
 		author='anonymity',
-		creatTime='---- / -- / --',
+		creatTime=default_creatTime,
 		description='',
 		importance=1,
 		isDaily=False,
@@ -172,112 +172,178 @@ def send_user_to_matrix(para_loginuser):
 
 def openNewTaskDialog0000(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task00[0])
+	my = None
+	print(task00[0].creatTime)
+	if isDefaultBlankTask(task00[0]):
+		
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[0])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0001(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task00[1])
+	my = None
+	if isDefaultBlankTask(task00[1]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[1])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0010(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task00[2])
+	my = None
+	if isDefaultBlankTask(task00[2]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[2])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0011(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task00[3])
+	my = None
+	if isDefaultBlankTask(task00[3]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[3])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0100(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task01[0])
+	my = None
+	if isDefaultBlankTask(task01[0]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task01[0])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0101(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task01[1])
+	my = None
+	if isDefaultBlankTask(task01[1]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[1])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0110(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task01[2])
+	my = None
+	if isDefaultBlankTask(task01[2]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[2])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0111(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task01[3])
+	my = None
+	if isDefaultBlankTask(task01[3]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task00[3])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1000(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task10[0])
+	my = None
+	if isDefaultBlankTask(task10[0]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task10[0])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1001(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task10[1])
+	my = None
+	if isDefaultBlankTask(task10[1]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task10[1])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1010(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task10[2])
+	my = None
+	if isDefaultBlankTask(task10[2]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task10[2])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1011(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task10[3])
+	my = None
+	if isDefaultBlankTask(task10[3]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task10[3])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1100(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task11[0])
+	my = None
+	if isDefaultBlankTask(task11[0]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task11[0])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1101(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task11[1])
+	my = None
+	if isDefaultBlankTask(task11[1]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task11[1])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1110(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task11[2])
+	my = None
+	if isDefaultBlankTask(task11[2]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task11[2])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1111(self):
 	import NewTask
-	my = NewTask.NewTask(loginuser, task11[3])
+	my = None
+	if isDefaultBlankTask(task11[3]):
+		my = NewTask.NewTask(loginuser)
+	else:
+		my = NewTask.NewTask(loginuser, task11[3])
 	my.show()
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
@@ -290,8 +356,8 @@ def teststr(s):
 def getDialogSignal(tasks):
 	global tasklist
 	tasklist=tasks
+	print('\n###\nreturn error type '+str(type(tasklist))+'\n###\n')
 	matrix_distributeTask()
-	print("Yes")
 	matrix_refresh()
 
 
