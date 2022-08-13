@@ -707,17 +707,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.btn_matrix)
 
-        self.btn_save = QPushButton(self.topMenu)
-        self.btn_save.setObjectName(u"btn_save")
-        sizePolicy.setHeightForWidth(self.btn_save.sizePolicy().hasHeightForWidth())
-        self.btn_save.setSizePolicy(sizePolicy)
-        self.btn_save.setMinimumSize(QSize(0, 45))
-        self.btn_save.setFont(font)
-        self.btn_save.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_save.setLayoutDirection(Qt.LeftToRight)
-        self.btn_save.setStyleSheet(u"background-image: url(:/icons/images/icons/martix.png);")
+        self.btn_pic = QPushButton(self.topMenu)
+        self.btn_pic.setObjectName(u"btn_pic")
+        sizePolicy.setHeightForWidth(self.btn_pic.sizePolicy().hasHeightForWidth())
+        self.btn_pic.setSizePolicy(sizePolicy)
+        self.btn_pic.setMinimumSize(QSize(0, 45))
+        self.btn_pic.setFont(font)
+        self.btn_pic.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_pic.setLayoutDirection(Qt.LeftToRight)
+        self.btn_pic.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-chart.png);")
 
-        self.verticalLayout_8.addWidget(self.btn_save)
+        self.verticalLayout_8.addWidget(self.btn_pic)
         '''
         self.btn_exit = QPushButton(self.topMenu)
         self.btn_exit.setObjectName(u"btn_exit")
@@ -1432,9 +1432,9 @@ class Ui_MainWindow(object):
         self.matrix_page.setObjectName(u"matrix_page")
         self.stackedWidget.addWidget(self.matrix_page)
         
-        self.save_page = QWidget()
-        self.save_page.setObjectName(u"save_page")
-        self.stackedWidget.addWidget(self.save_page)
+        self.pic_page = QWidget()
+        self.pic_page.setObjectName(u"pic_page")
+        self.stackedWidget.addWidget(self.pic_page)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
 
@@ -1591,7 +1591,7 @@ class Ui_MainWindow(object):
         self.btn_arrange.setText(QCoreApplication.translate("MainWindow", u"arrange", None))
         self.btn_calendar.setText(QCoreApplication.translate("MainWindow", u"calendar", None))
         self.btn_matrix.setText(QCoreApplication.translate("MainWindow", u"matrix", None))
-        self.btn_save.setText(QCoreApplication.translate("MainWindow", u"TODO Quadrant", None))
+        self.btn_pic.setText(QCoreApplication.translate("MainWindow", u"TODO Quadrant", None))
         #self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
         self.extraLabel.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))

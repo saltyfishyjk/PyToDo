@@ -10,12 +10,21 @@ class SignWindow(QWidget):
 		super(SignWindow, self).__init__()
 		self.setWindowTitle("PyToDo - Sign up")  # 设置窗口标题
 		self.resize(640, 400)  # 设置窗口大小
+		self.set_background_image()
 		self.set_ui()  # 调用其他方法
 
 	def set_ui(self):
 		self.add_line_edit()
 		self.add_button()
 		#self.add_label()
+
+	def set_background_image(self):
+		self.pix = QPixmap('img/pic.png')
+
+		self.lb1 = QLabel(self)
+		self.lb1.setGeometry(0,0,640,400)
+		self.lb1.setStyleSheet("border: 1px solid black")
+		self.lb1.setPixmap(self.pix)
 
 	def add_label(self):
 		"""设计标签"""

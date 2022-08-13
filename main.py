@@ -45,6 +45,9 @@ class MainWindow(QMainWindow):
 		from ui_matrix import matrix_ui_init
 		matrix_ui_init(widgets)
 
+		from ui_pic import pic_ui_init
+		pic_ui_init(widgets)
+
 		# USE CUSTOM TITLE BAR | USE AS "False" FOR MAC OR LINUX
 		# ///////////////////////////////////////////////////////////////
 		Settings.ENABLE_CUSTOM_TITLE_BAR = True
@@ -83,7 +86,7 @@ class MainWindow(QMainWindow):
 		widgets.btn_arrange.clicked.connect(self.buttonClick)
 		widgets.btn_calendar.clicked.connect(self.buttonClick)
 		widgets.btn_matrix.clicked.connect(self.buttonClick)
-		widgets.btn_save.clicked.connect(self.buttonClick)
+		widgets.btn_pic.clicked.connect(self.buttonClick)
 		# widgets.btn_exit.clicked.connect(self.buttonClick)
 		# setup function
 		from mycalendar import setupCalendar
@@ -147,13 +150,19 @@ class MainWindow(QMainWindow):
 		# SHOW CALENDAR PAGE
 		if btnName == "btn_calendar":
 			widgets.stackedWidget.setCurrentWidget(widgets.calendar_page)  # SET PAGE
+			from mycalendar import refresh_calendar
+			refresh_calendar()
 
 		# SHOW MATRIX PAGE
 		if btnName == "btn_matrix":
 			widgets.stackedWidget.setCurrentWidget(widgets.matrix_page)  # SET PAGE
+			from mymatrix import matrix_refresh
+			matrix_refresh()
 
-		if btnName == "btn_save":
-			widgets.stackedWidget.setCurrentWidget(widgets.save_page)  # SET PAGE
+		if btnName == "btn_pic":
+			widgets.stackedWidget.setCurrentWidget(widgets.pic_page)  # SET PAGE
+			from ui_pic import pic_ui_init
+			pic_ui_init(widgets)
 
 		UIFunctions.resetStyle(self, btnName)  # RESET ANOTHERS BUTTONS SELECTED
 		btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))  # SELECT MENU
@@ -370,13 +379,14 @@ if __name__ == "__main__":
 	#loginState = True
 	from mymatrix import send_user_to_matrix
 	send_user_to_matrix(loginuser)
+	'''
 	print(loginuser)
 	for task in tasks:
 		print(task.title,end=',')
 		print(task.description,end=',')
 		print(task.text,end=',')
 		print(task.author,end=',')
-
+	'''
 	app.setWindowIcon(QIcon('inboxtodo.png'))
 	window = MainWindow()
 	if loginState:

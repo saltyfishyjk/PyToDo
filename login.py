@@ -22,6 +22,7 @@ class Login(QMainWindow, QFrame):
 		# self.admin_win = AdminWindow()  # 用户管理窗口
 		# self.main_win = Main()  # 登陆后的主页面
 		# self.admin_win.set_main_window(self.main_win)
+		self.set_background_image()
 		self.set_ui()
 		connect_database()
 
@@ -36,18 +37,15 @@ class Login(QMainWindow, QFrame):
 
 
 	def set_background_image(self):
-		"""添加背景图片"""
-		self.frame = QFrame(self)  # 使用QFrame
-		self.frame.resize(400, 240)
-		#self.frame.move(40, 150)
-		self.frame.setStyleSheet(
-			'background-image: url("./img/bg.jpg");'
-			' background-repeat: no-repeat;'
-			' text-align:center;')
+		self.pix = QPixmap('img/pic.png')
+
+		self.lb1 = QLabel(self)
+		self.lb1.setGeometry(0,0,640,400)
+		self.lb1.setStyleSheet("border: 1px solid black")
+		self.lb1.setPixmap(self.pix)
 
 
 	def add_label(self):
-		"""添加相应标签"""
 
 		# 设置字体
 		label_font = QFont()
