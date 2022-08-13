@@ -41,6 +41,7 @@ task00 = []
 task01 = []
 task10 = []
 task11 = []
+curEditTask = None
 ui = None
 loginuser = user.User(
 	id=11,
@@ -169,24 +170,126 @@ def send_user_to_matrix(para_loginuser):
 	loginuser = para_loginuser
 
 
-def openNewTaskDialog(self):
+def openNewTaskDialog0000(self):
 	import NewTask
-	# TODO:replace demotask with task when modify an existing task
-	my = NewTask.NewTask(loginuser, task=demotask)
+	my = NewTask.NewTask(loginuser, task00[0])
 	my.show()
-	# alter way of connect
 	my.communicate.mySignal[Task].connect(getDialogSignal)
 	my.exec()
 
+def openNewTaskDialog0001(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task00[1])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0010(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task00[2])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0011(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task00[3])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0100(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task01[0])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0101(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task01[1])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0110(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task01[2])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog0111(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task01[3])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1000(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task10[0])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1001(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task10[1])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1010(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task10[2])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1011(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task10[3])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1100(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task11[0])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1101(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task11[1])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1110(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task11[2])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
+
+def openNewTaskDialog1111(self):
+	import NewTask
+	my = NewTask.NewTask(loginuser, task11[3])
+	my.show()
+	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.exec()
 """
 # TEST
 def teststr(s):
 	print(s)
 """
 
-def getDialogSignal(task):
+def getDialogSignal(tasks):
 	global tasklist
-	tasklist.append(task)
+	tasklist=tasks
 	matrix_distributeTask()
 	print("Yes")
 	matrix_refresh()
@@ -224,9 +327,24 @@ def matrix_button_connect():
 	ar[3][1][4].clicked.connect(matrix_finishTask1101)
 	ar[3][2][4].clicked.connect(matrix_finishTask1110)
 	ar[3][3][4].clicked.connect(matrix_finishTask1111)
-	for i in range(0, 4):
-		for j in range(0, 4):
-			ar[i][j][3].clicked.connect(openNewTaskDialog)
+
+	ar[0][0][3].clicked.connect(openNewTaskDialog0000)
+	ar[0][1][3].clicked.connect(openNewTaskDialog0001)
+	ar[0][2][3].clicked.connect(openNewTaskDialog0010)
+	ar[0][3][3].clicked.connect(openNewTaskDialog0011)
+	ar[1][0][3].clicked.connect(openNewTaskDialog0100)
+	ar[1][1][3].clicked.connect(openNewTaskDialog0101)
+	ar[1][2][3].clicked.connect(openNewTaskDialog0110)
+	ar[1][3][3].clicked.connect(openNewTaskDialog0111)
+	ar[2][0][3].clicked.connect(openNewTaskDialog1000)
+	ar[2][1][3].clicked.connect(openNewTaskDialog1001)
+	ar[2][2][3].clicked.connect(openNewTaskDialog1010)
+	ar[2][3][3].clicked.connect(openNewTaskDialog1011)
+	ar[3][0][3].clicked.connect(openNewTaskDialog1100)
+	ar[3][1][3].clicked.connect(openNewTaskDialog1101)
+	ar[3][2][3].clicked.connect(openNewTaskDialog1110)
+	ar[3][3][3].clicked.connect(openNewTaskDialog1111)
+
 
 
 def matrix_finishTask0000():
