@@ -87,7 +87,7 @@ class NewTask(QDialog, Ui_NewTask):
 		# self.communicate.run(default_Task, "Fail")
 		# if not == non-None
 		task_list = get_task_list_database(self.user)
-		if not self.intask:
+		if self.intask is not None:
 			self.communicate.run(task=self.intask, hint="Success", task_list=task_list)
 		self.close()
 
