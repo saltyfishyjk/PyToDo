@@ -93,7 +93,6 @@ class MainWindow(QMainWindow):
 		setupCalendar(widgets, tasks)
 		from mymatrix import setupMatrix
 		setupMatrix(widgets, tasks)
-
 		# setup function
 
 		# EXTRA LEFT BOX
@@ -162,8 +161,8 @@ class MainWindow(QMainWindow):
 
 		if btnName == "btn_pic":
 			widgets.stackedWidget.setCurrentWidget(widgets.pic_page)  # SET PAGE
-			from ui_pic import pic_ui_init
-			pic_ui_init(widgets)
+			from ui_pic import pic_page_refresh
+			pic_page_refresh(widgets)
 
 		UIFunctions.resetStyle(self, btnName)  # RESET ANOTHERS BUTTONS SELECTED
 		btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))  # SELECT MENU
@@ -529,6 +528,8 @@ if __name__ == "__main__":
 	#loginState = True
 	from mymatrix import send_user_to_matrix
 	send_user_to_matrix(loginuser)
+	from ui_pic import send_user_to_pics
+	send_user_to_pics(loginuser)
 	'''
 	print(loginuser)
 	for task in tasks:

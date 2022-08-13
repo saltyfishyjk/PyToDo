@@ -301,3 +301,11 @@
 *Author:YJK*
 
 1. 修复NewTask传递参数
+
+## add: add pie in pic_page
+
+*Date:2022/08/14*
+
+*Author:ZRY*
+
+1. 在数据可视化页添加饼图显示任务状态，测试账户`(a,1)`
