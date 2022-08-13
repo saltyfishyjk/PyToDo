@@ -43,6 +43,14 @@ class Tasks:
 		return self.ls
 
 
+def tasklist2Tasks(task_list):
+	tasks = Tasks()
+	if len(task_list) != 0:
+		for task in task_list:
+			tasks.add_task(task)
+	return tasks
+
+
 # Signal Class using PyQt5
 from PyQt5.Qt import QObject
 
@@ -83,15 +91,17 @@ class NewTask(QDialog, Ui_NewTask):
 		else:
 			database.add_task_database(user=self.user, task=task)
 		task_list = get_task_list_database(self.user)
-		self.communicate.run(task=task, hint="Success", task_list=task_list)
+		tasks = tasklist2Tasks(task_list)
+		self.communicate.run(task=task, hint="Success", task_list=tasks)
 		self.close()
 
 	def cancel(self):
 		# self.communicate.run(default_Task, "Fail")
 		# if not == non-None
 		task_list = get_task_list_database(self.user)
+		tasks = tasklist2Tasks(task_list)
 		# if self.intask is not None:
-		self.communicate.run(task=self.intask, hint="Success", task_list=task_list)
+		self.communicate.run(task=self.intask, hint="Success", task_list=tasks)
 		self.close()
 
 	def delete(self):
@@ -99,7 +109,8 @@ class NewTask(QDialog, Ui_NewTask):
 		if self.intask is not None:
 			database.delete_task_database(user=self.user, old_task=self.intask)
 		task_list = get_task_list_database(self.user)
-		self.communicate.run(task=None, hint="Success", task_list=task_list)
+		tasks = tasklist2Tasks(task_list)
+		self.communicate.run(task=default_Task, hint="Success", task_list=tasks)
 		self.close()
 
 	# RET : task:obj

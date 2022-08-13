@@ -293,3 +293,11 @@
 *Author:YJK*
 
 1. 修复对已存在task的显示
+
+## fix: fix return para of NewTask
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 修复NewTask传递参数
