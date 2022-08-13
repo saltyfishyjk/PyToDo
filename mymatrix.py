@@ -356,9 +356,9 @@ def teststr(s):
 
 def getDialogSignal(tasks):
 	global tasklist
-	print(type(tasks))
-	tasklist=tasks
-	print('\n###\nreturn error type '+str(type(tasklist))+'\n###\n')
+	#print(type(tasks))
+	tasklist=tasks.get_ls()
+	#print('\n###\nreturn error type '+str(type(tasklist))+'\n###\n')
 	matrix_distributeTask()
 	matrix_refresh()
 
