@@ -87,13 +87,13 @@ class NewTask(QDialog, Ui_NewTask):
 		# self.communicate.run(default_Task, "Fail")
 		# if not == non-None
 		task_list = get_task_list_database(self.user)
-		if self.intask is not None:
-			self.communicate.run(task=self.intask, hint="Success", task_list=task_list)
+		# if self.intask is not None:
+		self.communicate.run(task=self.intask, hint="Success", task_list=task_list)
 		self.close()
 
 	def delete(self):
 		print("Deleting")
-		if not self.intask:
+		if self.intask is not None:
 			database.delete_task_database(user=self.user, old_task=self.intask)
 		task_list = get_task_list_database(self.user)
 		self.communicate.run(task=None, hint="Success", task_list=task_list)
