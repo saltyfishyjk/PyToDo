@@ -1,6 +1,7 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+from NewTask import Tasks
 from database import modify_task_database
 from task import *
 import user
@@ -175,12 +176,12 @@ def openNewTaskDialog0000(self):
 	my = None
 	print(task00[0].creatTime)
 	if isDefaultBlankTask(task00[0]):
-		
+
 		my = NewTask.NewTask(loginuser)
 	else:
 		my = NewTask.NewTask(loginuser, task00[0])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0001(self):
@@ -191,7 +192,7 @@ def openNewTaskDialog0001(self):
 	else:
 		my = NewTask.NewTask(loginuser, task00[1])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0010(self):
@@ -202,7 +203,7 @@ def openNewTaskDialog0010(self):
 	else:
 		my = NewTask.NewTask(loginuser, task00[2])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0011(self):
@@ -213,7 +214,7 @@ def openNewTaskDialog0011(self):
 	else:
 		my = NewTask.NewTask(loginuser, task00[3])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0100(self):
@@ -224,7 +225,7 @@ def openNewTaskDialog0100(self):
 	else:
 		my = NewTask.NewTask(loginuser, task01[0])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0101(self):
@@ -233,9 +234,9 @@ def openNewTaskDialog0101(self):
 	if isDefaultBlankTask(task01[1]):
 		my = NewTask.NewTask(loginuser)
 	else:
-		my = NewTask.NewTask(loginuser, task00[1])
+		my = NewTask.NewTask(loginuser, task01[1])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0110(self):
@@ -244,9 +245,9 @@ def openNewTaskDialog0110(self):
 	if isDefaultBlankTask(task01[2]):
 		my = NewTask.NewTask(loginuser)
 	else:
-		my = NewTask.NewTask(loginuser, task00[2])
+		my = NewTask.NewTask(loginuser, task01[2])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog0111(self):
@@ -255,9 +256,9 @@ def openNewTaskDialog0111(self):
 	if isDefaultBlankTask(task01[3]):
 		my = NewTask.NewTask(loginuser)
 	else:
-		my = NewTask.NewTask(loginuser, task00[3])
+		my = NewTask.NewTask(loginuser, task01[3])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1000(self):
@@ -268,7 +269,7 @@ def openNewTaskDialog1000(self):
 	else:
 		my = NewTask.NewTask(loginuser, task10[0])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1001(self):
@@ -279,7 +280,7 @@ def openNewTaskDialog1001(self):
 	else:
 		my = NewTask.NewTask(loginuser, task10[1])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1010(self):
@@ -290,7 +291,7 @@ def openNewTaskDialog1010(self):
 	else:
 		my = NewTask.NewTask(loginuser, task10[2])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1011(self):
@@ -301,7 +302,7 @@ def openNewTaskDialog1011(self):
 	else:
 		my = NewTask.NewTask(loginuser, task10[3])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1100(self):
@@ -312,7 +313,7 @@ def openNewTaskDialog1100(self):
 	else:
 		my = NewTask.NewTask(loginuser, task11[0])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1101(self):
@@ -323,7 +324,7 @@ def openNewTaskDialog1101(self):
 	else:
 		my = NewTask.NewTask(loginuser, task11[1])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1110(self):
@@ -334,7 +335,7 @@ def openNewTaskDialog1110(self):
 	else:
 		my = NewTask.NewTask(loginuser, task11[2])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 
 def openNewTaskDialog1111(self):
@@ -345,7 +346,7 @@ def openNewTaskDialog1111(self):
 	else:
 		my = NewTask.NewTask(loginuser, task11[3])
 	my.show()
-	my.communicate.mySignal[Task].connect(getDialogSignal)
+	my.communicate.mySignal[Tasks].connect(getDialogSignal)
 	my.exec()
 """
 # TEST
@@ -355,6 +356,7 @@ def teststr(s):
 
 def getDialogSignal(tasks):
 	global tasklist
+	print(type(tasks))
 	tasklist=tasks
 	print('\n###\nreturn error type '+str(type(tasklist))+'\n###\n')
 	matrix_distributeTask()

@@ -39,6 +39,9 @@ class Tasks:
 	def add_task(self, task):
 		self.ls.append(task)
 
+	def get_ls(self):
+		return self.ls
+
 
 # Signal Class using PyQt5
 from PyQt5.Qt import QObject
