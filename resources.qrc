@@ -261,5 +261,10 @@
     <file>images/icons/calendar.png</file>
     <file>images/icons/arrange.png</file>
     <file>images/icons/martix.png</file>
+    <file>images/icons/c.png</file>
+    <file>images/icons/finish.png</file>
+    <file>images/icons/modify.png</file>
+    <file>images/icons/screening.png</file>
+    <file>images/icons/star.png</file>
   </qresource>
 </RCC>
