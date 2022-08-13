@@ -57,15 +57,16 @@ from PyQt5.Qt import QObject
 
 class NewTaskCommuciate(QObject):
 	from PyQt5.Qt import pyqtSignal
-	mySignal = pyqtSignal([tk.Task], [str], [Tasks])
+	# mySignal = pyqtSignal([tk.Task], [str], [Tasks])
+	mySignal = pyqtSignal([Tasks])
 
 	def __init__(self):
 		super().__init__()
 
 # IN : task:obj & hint:str & task_list:
 	def run(self, task=None, hint="", task_list=None):
-		self.mySignal[tk.Task].emit(task)
-		self.mySignal[str].emit(hint)
+		# self.mySignal[tk.Task].emit(task)
+		# self.mySignal[str].emit(hint)
 		self.mySignal[Tasks].emit(task_list)
 
 
@@ -92,6 +93,9 @@ class NewTask(QDialog, Ui_NewTask):
 			database.add_task_database(user=self.user, task=task)
 		task_list = get_task_list_database(self.user)
 		tasks = tasklist2Tasks(task_list)
+		flag = True
+		if flag:
+			print("PASS TYPE : " + str(type(tasks)))
 		self.communicate.run(task=task, hint="Success", task_list=tasks)
 		self.close()
 
