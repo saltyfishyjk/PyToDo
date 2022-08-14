@@ -317,3 +317,11 @@
 *Author:YJK*
 
 1. 将database切换至正式数据库，并消除若干warning
+
+## feat: beautify NewTask Dialog font
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 美化NewTask对话窗体：Consolas + 12px
