@@ -106,16 +106,40 @@ class MainWindow(QMainWindow):
 
 		# EXTRA LEFT BOX
 		def openCloseLeftBox():
-			UIFunctions.toggleLeftBox(self, True)
+			UIFunctions.toggleLeftBox(self, False)
 
-		widgets.toggleLeftBox.clicked.connect(openCloseLeftBox)
+		#widgets.toggleLeftBox.clicked.connect(openCloseLeftBox)
 		widgets.extraCloseColumnBtn.clicked.connect(openCloseLeftBox)
 
 		# EXTRA RIGHT BOX
 		def openCloseRightBox():
-			UIFunctions.toggleRightBox(self, True)
+			UIFunctions.toggleRightBox(self, False)
 
-		widgets.settingsTopBtn.clicked.connect(openCloseRightBox)
+		def openNewTaskPageTopMenu(self):
+			import NewTask
+			my = NewTask.NewTask(loginuser)
+			my.show()
+			my.communicate.mySignal[Tasks].connect(getDialogSignalTopMenu)
+			my.exec()
+			from ui_pic import pic_page_refresh
+			pic_page_refresh(widgets)
+			from mymatrix import matrix_refresh
+			matrix_refresh()
+			from mycalendar import refresh_calendar
+			refresh_calendar()
+			# TODO: Refresh Home page and arrange page
+
+		"""
+		# TEST
+		def teststr(s):
+			print(s)
+		"""
+
+		def getDialogSignalTopMenu(tasks_database):
+			global tasks
+			#print(type(tasks))
+			tasks=tasks_database.get_ls()
+		widgets.settingsTopBtn.clicked.connect(openNewTaskPageTopMenu)
 
 		# SHOW APP
 		# ///////////////////////////////////////////////////////////////

@@ -742,6 +742,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
+        '''
         self.toggleLeftBox = QPushButton(self.bottomMenu)
         self.toggleLeftBox.setObjectName(u"toggleLeftBox")
         sizePolicy.setHeightForWidth(self.toggleLeftBox.sizePolicy().hasHeightForWidth())
@@ -753,7 +754,7 @@ class Ui_MainWindow(object):
         self.toggleLeftBox.setStyleSheet(u"background-image: url(:/icons/images/icons/icon_settings.png);")
 
         self.verticalLayout_9.addWidget(self.toggleLeftBox)
-
+        '''
 
         self.verticalMenuLayout.addWidget(self.bottomMenu, 0, Qt.AlignBottom)
 
@@ -969,7 +970,7 @@ class Ui_MainWindow(object):
         self.settingsTopBtn.setMaximumSize(QSize(28, 28))
         self.settingsTopBtn.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
-        icon1.addFile(u":/icons/images/icons/icon_settings.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/images/icons/cil-library-add.png", QSize(), QIcon.Normal, QIcon.Off)
         self.settingsTopBtn.setIcon(icon1)
         self.settingsTopBtn.setIconSize(QSize(20, 20))
 
@@ -1593,7 +1594,7 @@ class Ui_MainWindow(object):
         self.btn_matrix.setText(QCoreApplication.translate("MainWindow", u"matrix", None))
         self.btn_pic.setText(QCoreApplication.translate("MainWindow", u"TODO Quadrant", None))
         #self.btn_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
-        self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
+        #self.toggleLeftBox.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
         self.extraLabel.setText(QCoreApplication.translate("MainWindow", u"Left Box", None))
 #if QT_CONFIG(tooltip)
         self.extraCloseColumnBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close left box", None))
