@@ -22,7 +22,8 @@ curHour=time_tuple[3]
 class Ui_NewTask(object):
     def setupUi(self, NewTask):
         NewTask.setObjectName("NewTask")
-        NewTask.resize(766, 544)
+        # NewTask.resize(766, 544)
+        NewTask.setFixedSize(766, 544)
         self.horizontalLayoutWidget = QWidget(NewTask)
         self.horizontalLayoutWidget.setGeometry(QRect(20, 460, 731, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")

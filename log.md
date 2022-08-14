@@ -333,3 +333,11 @@
 *Author:YJK*
 
 1. 美化NewTask对话窗体：增加背景颜色
+
+## fix: set NewTask Dialog window fixed size
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 固定NewTask窗口大小
