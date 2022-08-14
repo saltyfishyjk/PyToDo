@@ -92,8 +92,9 @@ def matrix_distributeTask():
 		from database import get_task_list_database
 		tasklist=get_task_list_database(loginuser)
 	tasklist.sort(key=functools.cmp_to_key(matrix_my_compare))
-	cnt = 0
+	cnt = 1
 	tasknum = len(tasklist)
+	print(tasknum)
 	for task in tasklist:
 		if task.state != TASK_FINISHED and task.state != TASK_OVERDUE:
 			if task.importance < TASK_IMPORTANCE_LINE and cnt < tasknum / 2 + 1:
