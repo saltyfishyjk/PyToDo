@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 import time
 import datetime
 
-from task import Task
+from task import TASK_FINISHED, Task
 from datetime import timedelta
 
 time_tuple = time.localtime(time.time())
@@ -13,6 +13,7 @@ curMonth=time_tuple[1]
 curDay=time_tuple[2]
 tasklist=[]
 ui=None
+loginuser=None
 
 def setupCalendar(Widgets,tasks,year=time_tuple[0],month=time_tuple[1]):
     global ui_calendar
@@ -23,7 +24,7 @@ def setupCalendar(Widgets,tasks,year=time_tuple[0],month=time_tuple[1]):
     ui_calendar=Widgets.calendar_DayMap
     monthButtonConnect()
     #testTaskCreate()
-    refresh_calendar(year, month)
+    refresh_calendar(year, month,[])
 
 def getTimeStr(year,month,day):
     return str(year)+'-'+str(month)+'-'+str(day)
@@ -55,10 +56,19 @@ def displayTask(task, row, col):
     global ui_calendar
     ui_calendar[row][col].appendHtml('<font size="3",align="center", color=\"#000000\">'+task.title+'</font>')
 
-def refresh_calendar(y=curYear, m=curMonth):
+def send_user_to_calendar(para_user):
+    global loginuser
+    loginuser=para_user
+
+def refresh_calendar(y=curYear, m=curMonth, para_tasks=tasklist):
     global ui_calendar
     global tasklist
-    tasks=tasklist
+    tasks=para_tasks
+    if loginuser!=None:
+        print('check calendar')
+        from database import get_task_list_database
+        tasklist=get_task_list_database(loginuser)
+        tasks=tasklist
     monthName=['','January','February','March','April','May','June','July','August','September','October','November','December']
     ui.CalendarTitle.setText('<font size="6", color=\"#FFFFFF\">'+str(curYear)+' '+monthName[m]+'</font>')
     ui.CalendarTitle.setAlignment(Qt.AlignCenter)
@@ -71,7 +81,7 @@ def refresh_calendar(y=curYear, m=curMonth):
         year=ddl[0]
         month=ddl[1]
         day=ddl[2]
-        if curMonth==month and year==curYear and task.isDaily==False:
+        if curMonth==month and year==curYear and task.isDaily==False and task.state!=TASK_FINISHED:
             r, c=getPos(year, month, day)
             displayTask(task, r, c)
         if task.isDaily:

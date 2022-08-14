@@ -11,7 +11,13 @@ TASK_FINISHED = 'finished'
 TASK_OVERDUE = "overdue"
 TASK_UNDERWAY = "underway"
 TASK_NOTSTART = "notstarted"
+TASK_UNFINISHED = "unfinished"
 TASK_IMPORTANCE_LINE = 3
+
+TASK_TYPE_OTHER = "Other"
+TASK_TYPE_WORK = "Work"
+TASK_TYPE_STUDY = "Study"
+TASK_TYPE_SPORT = "Sport"
 
 class Task():
     def __init__(self,
@@ -22,9 +28,9 @@ class Task():
                  description = '',
                  importance = 1,
                  isDaily = False,
-                 type = 'Others',
+                 type = TASK_TYPE_OTHER,
                  ddl = str(curYear)+'/'+str(curMonth)+'/'+str(curDay),
-                 state = 'unfinished',
+                 state = TASK_UNFINISHED,
                  startTime = str(curYear)+'/'+str(curMonth)+'/'+str(curDay)) -> None:
         self.id = None                  # int
         self.text = text                # str

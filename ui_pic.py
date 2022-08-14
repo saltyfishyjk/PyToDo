@@ -7,10 +7,11 @@ from task import *
 
 loginuser=None
 labels_state=['Finished','Underway','NotStart','OverDue']
+labels_type = [TASK_TYPE_STUDY, TASK_TYPE_SPORT, TASK_TYPE_WORK, TASK_TYPE_OTHER]
 
 def pic_ui_init(ui):
     ui.pic_page_layout=QVBoxLayout(ui.pic_page)
-    #pix = QPixmap('img/pic_states.png')
+    #pix = QPixmap('img/pic_dataProcess.png')
     #pix = pix.scaled(1024, 576)
     ui.pic_page_lb1 = QLabel()
     #ui.pic_page_lb1.setScaledContents(True)
@@ -21,7 +22,7 @@ def pic_ui_init(ui):
 
 def pic_page_refresh(ui):
     generatePics()
-    pix = QPixmap('img/pic_states.png')
+    pix = QPixmap('img/pic_dataProcess.png')
     ui.pic_page_lb1.clear()
     ui.pic_page_lb1.setPixmap(pix)
     ui.pic_page_layout.addWidget(ui.pic_page_lb1)
@@ -35,20 +36,35 @@ def generatePics():
     tasks=get_task_list_database(loginuser)
     statesType=getStates(tasks)
     my_dpi=96
-    plt.figure(figsize=(480/my_dpi,480/my_dpi),dpi=my_dpi)
+    plt.figure(dpi=my_dpi)
+    pic_1=plt.subplot(1,2,1)
     patches, texts, autotexts = plt.pie(
             x=statesType,                                    
             labels=labels_state,
             colors=plt.cm.get_cmap('Set3')(range(4)),
             autopct='%.2f%%',
             )
-    plt.legend(patches, 
+    pic_1.legend(patches, 
             labels_state,
             title="TODO states",
             loc="center left",
             bbox_to_anchor=(1.2, 0, 0, 0),
             )
-    plt.savefig('img/pic_states.png', bbox_inches = 'tight')
+    pic_2=plt.subplot(1,2,2)
+    taskType=getTaskType(tasks)
+    patches, texts, autotexts = plt.pie(
+            x=taskType,                                    
+            labels=labels_type,
+            colors=plt.cm.get_cmap('Set2')(range(4)),
+            autopct='%.2f%%',
+            )
+    pic_2.legend(patches, 
+            labels_type,
+            title="TODO Type",
+            loc="center left",
+            bbox_to_anchor=(1.2, 0, 0, 0),
+            )
+    plt.savefig('img/pic_dataProcess.png', bbox_inches = 'tight')
 
 def getStates(tasks):
     statesType = [0,0,1,0]
@@ -62,3 +78,18 @@ def getStates(tasks):
         elif task.state == TASK_OVERDUE:
             statesType[3]+=1
     return statesType
+
+def getTaskType(tasks):
+    taskType = [0,0,0,1]
+    for task in tasks:
+        #print(task.type)
+        if task.type == TASK_TYPE_STUDY:
+            taskType[0]+=1
+        elif task.type == TASK_TYPE_SPORT:
+            taskType[1]+=1
+        elif task.type == TASK_TYPE_WORK:
+            taskType[2]+=1
+        elif task.type == TASK_TYPE_OTHER:
+            taskType[3]+=1
+    #print(taskType)
+    return taskType

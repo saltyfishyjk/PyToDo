@@ -88,6 +88,9 @@ def matrix_my_compare(a, b):
 def matrix_distributeTask():
 	import functools
 	global tasklist
+	if loginuser!=None:
+		from database import get_task_list_database
+		tasklist=get_task_list_database(loginuser)
 	tasklist.sort(key=functools.cmp_to_key(matrix_my_compare))
 	cnt = 0
 	tasknum = len(tasklist)
@@ -311,6 +314,7 @@ def openNewTaskDialog1100(self):
 	if isDefaultBlankTask(task11[0]):
 		my = NewTask.NewTask(loginuser)
 	else:
+		print(loginuser.account)
 		my = NewTask.NewTask(loginuser, task11[0])
 	my.show()
 	my.communicate.mySignal[Tasks].connect(getDialogSignal)

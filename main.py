@@ -579,6 +579,8 @@ if __name__ == "__main__":
 	send_user_to_matrix(loginuser)
 	from ui_pic import send_user_to_pics
 	send_user_to_pics(loginuser)
+	from mycalendar import send_user_to_calendar
+	send_user_to_calendar(loginuser)
 	'''
 	print(loginuser)
 	for task in tasks:
