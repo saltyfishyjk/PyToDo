@@ -15,7 +15,8 @@ from database import get_task_list_database
 from NewTask import Tasks
 from database import modify_task_state_database
 
-
+import datetime
+import time
 
 os.environ["QT_FONT_DPI"] = "96"  # FIX Problem for High DPI and Scale above 100%
 
@@ -24,7 +25,32 @@ os.environ["QT_FONT_DPI"] = "96"  # FIX Problem for High DPI and Scale above 100
 widgets = None
 account = 'admin'
 tasks = []
+tasksNotFinish = []
 debug_tag = True
+
+
+def getDialogSignalTopMenu(tasks_database):
+	global tasks
+	# print(type(tasks))
+	tasks = tasks_database.get_ls()
+
+
+def calc(task, mouyu, tired, focus):
+	return (focus - mouyu + (10 - tired) * task.importance) / (task.get_day_num() + 1)
+
+
+def update_state():
+	global tasks
+	global loginuser
+	time_tuple = time.localtime(time.time())
+	cur = int(time_tuple[0]) * 10000 + int(time_tuple[1]) * 100 + int(time_tuple[2])
+	for pTask in tasks:
+		if cur > pTask.matrix_time_compare():
+			modify_task_state_database(loginuser, pTask, 'overdue')
+		elif cur >= pTask.get_int_start():
+			modify_task_state_database(loginuser, pTask, 'underway')
+	tasks = get_task_list_database(loginuser)
+
 
 def getNewTasksList (newTasks):
 	global tasks
@@ -65,6 +91,9 @@ class MainWindow(QMainWindow):
 		self.ui.Home_buttonGroup.buttonClicked.connect(self.ratioButtonClick)
 		self.ui.Home_pushButton.clicked.connect(self.queryTodoWithTime)
 		self.ui.Home_pushButton_2.clicked.connect(self.cancel)
+		self.ui.Arrange_horizontalSlider.valueChanged.connect(self.arrange_sort)
+		self.ui.Arrange_horizontalSlider_2.valueChanged.connect(self.arrange_sort)
+		self.ui.Arrange_horizontalSlider_3.valueChanged.connect(self.arrange_sort)
 		self.showTodo('All', None)
 		# APP NAME
 		# ///////////////////////////////////////////////////////////////
@@ -135,11 +164,7 @@ class MainWindow(QMainWindow):
 			print(s)
 		"""
 
-		def getDialogSignalTopMenu(tasks_database):
-			global tasks
-			#print(type(tasks))
-			tasks=tasks_database.get_ls()
-		widgets.settingsTopBtn.clicked.connect(openNewTaskPageTopMenu)
+		widgets.settingsTopBtn.clicked.connect(self.openNewTaskPageTopMenu)
 
 		# SHOW APP
 		# ///////////////////////////////////////////////////////////////
@@ -166,6 +191,24 @@ class MainWindow(QMainWindow):
 	# BUTTONS CLICK
 	# Post here your functions for clicked buttons
 	# ///////////////////////////////////////////////////////////////
+
+	def openNewTaskPageTopMenu(self):
+		import NewTask
+		my = NewTask.NewTask(loginuser)
+		my.show()
+		my.communicate.mySignal[Tasks].connect(getDialogSignalTopMenu)
+		my.exec()
+		from ui_pic import pic_page_refresh
+		pic_page_refresh(widgets)
+		from mymatrix import matrix_refresh
+		matrix_refresh()
+		from mycalendar import refresh_calendar
+		refresh_calendar()
+		# TODO: Refresh Home page and arrange page
+		self.showTodo('All')
+		self.arrange_showList()
+
+
 	def buttonClick(self):
 		# GET BUTTON CLICKED
 		btn = self.sender()
@@ -252,9 +295,9 @@ class MainWindow(QMainWindow):
 		# print(row)
 		# print(widget.objectName())
 		tasks = get_task_list_database(loginuser)
-		self.showTodo('All')
+		# self.showTodo('All')
 
-		# self.ui.Home_listWidget.takeItem(row)
+		self.ui.Home_listWidget.takeItem(row)
 
 	# del item
 
@@ -324,7 +367,7 @@ class MainWindow(QMainWindow):
 			# horizontalLayout.setObjectName(u"horizontalLayout")
 			label_2 = QLabel()
 			# self.label_2.setObjectName(u"label_2")
-			label_2.setText(task.ddl)
+			label_2.setText(task.get_date())
 			horizontalLayout.addWidget(label_2)
 
 			label_3 = QLabel()
@@ -389,7 +432,7 @@ class MainWindow(QMainWindow):
 		else:
 			for pTask in tasks:
 				if pTask.state != 'finished':
-					if pTask.matrix_time_compare() == date:
+					if pTask.matrix_time_compare() == date or pTask.isDaily:
 						item = QListWidgetItem()
 						item.setSizeHint(QSize(200, 50))
 						widget = struct(pTask)
@@ -458,7 +501,7 @@ class MainWindow(QMainWindow):
 			sizePolicy.setHeightForWidth(label_2.sizePolicy().hasHeightForWidth())
 			label_2.setSizePolicy(sizePolicy)
 			label_2.setStyleSheet(u"background-color:rgb(242,231,249);")
-			label_2.setText(task.ddl)
+			label_2.setText(task.get_date())
 			verticalLayout.addWidget(label_2)
 
 			textBrowser = QTextBrowser(frame)
@@ -477,6 +520,27 @@ class MainWindow(QMainWindow):
 			horizontalLayout.addWidget(frame)
 			return centralwidget
 
+		global loginuser
+		global tasks
+		global tasksNotFinish
+		tasks = get_task_list_database(loginuser)
+		tasksNotFinish.clear()
+
+		self.ui.Arrange_listWidget.clear()
+
+		for pTask in tasks:
+			if pTask.state != 'finished':
+				if pTask.state != 'overdue':
+					tasksNotFinish.append(pTask)
+				item = QListWidgetItem()
+				item.setSizeHint(QSize(100, 100))
+				widget = struct1(pTask)
+				self.ui.Arrange_listWidget.addItem(item)
+				self.ui.Arrange_listWidget.setItemWidget(item, widget)
+
+		self.arrange_sort()
+
+	def arrange_sort(self):
 		def struct2(task):
 			centralwidget = QWidget()
 			# self.centralwidget.setObjectName(u"centralwidget")
@@ -511,7 +575,7 @@ class MainWindow(QMainWindow):
 			# self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
 			label_3 = QLabel(frame)
 			# self.label_3.setObjectName(u"label_3")
-			label_3.setText(task.ddl)
+			label_3.setText(task.get_date())
 
 			horizontalLayout_2.addWidget(label_3)
 
@@ -539,65 +603,64 @@ class MainWindow(QMainWindow):
 
 			return centralwidget
 
-		global loginuser
 		global tasks
-		tasks = get_task_list_database(loginuser)
-		self.ui.Arrange_listWidget.clear()
-		
-		for pTask in tasks:
-			if pTask.state != 'finished':
-				item = QListWidgetItem()
-				item.setSizeHint(QSize(100, 100))
-				widget = struct1(pTask)
-				self.ui.Arrange_listWidget.addItem(item)
-				self.ui.Arrange_listWidget.setItemWidget(item, widget)
-
+		global tasksNotFinish
 		self.ui.Arrange_listWidget_2.clear()
 		self.ui.Arrange_listWidget_3.clear()
-		count = 0
-		for pTask in tasks:
-			if pTask.state != 'finished':
-				if count == 0:
-					item = QListWidgetItem()
-					item.setSizeHint(QSize(120, 100))
-					widget = struct2(pTask)
-					self.ui.Arrange_listWidget_2.addItem(item)
-					self.ui.Arrange_listWidget_2.setItemWidget(item, widget)
-					count += 1
-				elif count == 1:
-					item = QListWidgetItem()
-					item.setSizeHint(QSize(80, 100))
-					widget = struct2(pTask)
-					self.ui.Arrange_listWidget_3.addItem(item)
-					self.ui.Arrange_listWidget_3.setItemWidget(item, widget)
-					count += 1
-				else:
-					break
+		if len(tasksNotFinish) == 1:
+			item = QListWidgetItem()
+			item.setSizeHint(QSize(120, 100))
+			widget = struct2(tasksNotFinish[0])
+			self.ui.Arrange_listWidget_2.addItem(item)
+			self.ui.Arrange_listWidget_2.setItemWidget(item, widget)
+		elif len(tasksNotFinish) == 2:
+			item = QListWidgetItem()
+			item.setSizeHint(QSize(120, 100))
+			widget = struct2(tasksNotFinish[0])
+			self.ui.Arrange_listWidget_2.addItem(item)
+			self.ui.Arrange_listWidget_2.setItemWidget(item, widget)
 
-from task import Task
-### 测试用样例
-taskTemp = []
-taskMap = {}
-for i in range(1, 21):
-	string = "第%d个TODO" % i
-	if i < 6:
-		newTask = Task(string, "random", "jsh", "2022/8/2", "no more", 10, False, "Study", "2022/8/2", "未完成")
-	elif i < 11:
-		newTask = Task(string, "random", "jsh", "2022/8/5", "no more", 10, False, "Sport", "2022/8/5", "未完成")
-	elif i < 16:
-		newTask = Task(string, "random", "jsh", "2022/8/2", "no more", 10, False, "Work", "2022/8/2", "未完成")
-	elif i < 21:
-		newTask = Task(string, "random", "jsh", "2022/8/10", "no more", 10, False, "Other", "2022/8/10", "未完成")
+			item = QListWidgetItem()
+			item.setSizeHint(QSize(120, 100))
+			widget = struct2(tasksNotFinish[1])
+			self.ui.Arrange_listWidget_3.addItem(item)
+			self.ui.Arrange_listWidget_3.setItemWidget(item, widget)
+		elif len(tasksNotFinish) > 2:
+			first = tasksNotFinish[0]
+			second = tasksNotFinish[1]
+			i = 2
+			mouyu = self.ui.Arrange_horizontalSlider.value()
+			tired = self.ui.Arrange_horizontalSlider_2.value()
+			focus = self.ui.Arrange_horizontalSlider_3.value()
+			while i < len(tasksNotFinish):
+				if calc(tasksNotFinish[i], mouyu, tired, focus) > calc(first, mouyu, tired, focus):
+					second = first
+					first = tasksNotFinish[i]
+				elif calc(tasksNotFinish[i], mouyu, tired, focus) > calc(second, mouyu, tired, focus):
+					second = tasksNotFinish[i]
+				i += 1
 
-	newTask.id = i
-	taskTemp.append(newTask)
-	taskMap[i] = newTask
+			item = QListWidgetItem()
+			item.setSizeHint(QSize(120, 100))
+			widget = struct2(first)
+			self.ui.Arrange_listWidget_2.addItem(item)
+			self.ui.Arrange_listWidget_2.setItemWidget(item, widget)
+
+			item = QListWidgetItem()
+			item.setSizeHint(QSize(120, 100))
+			widget = struct2(second)
+			self.ui.Arrange_listWidget_3.addItem(item)
+			self.ui.Arrange_listWidget_3.setItemWidget(item, widget)
+
+
+
 
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	# cancel the login model to test other function conveniently
 	loginState, loginuser, tasks=login.loginWindow(app)
+	update_state()
 	#loginState = True
 	from mymatrix import send_user_to_matrix
 	send_user_to_matrix(loginuser)

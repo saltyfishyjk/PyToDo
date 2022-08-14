@@ -18,6 +18,7 @@ TASK_TYPE_OTHER = "Other"
 TASK_TYPE_WORK = "Work"
 TASK_TYPE_STUDY = "Study"
 TASK_TYPE_SPORT = "Sport"
+import datetime
 
 class Task():
     def __init__(self,
@@ -64,4 +65,28 @@ class Task():
     
     def matrix_time_compare(self):
         timelist=self.ddl.split('/')
+        return int(timelist[0])*10000+int(timelist[1])*100+int(timelist[2])
+
+    def get_date(self):
+        if self.isDaily:
+            time_tuple = time.localtime(time.time())
+            s = str(time_tuple[0]) + '/' + str(time_tuple[1]) + '/' + str(time_tuple[2])
+            return s
+        else:
+            timelist = self.ddl.split('/')
+            s = timelist[0] + '/' + timelist[1] + '/' + timelist[2]
+            return s
+
+    def get_day_num(self):
+        if self.isDaily:
+            return 0
+        else:
+            time_tuple = time.localtime(time.time())
+            s = str(time_tuple[0]) + '/' + str(time_tuple[1]) + '/' + str(time_tuple[2])
+            date1 = datetime.datetime.strptime(s, "%Y/%m/%d")
+            date2 = datetime.datetime.strptime(self.get_date(), "%Y/%m/%d")
+            return (date2 - date1).days
+
+    def get_int_start(self):
+        timelist = self.startTime.split('/')
         return int(timelist[0])*10000+int(timelist[1])*100+int(timelist[2])
