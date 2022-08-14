@@ -11,6 +11,12 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from  modules import resources_rc
 
+from database import get_task_list_database
+from NewTask import Tasks
+from database import modify_task_state_database
+
+
+
 os.environ["QT_FONT_DPI"] = "96"  # FIX Problem for High DPI and Scale above 100%
 
 # SET AS GLOBAL WIDGETS
@@ -20,6 +26,9 @@ account = 'admin'
 tasks = []
 debug_tag = True
 
+def getNewTasksList (newTasks):
+	global tasks
+	tasks = newTasks.get_ls()
 
 class MainWindow(QMainWindow):
 	def __init__(self):
@@ -141,6 +150,7 @@ class MainWindow(QMainWindow):
 		# SHOW HOME PAGE
 		if btnName == "btn_home":
 			widgets.stackedWidget.setCurrentWidget(widgets.home)
+			self.showTodo('All')
 
 		# SHOW WIDGETS PAGE
 		if btnName == "btn_arrange":
@@ -192,7 +202,10 @@ class MainWindow(QMainWindow):
 			if event.buttons() == Qt.RightButton:
 				print('Mouse click: RIGHT CLICK')
 
+
 	def finishBottomClick(self):
+		global loginuser
+		global tasks
 		button = self.sender()
 		button = button.mapToGlobal(QPoint(0, 0)) - self.ui.Home_listWidget.mapToGlobal(QPoint(0, 0))
 		# 获取到对象
@@ -202,19 +215,46 @@ class MainWindow(QMainWindow):
 		item = self.ui.Home_listWidget.item(row)
 		widget = self.ui.Home_listWidget.itemWidget(item)
 		Id = int(widget.objectName())
-		taskMap[Id].state = 'finished'
+		modTask = None
+		for pTask in tasks:
+			if pTask.id == Id:
+				modTask = pTask
+				break
+		print(modTask.title)
+		isSuccess, hint = modify_task_state_database(loginuser, modTask, 'finished')
+		if not isSuccess:
+			print("the action of modifying state is wrong")
+			print(hint)
 		# print(row)
 		# print(widget.objectName())
-		self.ui.Home_listWidget.takeItem(row)
+		tasks = get_task_list_database(loginuser)
+		self.showTodo('All')
+
+		# self.ui.Home_listWidget.takeItem(row)
 
 	# del item
 
 	def modifyBottomClick(self):
+		import NewTask
 		button = self.sender()
 		butt = button.mapToGlobal(QPoint(0, 0)) - self.ui.Home_listWidget.mapToGlobal(QPoint(0, 0))
 		item = self.ui.Home_listWidget.indexAt(butt)
-		widget = self.ui.Home_listWidget.itemWidget(item)
 		row = item.row()
+		item = self.ui.Home_listWidget.item(row)
+		widget = self.ui.Home_listWidget.itemWidget(item)
+		Id = int(widget.objectName())
+		modTask = None
+		for pTask in tasks:
+			if pTask.id == Id:
+				modTask = pTask
+				break
+		my = NewTask.NewTask(loginuser, modTask)
+		my.show()
+		my.communicate.mySignal[Tasks].connect(getNewTasksList)
+		my.exec()
+		self.showTodo('All')
+
+
 
 	def showTodo(self, typeString=None, date=None):
 		def struct(task):
@@ -305,9 +345,15 @@ class MainWindow(QMainWindow):
 			centralwidget.setLayout(horizontalLayout_3)
 			return centralwidget
 
+		global loginuser
+		global tasks
 		self.ui.Home_listWidget.clear()
+		print(loginuser.id)
+		tasks = get_task_list_database(loginuser)
+		print(len(tasks))
+
 		if typeString is not None:
-			for pTask in taskTemp:
+			for pTask in tasks:
 				if pTask.state != 'finished':
 					if typeString == 'All' or typeString == pTask.type:
 						item = QListWidgetItem()
@@ -317,9 +363,9 @@ class MainWindow(QMainWindow):
 						self.ui.Home_listWidget.addItem(item)
 						self.ui.Home_listWidget.setItemWidget(item, widget)
 		else:
-			for pTask in taskTemp:
+			for pTask in tasks:
 				if pTask.state != 'finished':
-					if date == pTask.ddl:
+					if pTask.matrix_time_compare() == date:
 						item = QListWidgetItem()
 						item.setSizeHint(QSize(200, 50))
 						widget = struct(pTask)
@@ -345,7 +391,7 @@ class MainWindow(QMainWindow):
 		year = self.ui.Home_dateEdit.date().year()
 		month = self.ui.Home_dateEdit.date().month()
 		day = self.ui.Home_dateEdit.date().day()
-		riqi = str(year) + '/' + str(month) + '/' + str(day)
+		riqi = int(year * 10000 + month * 100 + day)
 		self.showTodo(None, riqi)
 
 	def cancel(self):
@@ -469,9 +515,12 @@ class MainWindow(QMainWindow):
 
 			return centralwidget
 
+		global loginuser
+		global tasks
+		tasks = get_task_list_database(loginuser)
 		self.ui.Arrange_listWidget.clear()
-
-		for pTask in taskTemp:
+		
+		for pTask in tasks:
 			if pTask.state != 'finished':
 				item = QListWidgetItem()
 				item.setSizeHint(QSize(100, 100))
@@ -482,7 +531,7 @@ class MainWindow(QMainWindow):
 		self.ui.Arrange_listWidget_2.clear()
 		self.ui.Arrange_listWidget_3.clear()
 		count = 0
-		for pTask in taskTemp:
+		for pTask in tasks:
 			if pTask.state != 'finished':
 				if count == 0:
 					item = QListWidgetItem()
