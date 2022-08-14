@@ -74,6 +74,14 @@ class NewTask(QDialog, Ui_NewTask):
 	# IN : user:obj
 	def __init__(self, user, task=None):
 		super(NewTask, self).__init__()
+		# set background image
+		self.pix = QPixmap('img/Slight Ocean View.png')
+
+		self.lb1 = QLabel(self)
+		self.lb1.setGeometry(0, 0, 766, 544)
+		self.lb1.setStyleSheet("border: 1px solid black")
+		self.lb1.setPixmap(self.pix)
+
 		self.user = user
 		self.setupUi(self)
 		self.setWindowTitle('New task')
@@ -83,6 +91,7 @@ class NewTask(QDialog, Ui_NewTask):
 		# set modal : user can only operate main window when closed this dialog
 		self.setWindowModality(Qt.ApplicationModal)
 		self.communicate = NewTaskCommuciate()
+
 
 	def submit(self):
 		task = self.getInformation()
