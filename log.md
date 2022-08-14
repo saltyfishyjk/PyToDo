@@ -325,3 +325,11 @@
 *Author:YJK*
 
 1. 美化NewTask对话窗体：Consolas + 12px
+
+## feat: beautify NewTask Dialog background img
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 美化NewTask对话窗体：增加背景颜色
