@@ -36,8 +36,8 @@ def getDialogSignalTopMenu(tasks_database):
 
 
 def calc(task, mouyu, tired, focus):
-	if task.get_day_num() + 1 == 0:
-		return 0
+	if task.get_day_num() + 1 <= 0:
+		return -100
 	else:
 		return (focus - mouyu + (10 - tired) * task.importance) / (task.get_day_num() + 1)
 
