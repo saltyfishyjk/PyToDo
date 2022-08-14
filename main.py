@@ -36,7 +36,10 @@ def getDialogSignalTopMenu(tasks_database):
 
 
 def calc(task, mouyu, tired, focus):
-	return (focus - mouyu + (10 - tired) * task.importance) / (task.get_day_num() + 1)
+	if task.get_day_num() + 1 == 0:
+		return 0
+	else:
+		return (focus - mouyu + (10 - tired) * task.importance) / (task.get_day_num() + 1)
 
 
 def update_state():
@@ -45,10 +48,12 @@ def update_state():
 	time_tuple = time.localtime(time.time())
 	cur = int(time_tuple[0]) * 10000 + int(time_tuple[1]) * 100 + int(time_tuple[2])
 	for pTask in tasks:
-		if cur > pTask.matrix_time_compare():
-			modify_task_state_database(loginuser, pTask, 'overdue')
-		elif cur >= pTask.get_int_start():
-			modify_task_state_database(loginuser, pTask, 'underway')
+		if pTask.state != 'finished':
+			if cur > pTask.matrix_time_compare():
+				isSu, hint = modify_task_state_database(loginuser, pTask, 'overdue')
+			elif cur >= pTask.get_int_start():
+				isSu, hint = modify_task_state_database(loginuser, pTask, 'underway')
+
 	tasks = get_task_list_database(loginuser)
 
 
