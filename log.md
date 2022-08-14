@@ -309,3 +309,11 @@
 *Author:ZRY*
 
 1. 在数据可视化页添加饼图显示任务状态，测试账户`(a,1)`
+
+## feat: turn to official database
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 将database切换至正式数据库，并消除若干warning

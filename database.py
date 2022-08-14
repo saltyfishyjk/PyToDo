@@ -9,6 +9,8 @@ from user import User
 global db
 # cursor
 global cursor
+# database
+global database
 
 # Notice : THIS FUNC HAS TO BE CALLED AT THE VERY BEGINNING OF MAIN FUNCTION
 def init_database():
@@ -24,34 +26,42 @@ def connect_database():
 	db = pymysql.connect(host='8.130.21.170',
 						user='root',
 						password='PyToDo2006!',
-						database='test_database')
+						 database='official_database')
+						#database='test_database')
 	# make a cursor object
 	cursor = db.cursor()
+	global database
+	database = 'official_database'
 
 
 # FUNC : support sign_up action
 # IN   : account:str & password:str
 # RET  : isSuccessful:boolean & hint:str
 def sign_up_database(account, password):
-	global db, cursor
+	global db, cursor, database
 	if str(account) == 0 or str(password) == 0:
 		return False, "Please enter non-null account and password"
-	sql = 'select account from test_database.user where account = "{}"'.format(account)
+	sql = 'select account from {}.user where account = "{}"'.format(database, account)
 	cursor.execute(sql)
 	if cursor.rowcount:
 		return False, "This account has been signed up!\n"
 	else:
-		cursor.execute('select count(*) from user')
+		cursor.execute('select count(*) from {}.user'.format(database))
 		line_num = int(cursor.fetchone()[0])
-		sql = 'select max(id) from user'
-		cursor.execute(sql)
-		max_id = int(cursor.fetchone()[0])
+		if line_num != 0:
+			sql = 'select max(id) from {}.user'.format(database)
+			cursor.execute(sql)
+			max_id = int(cursor.fetchone()[0])
+		else:
+			max_id = -1
 		id = max(max_id + 1, line_num)
 		# create a user column in table user
-		sql = "insert into user(id, account, password) values('{0}', '{1}', '{2}')".format(id, account, password)
+		sql = "insert into {0}.user(id, account, password) values('{1}', '{2}', '{3}')".format(database, id, account, password)
 		cursor.execute(sql)
 		db.commit()
 		# create a user_task table for this user
+		sql = 'use {}'.format(database)
+		cursor.execute(sql)
 		sql = 'create table user_{}_task (' \
 			  'id int comment "序号",' \
 			  'text varchar(500) comment"文本",' \
@@ -106,29 +116,30 @@ def get_task_list(fet):
 # IN   : account:str & password:str
 # RET  : isSuccessful:boolean & user:object(None when False) & tasks:list of task object & hint:str
 def login_in_database(account, password):
+	global database
 	# check non-null account and password
 	if account is None or str(account) == 0:
 		return False, None, "ERROR : Get null account!"
 	# check if account exists
-	sql = 'select account from test_database.user where account = "{}"'.format(account)
+	sql = 'select account from {}.user where account = "{}"'.format(database, account)
 	cursor.execute(sql)
 	if cursor.rowcount == 0:
 		return False, None, None, "ERROR : non-exist account!"
 	# check if password correct
-	sql = 'select password from test_database.user where account = "{}"'.format(account)
+	sql = 'select password from {}.user where account = "{}"'.format(database, account)
 	cursor.execute(sql)
 	password_in_database = cursor.fetchone()[0]
 	if password_in_database != password:
 		return False, None, None, "ERROR : incorrect password!"
 	# get user info
 	# get user
-	sql = 'select * from test_database.user where account = "{}"'.format(account)
+	sql = 'select * from {}.user where account = "{}"'.format(database, account)
 	cursor.execute(sql)
 	user_info_tuple = cursor.fetchone()
 	u = get_user(user_info_tuple)
 	id = int(user_info_tuple[0])
 	# get user_task
-	sql = 'select * from test_database.user_{}_task'.format(id)
+	sql = 'select * from {}.user_{}_task'.format(database, id)
 	cursor.execute(sql)
 	user_task_tuple = cursor.fetchall()
 	tasks = get_task_list(user_task_tuple)
@@ -139,8 +150,9 @@ def login_in_database(account, password):
 # IN   : user:obj
 # RET  : tasklist:obj[]
 def get_task_list_database(user):
+	global database
 	id = user.id
-	sql = 'select * from test_database.user_{}_task'.format(id)
+	sql = 'select * from {}.user_{}_task'.format(database, id)
 	cursor.execute(sql)
 	user_task_tuple = cursor.fetchall()
 	tasks = get_task_list(user_task_tuple)
@@ -151,25 +163,26 @@ def get_task_list_database(user):
 # IN   : user:object & task:object
 # RET  : isSuccessful:boolean & hint:str
 def add_task_database(user, task):
+	global database
 	id = user.id
-	sql = 'select account from test_database.user where id = "{}"'.format(id)
+	sql = 'select account from {}.user where id = "{}"'.format(database, id)
 	cursor.execute(sql)
 	# check if available user
 	if not cursor.rowcount:
 		return False, "ERROR : unavailable account!"
-	sql = 'select count(*) from user_{}_task'.format(id)
+	sql = 'select count(*) from {}.user_{}_task'.format(database, id)
 	cursor.execute(sql)
 	task_num = int(cursor.fetchone()[0])
-	sql = 'select max(id) from user_{}_task'.format(id)
+	sql = 'select max(id) from {}.user_{}_task'.format(database, id)
 	cursor.execute(sql)
 	if task_num != 0:
 		task_id_max = int(cursor.fetchone()[0])
 	else:
 		task_id_max = 0
 	task.id = max(task_num, task_id_max + 1)
-	sql = "insert into user_{0}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state, startTime) " \
-		  "values('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}')".\
-		format(id, task.id, task.text, task.title, task.author, task.creatTime, task.description,
+	sql = "insert into {0}.user_{1}_task(id, text, title, author, creatTime, description, importance, isDaily, type, ddl, state, startTime) " \
+		  "values('{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}')".\
+		format(database, id, task.id, task.text, task.title, task.author, task.creatTime, task.description,
 			   task.importance, str(task.isDaily), task.type, task.ddl, task.state, task.startTime)
 	cursor.execute(sql)
 	db.commit()
@@ -180,14 +193,15 @@ def add_task_database(user, task):
 # IN   : user:object & ols_task:object
 # RET  : isSuccessful:boolean & hint:str
 def delete_task_database(user, old_task):
+	global database
 	id = user.id
-	sql = 'select account from test_database.user where id = "{}"'.format(id)
+	sql = 'select account from {}.user where id = "{}"'.format(database, id)
 	cursor.execute(sql)
 	# check if available user
 	if not cursor.rowcount:
 		return False, "ERROR : unavailable account!"
 	task_id = old_task.id
-	sql = "delete from user_{}_task where id = {}".format(id, task_id)
+	sql = "delete from {}.user_{}_task where id = {}".format(database, id, task_id)
 	cursor.execute(sql)
 	db.commit()
 	return True, "Successfully deleted task {} in user {}\'s account".format(task_id, id)
