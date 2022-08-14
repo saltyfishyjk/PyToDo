@@ -341,3 +341,11 @@
 *Author:YJK*
 
 1. 固定NewTask窗口大小
+
+## feat: set NewTask Dialog window icon
+
+*Date:2022/08/14*
+
+*Author:YJK*
+
+1. 为NewTask Dialog设置icon

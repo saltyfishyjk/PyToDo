@@ -74,6 +74,8 @@ class NewTask(QDialog, Ui_NewTask):
 	# IN : user:obj
 	def __init__(self, user, task=None):
 		super(NewTask, self).__init__()
+		self.icon = QIcon('./images/images/inboxtodo.png')
+		self.setWindowIcon(self.icon)
 		# set background image
 		self.pix = QPixmap('img/Slight Ocean View.png')
 
@@ -138,7 +140,8 @@ class NewTask(QDialog, Ui_NewTask):
 		state = escape_string(self.state_comboBox.currentText())
 		start_time = qtime_to_timestr(self.start_timeedit.dateTime())
 		ddl= qtime_to_timestr(self.ddi_timeedit.dateTime())
-		# TODO:strings including ' or \ .etc need to be translated
+		# test
+		print("start time : " + str(start_time))
 
 		task = tk.Task(title=title,
 					text=text,
