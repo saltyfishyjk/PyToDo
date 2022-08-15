@@ -363,3 +363,5 @@ QWidget: Must construct a QApplication before a QWidget
 9. [PyQt 图形界面编程教学博客](https://www.byhy.net/tut/py/gui/qt_02/)
 10. [The Icons](https://fontawesome.com/v3/icons/)
 11. [ALi iconfont](https://www.iconfont.cn/collections/index)
+12. [MySQL Documents](https://dev.mysql.com/doc/)
+13. [阿里云服务器文档](https://help.aliyun.com/)
