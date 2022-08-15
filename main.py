@@ -641,12 +641,17 @@ class MainWindow(QMainWindow):
 			self.ui.Arrange_listWidget_3.addItem(item)
 			self.ui.Arrange_listWidget_3.setItemWidget(item, widget)
 		elif len(tasksNotFinish) > 2:
-			first = tasksNotFinish[0]
-			second = tasksNotFinish[1]
+
 			i = 2
 			mouyu = self.ui.Arrange_horizontalSlider.value()
 			tired = self.ui.Arrange_horizontalSlider_2.value()
 			focus = self.ui.Arrange_horizontalSlider_3.value()
+			if calc(tasksNotFinish[0], mouyu, tired, focus) > calc(tasksNotFinish[1], mouyu, tired, focus):
+				first = tasksNotFinish[0]
+				second = tasksNotFinish[1]
+			else:
+				first = tasksNotFinish[1]
+				second = tasksNotFinish[0]
 			while i < len(tasksNotFinish):
 				if calc(tasksNotFinish[i], mouyu, tired, focus) > calc(first, mouyu, tired, focus):
 					second = first
