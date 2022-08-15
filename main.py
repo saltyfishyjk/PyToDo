@@ -373,7 +373,11 @@ class MainWindow(QMainWindow):
 
 			label_4 = QLabel()
 			# self.label_4.setObjectName(u"label_4")
-			label_4.setText(task.state)
+			if task.isDaily:
+				label_4.setText('underway')
+			else:
+				label_4.setText(task.state)
+			
 			horizontalLayout.addWidget(label_4)
 
 			verticalLayout.addLayout(horizontalLayout)
