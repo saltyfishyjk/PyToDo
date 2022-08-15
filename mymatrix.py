@@ -92,6 +92,7 @@ def matrix_distributeTask():
 		from database import get_task_list_database
 		tasklist=get_task_list_database(loginuser)
 	tasklist.sort(key=functools.cmp_to_key(matrix_my_compare))
+	tasklist=list(reversed(tasklist))
 	cnt = 1
 	tasknum = len(tasklist)
 	print(tasknum)
