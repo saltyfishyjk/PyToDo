@@ -99,6 +99,7 @@ class NewTask(QDialog, Ui_NewTask):
 		task = self.getInformation()
 		# self.communicate.run(task, "Success")
 		if self.intask is not None:
+			task.id = self.intask.id
 			database.modify_task_database(user=self.user, new_task=task)
 		else:
 			database.add_task_database(user=self.user, task=task)
