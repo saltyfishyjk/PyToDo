@@ -36,6 +36,7 @@ def home_ui_init(ui):
     # self.Home_centralwidget.setObjectName(u"Home_centralwidget")
     ui.home.setStyleSheet(
         u"background-color: rgb(122, 138, 202);\n"
+        "font: 20px;\n"
         "QRadioButton::indicator {\n"
         "    border: 3px solid #6272a4;\n"
         "	width: 15px;\n"
