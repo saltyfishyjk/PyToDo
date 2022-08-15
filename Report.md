@@ -352,5 +352,14 @@ QWidget: Must construct a QApplication before a QWidget
 
 ## 七、主要参考资料
 
-`CSDN、Stack Overflow 等各类论坛的 Debug 集锦`
-
+1. [Qt for Python](https://doc.qt.io/qtforpython/)
+2. [PyQt5 教程](https://blog.csdn.net/m0_37329910/article/details/86557942)
+3. [PyQt5 安装](https://zhuanlan.zhihu.com/p/162866700)
+4. [PyQt 中文教程 ](https://maicss.gitbook.io/pyqt-chinese-tutoral/)
+5. [学生信息管理系统（一）介绍](https://blog.csdn.net/m0_46315929/article/details/120165424)
+6. [学生信息管理系统（一）源码](https://github.com/wuhudasm-lll/-2.0)
+7. [学生信息管理系统（二）介绍](https://blog.csdn.net/huchuanwei/article/details/115715016)
+8. [PyQt 图形界面编程教学视频](https://www.bilibili.com/video/BV1cJ411R7bP?p=2&vd_source=b0a8793490273b09808dbd6f72d3465c)
+9. [PyQt 图形界面编程教学博客](https://www.byhy.net/tut/py/gui/qt_02/)
+10. [The Icons](https://fontawesome.com/v3/icons/)
+11. [ALi iconfont](https://www.iconfont.cn/collections/index)
