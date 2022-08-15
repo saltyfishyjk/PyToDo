@@ -29,6 +29,7 @@ tasksNotFinish = []
 debug_tag = True
 
 
+
 def getDialogSignalTopMenu(tasks_database):
 	global tasks
 	# print(type(tasks))
