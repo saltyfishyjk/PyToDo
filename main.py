@@ -150,19 +150,7 @@ class MainWindow(QMainWindow):
 		def openCloseRightBox():
 			UIFunctions.toggleRightBox(self, False)
 
-		def openNewTaskPageTopMenu(self):
-			import NewTask
-			my = NewTask.NewTask(loginuser)
-			my.show()
-			my.communicate.mySignal[Tasks].connect(getDialogSignalTopMenu)
-			my.exec()
-			from ui_pic import pic_page_refresh
-			pic_page_refresh(widgets)
-			from mymatrix import matrix_refresh
-			matrix_refresh()
-			from mycalendar import refresh_calendar
-			refresh_calendar()
-			# TODO: Refresh Home page and arrange page
+
 
 		"""
 		# TEST
@@ -204,6 +192,7 @@ class MainWindow(QMainWindow):
 		my.show()
 		my.communicate.mySignal[Tasks].connect(getDialogSignalTopMenu)
 		my.exec()
+		update_state()
 		from ui_pic import pic_page_refresh
 		pic_page_refresh(widgets)
 		from mymatrix import matrix_refresh
